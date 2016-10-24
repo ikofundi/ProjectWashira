@@ -5,6 +5,15 @@
 	<title>Home</title>
 </head>
 <body>
-	<p>welcome to this platform,please <a href="/sign-up">Sign up</a>to continue</p>
+	<section>
+		<h2>Top categories</h2>
+		<ul>
+			{% for category in categories %}
+				<a href="taskform"><li>{{category.name | upcase}}</li></a>	
+
+		    {% endfor %}
+		</ul>
+	</section>	
+
 </body>
 </html>

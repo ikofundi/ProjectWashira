@@ -4,7 +4,26 @@ var app = express();
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var expressSession = require('express-session');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+
+
+// express middleware
 var bodyParser = require('body-parser');
+
+// include mongoose
+var mongoose = require('mongoose');
+var uristring =
+    process.env.MONGOLAB_URI ||
+    process.env.MONGOHQ_URL ||
+    'mongodb://localhost/washiradb';
+mongoose.connect(uristring, function(err, res) {
+    if (err) {
+        console.log('Error connecting to:', uristring);
+      
+    }
+});
+
 
 
 // express settings
@@ -28,6 +47,9 @@ app.use(expressSession({
 // include routes
 var indexRoute = require('./routes/index');
 app.use(indexRoute);
+var adminRoute = require('./routes/admin');
+app.use(adminRoute);
+
 
 	
 

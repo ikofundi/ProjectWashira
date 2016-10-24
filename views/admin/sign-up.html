@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Admin Sign Up</title>
+</head>
+
+<body>
+
+	<p>{{error}}</p>
+    <form action="/admin-sign-up" method="post">
+        <label for="">Username</label>
+        <input type="text" name="username" value="{{admin.username}}" placeholder="Username">
+        <label for="">Email</label>
+        <input type="email" name="email" value="{{admin.email}}" placeholder="Email">
+        <label for="">Password</label>
+        <input type="password" name="password" value="{{admin.password}}" placeholder="Password">
+        <button type="submit">Submit</button>
+    </form>
+</body>
+
+</html>
