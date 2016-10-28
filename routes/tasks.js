@@ -86,19 +86,12 @@ router.route('/taskform')
                 console.log(err);
             } else {
                 console.log('successfully saved the task');
-                res.render('/done');
+                res.redirect('/done');
             }
 
         });
-    })
+    });
 
-router.route('/done')
-    .get(function(req, res) {
-
-         
-                
-                res.render('/tasks/done');       
-    })
 
 
 

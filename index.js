@@ -53,7 +53,10 @@ var taskRoutes = require('./routes/tasks');
 app.use(taskRoutes);
 var indexRoute = require('./routes/index');
 app.use(indexRoute);
-
+var doneRoute = require('./routes/done');
+app.use(doneRoute);
+var accesorRoute = require('./routes/accesor');
+app.use(accesorRoute);
 // // passport config
 // var Admin = require('./models/admin');
 

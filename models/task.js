@@ -9,7 +9,6 @@ var taskSchema = mongoose.Schema({
     phoneNumber: {type: String, minlength: 13, maxlength: 13},
     description: String,
     quotedPrice: String,
-    description: String,
     availability: String,
 });
 
