@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>task-form</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+<body>
+	<section class="row"></section>
+	<section class="row">
+		<div class="row col-sm-4"></div>
+		<div class="jumbotron col-sm-4 text-center">
+			<form action="/taskform" method="post" id="taskform">
+				<label for="">FIRST NAME</label>
+		        <input type="text" name="firstname" placeholder="John" required validate><br><br>
+		        <label for="">LAST NAME</label>
+		        <input type="text" name="lastname" placeholder="Doe" required validate><br><br>
+		        <label for="">EMAIL</label>
+		        <input type="email" name="email" placeholder="johndoe@user.com" required validate><br><br>
+		        <label for="">LOCATION</label>
+		        <input type="text" name="location" placeholder="e.g Westlands" required validate><br><br>
+		        <label for="">PHONE NUMBER</label>
+		        <input type="text" name="phoneNumber" placeholder="755234432" value="+254" required validate><br><br>
+		        <label for="">CATEGORY</label>
+		        <select name="category">
+				  <option value="plumbing">plumbing</option>
+				  <option value="Applliances & electricals">Applliances & electricals</option>
+				  <option value="Painting">Painting</option>
+				  <option value="Capentry">Capentry</option>
+				  <option value="Cleaning & maid services">Cleaning & maid services</option>
+				  <option value="Landscaping">Landscaping</option>
+				  <option value="Remodels & additions">Remodels & additions</option>
+				  <option value="Windows & doors">Windows & doors</option>
+				</select><br><br>
+		        <label for="">WHEN WILL YOU BE AVAILABLE FOR US TO ACESS</label>
+		        <input type="date" name="availability" placeholder="Enter date" required validate>
+		        <input type="time" name="availability" placeholder="Enter time" required validate><br><br>
+		        <label for="">DESCRIBE YOUR PROBLEM</label>
+		       <textarea name="description" id="taskform" cols="30" rows="10" placeholder="Tell us more about your problem" required></textarea><br><br>
+		        <button type="submit">SUBMIT</button>
+			</form>
+		</div>
+		<div class="row col-sm-4"></div>
+	</section>
+	<section class="row"></section>
+</body>
+</html>

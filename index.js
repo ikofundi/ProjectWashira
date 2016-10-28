@@ -24,6 +24,7 @@ mongoose.connect(uristring, function(err, res) {
     }
 });
 
+mongoose.Promise = global.Promise;
 
 
 // express settings
@@ -44,11 +45,21 @@ app.use(expressSession({
 
 }));
 
+app.use(passport.initialize());
+app.use(passport.session());
+
 // include routes
+var taskRoutes = require('./routes/tasks');
+app.use(taskRoutes);
 var indexRoute = require('./routes/index');
 app.use(indexRoute);
-var adminRoute = require('./routes/admin');
-app.use(adminRoute);
+
+// // passport config
+// var Admin = require('./models/admin');
+
+// passport.use(new LocalStrategy(Admin.authenticate()));
+// passport.serializeUser(Admin.serializeUser());
+// passport.deserializeUser(Admin.deserializeUser());
 
 
 	
