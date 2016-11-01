@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Sign Up</title>
+</head>
+
+<body>
+
+	<p>{{error}}</p>
+    <form action="/accesorsignup" method="post">
+        <label for="">Username</label>
+        <input type="text" name="username" value="{{accesor.username}}" placeholder="Username">
+        <label for="">Email</label>
+        <input type="email" name="email" value="{{accesor.email}}" placeholder="Email">
+        <label for="">Password</label>
+        <input type="password" name="password" value="{{accesor.password}}" placeholder="Password">
+        <button type="submit">Signup</button>
+    </form>
+</body>
+
+</html>

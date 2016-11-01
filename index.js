@@ -53,16 +53,14 @@ var taskRoutes = require('./routes/tasks');
 app.use(taskRoutes);
 var indexRoute = require('./routes/index');
 app.use(indexRoute);
-var doneRoute = require('./routes/done');
-app.use(doneRoute);
-var accesorRoute = require('./routes/accesor');
-app.use(accesorRoute);
-// // passport config
-// var Admin = require('./models/admin');
+var accesorsRoute = require('./routes/accesors');
+app.use(accesorsRoute);
+// passport config
+var Accesor = require('./models/accesor');
 
-// passport.use(new LocalStrategy(Admin.authenticate()));
-// passport.serializeUser(Admin.serializeUser());
-// passport.deserializeUser(Admin.deserializeUser());
+passport.use(new LocalStrategy(Accesor.authenticate()));
+passport.serializeUser(Accesor.serializeUser());
+passport.deserializeUser(Accesor.deserializeUser());
 
 
 	

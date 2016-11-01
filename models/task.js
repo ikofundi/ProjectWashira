@@ -10,6 +10,7 @@ var taskSchema = mongoose.Schema({
     description: String,
     quotedPrice: String,
     availability: String,
+    accesorComments: String,
 });
 
 // compile model

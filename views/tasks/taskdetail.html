@@ -19,7 +19,7 @@
 	<section class="row">
 		<div class="row col-sm-4"></div>
 		<div class="jumbotron col-sm-4 text-center">
-			<form action="/taskform" method="post" id="taskform">
+			<form action="/tasks/{{task._id}}" method="post">
 				<label for="">FIRST NAME</label>
 		        <input type="text" name="firstname" value="{{task.firstname | upcase}}" readonly required validate><br><br>
 		        <label for="">LAST NAME</label>
@@ -31,7 +31,7 @@
 		        <label for="">PHONE NUMBER</label>
 		        <input type="text" name="phoneNumber" value="{{task.phoneNumber | upcase}}" readonly required validate><br><br>
 		        <label for="">CATEGORY</label>
-		        <input type="text" name="phoneNumber" value="{{task.category | upcase}}" readonly required validate><br><br>
+		        <input type="text" name="category" value="{{task.category | upcase}}" readonly required validate><br><br>
 		        <label for="">AVAILABILITY</label>
 		        <input  name="availability" value="{{task.availability | upcase}}" required readonly validate><br><br>
 		        <label for="">DESCRIPTION</label>

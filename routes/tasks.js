@@ -1,7 +1,7 @@
 var express = require('express')
 var router = express.Router();
 var Task = require('../models/task');
-var Category = require('../models/category');
+// var Accesor = require('../models/accesor');
 var querystring = require('querystring');
 var https       = require('https');
 
@@ -86,13 +86,108 @@ router.route('/taskform')
                 console.log(err);
             } else {
                 console.log('successfully saved the task');
+                function notifyAccesor(task) {
+        console.log('notified Accesor of ' + task)
+    }
+    notifyAccesor(task);
                 res.redirect('/done');
             }
 
         });
     });
 
+    
+router.route('/done')
+    .get(function(req, res) {
+
+         
+                
+                res.render('tasks/done');       
+    });
+
+router.route('/accesor')
+    .get(function(req, res) {
+        Task.find()
+            .select('category firstname lastname email location phoneNumber description availability quotedPrice accesorComments')
+            .exec(function(err, tasks) {
+
+
+                if (err) return console.log(err);
+
+
+                // res.json(tasks);
+                // res.json(accesor);
+                
+                res.render('accesor/tasks', {
+                    "tasks": tasks, 'accesor': req.accesor});
 
 
 
+            });
+      })
+
+function updateTask(method, req, res) {
+    taskId = req.params.id;
+    accesorCategory = req.body.category;
+    accesorFirstName = req.body.firstname;
+    accesorLastName = req.body.lastname;
+    accesorEmail = req.body.email;
+    accesorLocation = req.body.location;
+    accesorPhoneNumber = req.body.phoneNumber;
+    accesorDescription = req.body.description;
+    accesorAvailability = req.body.availability;
+    accesorQuotedPrice = req.body.quotedPrice;
+    accesorComments = req.body.accesorComments;
+
+    // retrieve the movie from Mongodb
+    Task.findById(taskId, function(err, task) {
+        if (err) return console.log(err);
+
+        task.category = accesorCategory;
+        task.firstname = accesorFirstName;
+        task.lastname = accesorLastName;
+        task.email = accesorEmail;
+        task.location = accesorLocation;
+        task.phoneNumber = accesorPhoneNumber;
+        task.description = accesorDescription;
+        task.availability = accesorAvailability;
+        task.quotedPrice = accesorQuotedPrice;
+        task.accesorComments = accesorComments;
+
+        task.save(function(err, task) {
+            if (err) return console.log(err);
+            
+
+            if (method === 'PUT') {
+                res.json(task);
+              
+            } else {
+                res.redirect('/tasks/' + task._id);
+            };
+
+        });
+    });
+};
+
+
+router.route('/tasks/:id')
+    .get(function(req, res) {
+        taskId = req.params.id;
+
+        // retrieve the movie from mongodb
+        Task.findById(taskId, function(err, task) {
+            if (err) return console.log(err);
+
+            // res.json(task);
+            res.render('tasks/taskdetail', {
+                "task": task
+            });
+
+
+        });
+    })
+    .post(function(req, res) {
+        updateTask('POST', req, res);
+
+    });
 module.exports = router;

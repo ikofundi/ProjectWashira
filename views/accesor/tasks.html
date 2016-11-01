@@ -15,12 +15,15 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </head>
 <body>
+	{% if accesor %}
+	<h1>Welcome Back {{accesor.username}}</h1>
+
 	<section class="row"></section>
 	<section class="row">
 		<div class="row col-sm-2"></div>
 		<div class="container col-sm-10 text-center">
 			<h1>Tasks</h1>
-			<table class="table">
+			<table class="table text-center">
 		        <thead>
 		            <th>Category</th>
 		            <th>Firstname</th>
@@ -34,6 +37,7 @@
 		            
 		        </thead>
 		        <tbody>
+
 		         {% for task in tasks %}
 		            <tr>
 		                <td class="active">{{ task.category | upcase }}</td>
@@ -53,5 +57,16 @@
 		<div class="row col-sm-2"></div>
 	</section>
 	<section class="row"></section>
+	{% else %}
+	<section class="row"></section>
+	<section class="row">
+		<div class="row col-sm-2"></div>
+		<div class="jumbotron col-sm-10 text-center">
+			<a href="/accesorlogin">Login</a><br><p>Are You A Member? If not then</p><br>
+			<a href="/accesorsignup">Sign up</a>
+		<div class="row col-sm-2"></div>
+	</section>
+	<section class="row"></section>
+	
 </body>
 </html>
