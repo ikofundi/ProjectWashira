@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var expressSession = require('express-session');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-
+var flash = require('connect-flash');
 
 // express middleware
 var bodyParser = require('body-parser');
@@ -47,21 +47,20 @@ app.use(expressSession({
 
 app.use(passport.initialize());
 app.use(passport.session());
-
+app.use(flash());
 // include routes
 var taskRoutes = require('./routes/tasks');
 app.use(taskRoutes);
 var indexRoute = require('./routes/index');
 app.use(indexRoute);
-var accesorsRoute = require('./routes/accesors');
-app.use(accesorsRoute);
+var usersRoute = require('./routes/users');
+app.use(usersRoute);
 // passport config
-var Accesor = require('./models/accesor');
+var User = require('./models/user');
 
-passport.use(new LocalStrategy(Accesor.authenticate()));
-passport.serializeUser(Accesor.serializeUser());
-passport.deserializeUser(Accesor.deserializeUser());
-
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 	
 

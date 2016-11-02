@@ -8,14 +8,16 @@
 <body>
 
 	<p>{{error}}</p>
-    <form action="/accesorsignup" method="post">
+     <form action="/signup" method="post">
         <label for="">Username</label>
-        <input type="text" name="username" value="{{accesor.username}}" placeholder="Username">
+        <input type="text" name="username"  placeholder="Username">
         <label for="">Email</label>
-        <input type="email" name="email" value="{{accesor.email}}" placeholder="Email">
+        <input type="email" name="email"  placeholder="Email">
+        <label for="">PHONE NUMBER</label>
+        <input type="text" name="phonenumber" value="+254"  placeholder="Phonenumber">
         <label for="">Password</label>
-        <input type="password" name="password" value="{{accesor.password}}" placeholder="Password">
-        <button type="submit">Signup</button>
+        <input type="password" name="password"  placeholder="Password">
+        <button type="submit">signup</button>
     </form>
 </body>
 

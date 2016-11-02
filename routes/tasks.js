@@ -1,7 +1,6 @@
 var express = require('express')
 var router = express.Router();
 var Task = require('../models/task');
-// var Accesor = require('../models/accesor');
 var querystring = require('querystring');
 var https       = require('https');
 
@@ -16,9 +15,9 @@ router.route('/taskform')
     	console.log(req.body);
     	formData = req.body;
 
-// // Your login credentials
-// var username = 'homefixer';
-// var apikey   = 'c430018837f7fa144d1c0b5ea21a21dbd8340bcc7dd0a9a23898afba9f3f6b23';
+// Your login credentials
+var username = 'homefixer';
+var apikey   = 'c430018837f7fa144d1c0b5ea21a21dbd8340bcc7dd0a9a23898afba9f3f6b23';
 
 // function sendMessage() {
     
@@ -116,10 +115,10 @@ router.route('/accesor')
 
 
                 // res.json(tasks);
-                // res.json(accesor);
+                console.log(req.user);
                 
                 res.render('accesor/tasks', {
-                    "tasks": tasks, 'accesor': req.accesor});
+                    "tasks": tasks, 'user': req.user});
 
 
 
@@ -139,7 +138,7 @@ function updateTask(method, req, res) {
     accesorQuotedPrice = req.body.quotedPrice;
     accesorComments = req.body.accesorComments;
 
-    // retrieve the movie from Mongodb
+    // retrieve the task from Mongodb
     Task.findById(taskId, function(err, task) {
         if (err) return console.log(err);
 
@@ -162,7 +161,8 @@ function updateTask(method, req, res) {
                 res.json(task);
               
             } else {
-                res.redirect('/tasks/' + task._id);
+                res.redirect('/notifyCustomer');
+                 // res.json(task);
             };
 
         });
@@ -179,8 +179,9 @@ router.route('/tasks/:id')
             if (err) return console.log(err);
 
             // res.json(task);
+             console.log(req.user);
             res.render('tasks/taskdetail', {
-                "task": task
+                "task": task, 'user': req.user
             });
 
 
@@ -188,6 +189,8 @@ router.route('/tasks/:id')
     })
     .post(function(req, res) {
         updateTask('POST', req, res);
+    
 
     });
+
 module.exports = router;

@@ -15,10 +15,14 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </head>
 <body>
+{% if user %}
+	<h1>Welcome Back {{user.username}}</h1>
+	<p><a href="/logout">Logout</a></p>
 	<section class="row"></section>
 	<section class="row">
 		<div class="row col-sm-4"></div>
 		<div class="jumbotron col-sm-4 text-center">
+
 			<form action="/tasks/{{task._id}}" method="post">
 				<label for="">FIRST NAME</label>
 		        <input type="text" name="firstname" value="{{task.firstname | upcase}}" readonly required validate><br><br>
@@ -46,6 +50,16 @@
 			</form>
 		</div>
 		<div class="row col-sm-4"></div>
+	</section>
+	<section class="row"></section>
+	{% else %}
+	<section class="row"></section>
+	<section class="row">
+		<div class="row col-sm-2"></div>
+		<div class="jumbotron col-sm-10 text-center">
+			<a href="/login">Login</a><br><p>Are You A Member? If not then</p><br>
+			<a href="/signup">Sign up</a>
+		<div class="row col-sm-2"></div>
 	</section>
 	<section class="row"></section>
 </body>
