@@ -3,9 +3,10 @@ var router = express.Router();
 var passport = require('passport');
 var User = require('../models/user');
 var flash = require('connect-flash');
+var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn;
 
 
-router.route('/signup')
+router.route('/accesor/Signup')
     .get(function(req, res) {
         res.render('accesor/signup');
     })
@@ -14,7 +15,7 @@ router.route('/signup')
             username: req.body.username,
             email: req.body.email,
             phonenumber: req.body.phonenumber,
-         
+            isAccesor: true
         });
         password = req.body.password;
 
@@ -32,15 +33,18 @@ router.route('/signup')
     });
     });
 
-router.route('/login')
+router.route('/accesor/login')
     .get(function(req, res){
-        if(req.user) return res.redirect('/accesor');
+       
+        if(req.user) return res.redirect('/tasks/accesor');
         res.render('accesor/login');
     })
-    .post(passport.authenticate('local', { successRedirect: '/accesor',
-                                            failureRedirect: '/login',
+    .post(passport.authenticate('local', { successRedirect: '/tasks/accesor',
+                                            failureRedirect: '/accesor/login',
                                             failureFlash: true }));
-    
+
+
+ 
 router.route('/logout')
     .get(function(req, res){
         req.logout();

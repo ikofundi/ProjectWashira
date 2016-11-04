@@ -5,6 +5,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var expressSession = require('express-session');
 var passport = require('passport');
+var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn;
 var LocalStrategy = require('passport-local').Strategy;
 var flash = require('connect-flash');
 
@@ -53,8 +54,11 @@ var taskRoutes = require('./routes/tasks');
 app.use(taskRoutes);
 var indexRoute = require('./routes/index');
 app.use(indexRoute);
-var usersRoute = require('./routes/users');
-app.use(usersRoute);
+var accesorsRoute = require('./routes/accesors');
+app.use(accesorsRoute);
+var adminsRoute = require('./routes/admins');
+app.use(adminsRoute);
+
 // passport config
 var User = require('./models/user');
 

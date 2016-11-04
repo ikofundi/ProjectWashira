@@ -104,7 +104,7 @@ router.route('/done')
                 res.render('tasks/done');       
     });
 
-router.route('/accesor')
+router.route('/tasks/accesor')
     .get(function(req, res) {
         Task.find()
             .select('category firstname lastname email location phoneNumber description availability quotedPrice accesorComments')
@@ -116,7 +116,7 @@ router.route('/accesor')
 
                 // res.json(tasks);
                 console.log(req.user);
-                
+                // else if (req) {}
                 res.render('accesor/tasks', {
                     "tasks": tasks, 'user': req.user});
 
@@ -124,7 +124,26 @@ router.route('/accesor')
 
             });
       })
+router.route('/tasks/admin')
+    .get(function(req, res) {
+        Task.find()
+            .select('category firstname lastname email location phoneNumber description availability quotedPrice accesorComments')
+            .exec(function(err, tasks) {
 
+
+                if (err) return console.log(err);
+
+
+                // res.json(tasks);
+                console.log(req.user);
+                // else if (req) {}
+                res.render('admin/tasks', {
+                    "tasks": tasks, 'user': req.user});
+
+
+
+            });
+      })
 function updateTask(method, req, res) {
     taskId = req.params.id;
     accesorCategory = req.body.category;

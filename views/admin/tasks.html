@@ -15,7 +15,7 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </head>
 <body>
-	{% if user.isAccesor %}
+	{% if user.isAdmin %}
 	<h1>Welcome Back {{user.username}}</h1>
 	<p><a href="/logout">Logout</a></p>
 
@@ -63,8 +63,8 @@
 	<section class="row">
 		<div class="row col-sm-2"></div>
 		<div class="jumbotron col-sm-10 text-center">
-			<p>If you are an accesor <a href="/accesor/login">Login</a>to Continue</p>
-			<p>If you are admin,please <a href="/logout">Click here</a></p>
+			<p>If you are an admin <a href="/admin/login">Login</a>to Continue</p>
+			<p>If you are an accesor,please <a href="/logout">Click here</a></p>
 			<p>If you are neither <a href="/">Go Home</a></p>
 			<!-- <p>You are not an accesor. Pliz </p><a href="/logout">Log out</a><br><p>to continue</p><br>
 			<a href="/accesor/Signup">Sign up</a> -->

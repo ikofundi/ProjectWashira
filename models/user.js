@@ -7,7 +7,8 @@ var userSchema = mongoose.Schema({
     password: String,
     email: {type: String, required: true},
     phonenumber: {type: String, required: true},
-   
+    isAdmin: { type: Boolean, default: false },
+    isAccesor: { type: Boolean, default: false }
     });
 	
 
