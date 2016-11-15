@@ -1,76 +1,79 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<meta charset="utf-8">
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Accesor</title>
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-<!-- Optional theme -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
-<!-- Latest compiled and minified JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <title>Accesor</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </head>
+
 <body>
-	{% if user.isAdmin %}
-	<h1>Welcome Back {{user.username}}</h1>
-	<p><a href="/logout">Logout</a></p>
-
-	<section class="row"></section>
-	<section class="row">
-		<div class="row col-sm-2"></div>
-		<div class="container col-sm-10 text-center">
-			<h1>Tasks</h1>
-			<table class="table text-center">
-		        <thead>
-		            <th>Category</th>
-		            <th>Firstname</th>
-		            <th>Lastname</th>
-		             <th>Email</th>
-		             <th>Location</th>
-		             <th>phonenumber</th>
-		             <th>Availability</th>
-		             <th>Description</th>
-		            
-		            
-		        </thead>
-		        <tbody>
-
-		         {% for task in tasks %}
-		            <tr>
-		                <td class="active">{{ task.category | upcase }}</td>
-		                <td class="success">{{ task.firstname | upcase}}</td>
-		                <td class="info">{{ task.lastname | upcase}}</td>
-		                <td class="info">{{ task.email | upcase}}</td>
-		                <td class="info">{{ task.location | upcase}}</td>
-		                <td class="info">{{ task.phoneNumber | upcase}}</td>
-		                <td class="info">{{ task.availability | upcase}}</td>
-		                <td class="info">{{ task.description | upcase}}</td>
-		                <td class="info"><a href="/tasks/{{task._id}}"><p>View Task</p></a></td>
-		                
-		            </tr>
-		            {% endfor %}
-		        </tbody>
-	    	</table>
-		<div class="row col-sm-2"></div>
-	</section>
-	<section class="row"></section>
-	{% else %}
-	<section class="row"></section>
-	<section class="row">
-		<div class="row col-sm-2"></div>
-		<div class="jumbotron col-sm-10 text-center">
-			<p>If you are an admin <a href="/admin/login">Login</a>to Continue</p>
-			<p>If you are an accesor,please <a href="/logout">Click here</a></p>
-			<p>If you are neither <a href="/">Go Home</a></p>
-			<!-- <p>You are not an accesor. Pliz </p><a href="/logout">Log out</a><br><p>to continue</p><br>
+    {% if user.isAdmin %}
+    <h1>Welcome Back {{user.username}}</h1>
+    <p><a href="/logout">Logout</a></p>
+    <section class="row"></section>
+    <section class="row">
+        <div class="row col-sm-2 text-center">
+        </div>
+        <div class="container col-sm-10 text-center">
+            <p><a href="/accesors">Manage Accesors</a></p>
+            <p><a href="/technicians">Manage Technicians</a></p>
+            <p><a href="/technicians">Manage Tasks</a></p>
+            <!--  <h1>Tasks</h1>
+            <table class="table text-center">
+                <thead>
+                    <th>Category</th>
+                    <th>Firstname</th>
+                    <th>Lastname</th>
+                    <th>Email</th>
+                    <th>Location</th>
+                    <th>phonenumber</th>
+                    <th>Availability</th>
+                    <th>Description</th>
+                </thead>
+                <tbody>
+                    {% for task in tasks %}
+                    <tr>
+                        <td class="active">{{ task.category | upcase }}</td>
+                        <td class="success">{{ task.firstname | upcase}}</td>
+                        <td class="info">{{ task.lastname | upcase}}</td>
+                        <td class="info">{{ task.email | upcase}}</td>
+                        <td class="info">{{ task.location | upcase}}</td>
+                        <td class="info">{{ task.phoneNumber | upcase}}</td>
+                        <td class="info">{{ task.availability | upcase}}</td>
+                        <td class="info">{{ task.description | upcase}}</td>
+                        <td class="info">
+                            <a href="/tasks/{{task._id}}">
+                                <p>View Task</p>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table> -->
+            <div class="row col-sm-2"></div>
+    </section>
+    <section class="row"></section>
+    {% else %}
+    <section class="row"></section>
+    <section class="row">
+        <div class="row col-sm-2"></div>
+        <div class="jumbotron col-sm-10 text-center">
+            <p>If you are an admin <a href="/admin/login">Login</a>to Continue</p>
+            <p>If you are an accesor,please <a href="/logout">Click here</a></p>
+            <p>If you are neither <a href="/">Go Home</a></p>
+            <!-- <p>You are not an accesor. Pliz </p><a href="/logout">Log out</a><br><p>to continue</p><br>
 			<a href="/accesor/Signup">Sign up</a> -->
-		<div class="row col-sm-2"></div>
-	</section>
-	<section class="row"></section>
-	
+            <div class="row col-sm-2"></div>
+    </section>
+    <section class="row"></section>
 </body>
+
 </html>
