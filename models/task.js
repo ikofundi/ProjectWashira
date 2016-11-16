@@ -11,6 +11,7 @@ var taskSchema = mongoose.Schema({
     quotedPrice: String,
     availability: String,
     accesorComments: String,
+    jobId: String,
 });
 
 // compile model

@@ -39,7 +39,8 @@
     "nodemailer": "~2.6.4",
     "morgan": "~1.7.0",
     "static-favicon": "~2.0.0-alpha",
-    "util": "~0.10.3"
+    "util": "~0.10.3",
+    "bcryptjs": "~2.3.0"
   },
   "devDependencies": {
     "grunt": "^1.0.1"

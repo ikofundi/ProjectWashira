@@ -7,6 +7,7 @@ var userSchema = mongoose.Schema({
     password: String,
     email: {type: String, required: true},
     phonenumber: {type: String, minlength: 13 , required: true},
+    jobId: String,
     isAdmin: { type: Boolean, default: false },
     isAccesor: { type: Boolean, default: false },
     isTechnician: { type: Boolean, default: false },

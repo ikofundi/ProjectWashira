@@ -1,5 +1,6 @@
-var express = require('express')
+var express = require('express');
 var router = express.Router();
+var mongoose = require('mongoose');
 var passport = require('passport');
 var User = require('../models/user');
 var flash = require('connect-flash');
@@ -15,78 +16,31 @@ router.route('/accesor/Signup')
     .get(function(req, res) {
         res.render('accesor/signup');
     })
-    .post(function(req, res) {
-        var phonenumber = req.body.phonenumber;
-        var email = req.body.email;
-        var username = req.body.username;
-        var password = req.body.password;
-        var confirm = req.body.confirm;
+    .post(function(req, res){
+                user = new User({
+                    username: req.body.username,
+                    email: req.body.email,
+                    phonenumber: req.body.phonenumber,
+                    isAccesor: true
+                });
+                password = req.body.password;
+                confirm = req.body.confirm;
+                User.register(user, password, function(err, user){
+                    if (err) {
+                        console.log("User error", user, err, err.message);
+                        return res.render('/accesor/signup', {
+                            'user': user, 
+                            'error': err.message
+                        });
+                    }
 
-        // Form validation
+                    passport.authenticate('local')(req, res, function(){
+                        res.redirect('/tasks/accesor');
+                    });
 
-        req.checkBody('phonenumber', 'phonenumber is required').notEmpty();
-        req.checkBody('email', 'Email is required').notEmpty();
-        req.checkBody('email', 'Email is not valid').isEmail();
-        req.checkBody('username', 'Username is required').notEmpty();
-        req.checkBody('password', 'Password is required').notEmpty();
-        req.checkBody('confirm', 'Passwords do not match').equals(req.body.password);
-        var errors = req.validationErrors();
-        
-        if (errors) {
-            console.log(errors[0].msg);
-            res.render('accesor/signup', {
-                'errors': errors[0].msg
-            });
-        } else {
-            var newUser = new User({
-                phonenumber: phonenumber,
-                email: email,
-                username: username,
-                password: password,
-                isAccesor: true
+                });
             });
 
-            User.createUser(newUser, function(err, user) {
-                if (err) throw err;
-                console.log(user);
-            });
-
-            req.flash('success_msg', 'You are registered and can now login');
-
-            res.redirect('/accesor/login');
-        }
-
-    });
-
-// authenticate login using passport
-passport.use(new LocalStrategy(
-    function(username, password, done) {
-        User.getUserByUsername(username, function(err, user) {
-            if (err) throw err;
-            if (!user) {
-                return done(null, false, { message: 'Unknown User' });
-            }
-
-            User.comparePassword(password, user.password, function(err, isMatch) {
-                if (err) throw err;
-                if (isMatch) {
-                    return done(null, user);
-                } else {
-                    return done(null, false, { message: 'Invalid password' });
-                }
-            });
-        });
-    }));
-
-passport.serializeUser(function(user, done) {
-    done(null, user.id);
-});
-
-passport.deserializeUser(function(id, done) {
-    User.getUserById(id, function(err, user) {
-        done(err, user);
-    });
-});
 
 router.route('/accesor/login')
     .get(function(req, res) {
