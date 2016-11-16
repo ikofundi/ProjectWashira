@@ -15,7 +15,7 @@ function acknowledgeGettingTest(to, firstname) {
     var to      = to
     
     // And of course we want our recipients to know what we really do
-    var message = "Thank you " + formData.firstname + " for requesting Homefix services. We will send an acessor at the time you have specified " + req.body.availability;
+    var message = "Thank you " + firstname + " for requesting Homefix services. We will send an acessor at the time you have specified " + req.body.availability;
     
     // Build the post string from an object
     
