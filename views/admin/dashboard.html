@@ -15,10 +15,10 @@
 
 <body>
     {% if user.isAdmin %}
-    <h1>Hi {{user.username}}</h1>
+    <h1>Welcome  {{user.username}}</h1>
     <p><a href="/logout">Logout</a></p>
-    <p><a href="/tasks/admin">View tasks</a></p>
-    <p><a href="/accesorslist">Manage Accesors</a></p>
+    <p><a href="/tasks/admin/unaccesed">View tasks</a></p>
+    <p><a href="/Accesors">Manage Accesors</a></p>
     <p><a href="">Manage Technicians</a></p>
     {% else %}
     <section class="row"></section>

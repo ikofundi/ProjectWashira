@@ -35,7 +35,7 @@ router.route('/accesor/signup')
                     }
 
                     passport.authenticate('local')(req, res, function(){
-                        res.redirect('/tasks/accesor');
+                        res.redirect('/tasks/accesor/unaccesed');
                     });
 
                 });
@@ -45,11 +45,11 @@ router.route('/accesor/signup')
 router.route('/accesor/login')
     .get(function(req, res) {
 
-        if (req.user) return res.redirect('/tasks/accesor');
+        if (req.user) return res.redirect('/tasks/accesor/unaccesed');
         res.render('accesor/login');
     })
     .post(passport.authenticate('local', {
-        successRedirect: '/tasks/accesor',
+        successRedirect: '/tasks/accesor/unaccesed',
         failureRedirect: '/accesor/login',
         failureFlash: true
     }));

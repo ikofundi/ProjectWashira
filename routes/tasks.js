@@ -20,16 +20,17 @@ router.route('/taskform')
         console.log(req.body);
 
         // create job id
-       var  jobId = Math.floor(100000 + Math.random() * 900000).toString();
-       console.log(jobId);
-         firstname = req.body.firstname;
-         lastname = req.body.lastname;
-         email = req.body.email;
-         location = req.body.location;
-         phoneNumber = req.body.phoneNumber;
-         category = req.body.category;
-         availability = req.body.availability;
-         description = req.body.description;
+        var jobId = Math.floor(100000 + Math.random() * 900000).toString();
+        
+        console.log(jobId);
+        firstname = req.body.firstname;
+        lastname = req.body.lastname;
+        email = req.body.email;
+        location = req.body.location;
+        phoneNumber = req.body.phoneNumber;
+        category = req.body.category;
+        availability = req.body.availability;
+        description = req.body.description;
 
         formData = {
             firstname: firstname,
@@ -40,13 +41,13 @@ router.route('/taskform')
             category: category,
             availability: availability,
             description: description,
-            jobId : jobId
+            jobId: jobId
         }
-   
-   console.log(formData);
-     //send sms acknowledging getting task
-     // sms(formData.phoneNumber, formData.firstname, formData.availability, username, apikey, req, res);
-       task = new Task(formData);
+
+        console.log(formData);
+        //send sms acknowledging getting task
+        // sms(formData.phoneNumber, formData.firstname, formData.availability, username, apikey, req, res);
+        task = new Task(formData);
         task.save(function(err, task) {
             if (err) {
                 console.log(err);
@@ -72,10 +73,54 @@ router.route('/done')
         res.render('tasks/done');
     });
 
-router.route('/tasks/accesor')
+router.route('/tasks/accesor/unaccesed')
     .get(function(req, res) {
-        Task.find()
-            .select('category firstname lastname email location phoneNumber description availability quotedPrice accesorComments jobId')
+        Task.find({"accesed": false})
+            .select('category firstname lastname email location phoneNumber description availability quotedPrice accesorComments jobId accesed')
+            .exec(function(err, tasks) {
+
+
+                if (err) return console.log(err);
+
+               
+                // res.json(tasks);
+                console.log(req.user);
+
+                res.render('accesor/unAccesedtasks', {
+                    "tasks": tasks,
+                    'user': req.user
+                });
+
+               
+
+            });
+    })
+router.route('/tasks/accesor/accesed')
+    .get(function(req, res) {
+        Task.find({"accesed": true})
+            .select('category firstname lastname email location phoneNumber description availability quotedPrice accesorComments jobId accesed')
+            .exec(function(err, tasks) {
+
+
+                if (err) return console.log(err);
+
+               
+                // res.json(tasks);
+                console.log(req.user);
+
+                res.render('accesor/accesedtasks', {
+                    "tasks": tasks,
+                    'user': req.user
+                });
+
+               
+
+            });
+    })
+router.route('/tasks/admin/unaccesed')
+    .get(function(req, res) {
+        Task.find({"accesed": false})
+            .select('category firstname lastname email location phoneNumber description availability jobId quotedPrice accesorComments')
             .exec(function(err, tasks) {
 
 
@@ -84,8 +129,8 @@ router.route('/tasks/accesor')
 
                 // res.json(tasks);
                 console.log(req.user);
-
-                res.render('accesor/tasks', {
+                
+                res.render('admin/unAccesedtasks', {
                     "tasks": tasks,
                     'user': req.user
                 });
@@ -94,29 +139,28 @@ router.route('/tasks/accesor')
 
             });
     })
-router.route('/tasks/admin')
+router.route('/tasks/admin/accesed')
     .get(function(req, res) {
-        Task.find()
-            .select('category firstname lastname email location phoneNumber description availability quotedPrice accesorComments')
+        Task.find({"accesed": true})
+            .select('category firstname lastname email location phoneNumber description availability quotedPrice accesorComments jobId accesed')
             .exec(function(err, tasks) {
 
 
                 if (err) return console.log(err);
 
-
+               
                 // res.json(tasks);
                 console.log(req.user);
-                // else if (req) {}
-                res.render('admin/tasks', {
+
+                res.render('admin/accesedtasks', {
                     "tasks": tasks,
                     'user': req.user
                 });
 
-
+               
 
             });
     })
-
 function updateTask(method, req, res) {
     taskId = req.params.id;
     accesorCategory = req.body.category;
@@ -144,7 +188,7 @@ function updateTask(method, req, res) {
         task.availability = accesorAvailability;
         task.quotedPrice = accesorQuotedPrice;
         task.accesorComments = accesorComments;
-
+        task.accesed = true;
         task.save(function(err, task) {
             if (err) return console.log(err);
 
@@ -153,7 +197,7 @@ function updateTask(method, req, res) {
                 res.json(task);
 
             } else {
-                res.redirect('/notifyCustomer');
+                res.redirect('/tasks/accesor');
                 // res.json(task);
             };
 
@@ -170,20 +214,57 @@ router.route('/tasks/:id')
         Task.findById(taskId, function(err, task) {
             if (err) return console.log(err);
 
-            // res.json(task);
+            // res.json(task.accesed);
             console.log(req.user);
-            res.render('tasks/taskdetail', {
+
+            res.render('accesor/editTask', {
                 "task": task,
                 'user': req.user
             });
 
 
         });
+    });
+ router.route('/tasks/:id/edit')
+    .get(function(req, res) {
+
+        taskId = req.params.id;
+
+        // retrieve the task from mongodb
+        Task.findById(taskId, function(err, task) {
+            if (err) return console.log(err);
+
+            // res.json(movie);
+            res.render('tasks/editTask', {
+                "task": task
+            });
+
+        });
+
     })
     .post(function(req, res) {
         updateTask('POST', req, res);
 
+}); 
 
+function deleteTask(method, req, res) {
+    taskId = req.params.id
+    Task.remove({
+        _id: taskId
+    }, function(err) {
+        if (err) return console.log(err);
+        if (method === 'GET') {
+            res.redirect('/tasks/admin');
+            console.log("You have deleted a task");
+        } else {
+            res.send("Task was deleted");
+        }
+
+    });
+};
+router.route('/tasks/:id/delete')
+    .get(function(req, res) {
+        deleteTask('GET', req, res);
     });
 
 module.exports = router;

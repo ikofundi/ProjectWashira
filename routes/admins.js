@@ -1,5 +1,7 @@
 var express = require('express')
 var router = express.Router();
+var mongoose = require('mongoose');
+var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn;
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy; 
 var Task = require('../models/task');
@@ -7,19 +9,21 @@ var User = require('../models/user');
 var flash = require('express-flash');
 var querystring = require('querystring');
 var https = require('https');
+var async = require('async');
+var crypto = require('crypto');
 
 "use strict";
 
-router.route('/admin/signup')
+router.route('/admin/sign-up')
     .get(function(req, res) {
         res.render('admin/signup');
     })
      .post(function(req, res){
                 user = new User({
+                    isAdmin: true,
                     username: req.body.username,
                     email: req.body.email,
-                    phonenumber: req.body.phonenumber,
-                    isAdmin: true
+                    phonenumber: req.body.phonenumber           
                 });
                 password = req.body.password;
                 confirm = req.body.confirm;
@@ -69,10 +73,10 @@ router.route('/admin/dashboard')
     });
 
 
-router.route('/accesorslist')
+router.route('/Accesors')
     .get(function(req, res) {
-        User.find()
-            .select('username  phoneNumber')
+        User.find({"isAccesor": true})
+            .select('username  phonenumber email')
             .exec(function(err, users) {
 
 
@@ -81,8 +85,8 @@ router.route('/accesorslist')
 
                 // res.json(users);
                 // console.log(req.user);
-                // else if (req) {}
-                res.render('admin/accesorslist', {
+                
+                res.render('admin/Accesors', {
                     "users": users,
                     'user': req.user
                 });
@@ -92,7 +96,25 @@ router.route('/accesorslist')
             });
     })
 
+function deleteAccesor(method, req, res) {
+    userId = req.params.id
+    User.remove({
+        _id: userId
+    }, function(err) {
+        if (err) return console.log(err);
+        if (method === 'GET') {
+            res.redirect('/Accesors');
+            console.log("You have deleted an accesor");
+        } else {
+            res.send("Accesor was deleted");
+        }
 
+    });
+};
+router.route('/accesor/:id/delete')
+    .get(function(req, res) {
+        deleteAccesor('GET', req, res);
+    });
 
 
 

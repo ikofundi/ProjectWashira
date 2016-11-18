@@ -1,67 +1,68 @@
-<!DOCTYPE html>
+<!DOCTYPE html> ​
 <html>
+​
+
 <head>
-	<meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>{{ task.id }}</title>
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-<!-- Optional theme -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{{task.id}}</title>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    </head>
+    ​
 
-<!-- Latest compiled and minified JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-</head>
-<body>
-{% if user.isAccesor %}
-	<h1>Hi {{user.username}}</h1>
-	<p><a href="/logout">Logout</a></p>
-	<section class="row"></section>
-	<section class="row">
-		<div class="row col-sm-4"></div>
-		<div class="jumbotron col-sm-4 text-center">
+    <body>
+   
+        ​
+        <section>
+             ​ {% if user.isAccesor %}
+        
+        	  
+        	<div class="row col-sm-2"><h1>Hi {{user.username}}</h1></div>
+        	<div class="row col-sm-8 text-center">
+        		<h1>{{ task.jobId }}</h1> ​
+        		<table class="table text-center">
+        			<thead>
+        				<th>FIRST NAME</th>
+        				<th>LAST NAME</th>
+        				<th>EMAIL</th>
+        				<th>CATEGORY</th>
+        				<th>LOCATION</th>
+        				<th>PHONE NUMBER</th>
+        				<th>AVAILABILITY</th>
+        				<th>DESCRIPTION</th>
+        				<th>accesed</th>
 
-			<form action="/tasks/{{task._id}}" method="post">
-				<label for="">FIRST NAME</label>
-		        <input type="text" name="firstname" value="{{task.firstname | upcase}}" readonly required validate><br><br>
-		        <label for="">LAST NAME</label>
-		        <input type="text" name="lastname" value="{{task.lastname | upcase}}" readonly required validate><br><br>
-		        <label for="">EMAIL</label>
-		        <input type="email" name="email" value="{{task.email}}" readonly required validate><br><br>
-		        <label for="">LOCATION</label>
-		        <input type="text" name="location" value="{{task.location | upcase}}" readonly required validate><br><br>
-		        <label for="">PHONE NUMBER</label>
-		        <input type="text" name="phoneNumber" value="{{task.phoneNumber | upcase}}" readonly required validate><br><br>
-		        <label for="">CATEGORY</label>
-		        <input type="text" name="category" value="{{task.category | upcase}}" readonly required validate><br><br>
-		        <label for="">AVAILABILITY</label>
-		        <input  name="availability" value="{{task.availability | upcase}}" required readonly validate><br><br>
-		        <label for="">DESCRIPTION</label>
-		        <input  name="description" value="{{task.description | upcase}}" required readonly validate><br><br>
-		       <label for="">QUOTED PRICE</label>
-		        <input type="text" name="quotedPrice" placeholder="Enter Price" required validate><br><br>
-		        <label for="">COMMENTS</label><br>
-		        <textarea name="accesorComments"  cols="30" rows="10"  required></textarea><br>
+        			</thead>
+        			<tbody>
+        				<tr>
+        				<td class="info text-center">{{ task.firstname}}</td>
+        				<td class="success">{{ task.lastname}}</td>
+        				<td class="danger text-center">{{ task.email}}</td>
+        				<td class="info">{{ task.category}}</td>
+        				<td class="danger">{{ task.location}}</td>
+        				<td class="success">{{ task.phoneNumber}}</td>
+        				<td class="danger">{{ task.availability}}</td>
+        				<td class="success">{{ task.description}}</td>
+        				<td class="success">task.quotedPrice</td>
+        				<td><a href="/tasks/{{task._id}}/edit">
+				    <button class="btn btn-primary">Add quotation</button>
+				</a></td>
+        				</tr>
+        			</tbody>
+        		</table>
+				
+        	</div>
+        	<div class="row col-sm-2"><p><a href="/logout">Logout</a></p></div>
+        </section>
+        ​
+    </body>
 
-
-		        <button type="submit">SUBMIT</button>
-			</form>
-		</div>
-		<div class="row col-sm-4"></div>
-	</section>
-	<section class="row"></section>
-	{% else %}
-	<section class="row"></section>
-	<section class="row">
-		<div class="row col-sm-2"></div>
-		<div class="jumbotron col-sm-10 text-center">
-			<p>If you are an accesor <a href="/accesor/login">Login</a>to Continue</p>
-			<p>If you are admin,please <a href="/logout">Click here</a></p>
-			<p>If you are neither <a href="/">Go Home</a></p>
-		<div class="row col-sm-2"></div>
-	</section>
-	<section class="row"></section>
-</body>
 </html>
