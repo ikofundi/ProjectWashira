@@ -12,7 +12,7 @@ var async = require('async');
 var crypto = require('crypto');
 "use strict";
 
-router.route('/accesor/Signup')
+router.route('/accesor/signup')
     .get(function(req, res) {
         res.render('accesor/signup');
     })

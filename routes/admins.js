@@ -10,7 +10,7 @@ var https = require('https');
 
 "use strict";
 
-router.route('/admin/Signup')
+router.route('/admin/signup')
     .get(function(req, res) {
         res.render('admin/signup');
     })
@@ -33,7 +33,7 @@ router.route('/admin/Signup')
                     }
 
                     passport.authenticate('local')(req, res, function(){
-                        res.redirect('/tasks/admin');
+                        res.redirect('/admin/dashboard');
                     });
 
                 });
@@ -42,22 +42,24 @@ router.route('/admin/Signup')
 
 router.route('/admin/login')
     .get(function(req, res) {
-        if (req.user) return res.redirect('/tasks/admin');
+        if (req.user) return res.redirect('/admin/dashboard');
         res.render('admin/login');
     })
     .post(passport.authenticate('local', {
-        successRedirect: '/tasks/admin',
+        successRedirect: '/admin/dashboard',
         failureRedirect: '/admin/login',
         failureFlash: true
     }));
+
 router.route('/logout')
     .get(function(req, res) {
         req.logout();
         res.redirect('/');
     });
+
 router.route('/admin/dashboard')
     .get(function(req, res) {
-
+        // res.json(req.user);
         res.render('admin/dashboard', {
             "user": req.user,
         });

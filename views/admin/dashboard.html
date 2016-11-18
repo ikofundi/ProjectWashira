@@ -14,7 +14,7 @@
 </head>
 
 <body>
-    {% if user.isAdmin == true %}
+    {% if user.isAdmin %}
     <h1>Hi {{user.username}}</h1>
     <p><a href="/logout">Logout</a></p>
     <p><a href="/tasks/admin">View tasks</a></p>
@@ -25,11 +25,9 @@
     <section class="row">
         <div class="row col-sm-2"></div>
         <div class="jumbotron col-sm-10 text-center">
-            <p>If you are an accesor <a href="/accesor/login">Login</a>to Continue</p>
-            <p>If you are admin,please <a href="/logout">Click here</a></p>
+            <p>If you are an admin <a href="/admin/login">Login</a>to Continue</p>
+            <p>If you are an accesor,please <a href="/logout">Click here</a></p>
             <p>If you are neither <a href="/">Go Home</a></p>
-            <!-- <p>You are not an accesor. Pliz </p><a href="/logout">Log out</a><br><p>to continue</p><br>
-			<a href="/accesor/Signup">Sign up</a> -->
             <div class="row col-sm-2"></div>
     </section>
     <section class="row"></section>
