@@ -4,7 +4,7 @@
   "description": "Get tasks done by proffesionals",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -40,7 +40,9 @@
     "morgan": "~1.7.0",
     "static-favicon": "~2.0.0-alpha",
     "util": "~0.10.3",
-    "bcryptjs": "~2.3.0"
+    "bcryptjs": "~2.3.0",
+    "mocha": "~3.1.2",
+    "chai": "~3.5.0"
   },
   "devDependencies": {
     "grunt": "^1.0.1"

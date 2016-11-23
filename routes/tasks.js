@@ -20,9 +20,60 @@ router.route('/taskform')
         console.log(req.body);
 
         // create job id
-        var jobId = Math.floor(100000 + Math.random() * 900000).toString();
-        
+        // createjobIdList = function () {
+        //     var jobIdList = [];
+        //    Task.find()
+        //     .select('jobId')
+        //     .exec(function(err, tasks) {
+
+
+        //         if (err) return console.log(err);
+        //         // id = JSON.stringify(tasks)
+        //         console.log(tasks);
+        //         for (var i = 0; i < tasks.length; i++) {
+
+        //             jobIdList[i] = tasks[i];
+        //             }
+                
+        //       var tasks = tasks;
+
+        //             return tasks
+        //     });
+             
+        // }
+
+        jobIdList = [];
+         
+        idCreator = function(idList) {
+                // let jobId = "345456";
+                // let idList = idList;
+                var jobId = Math.floor(100000 + Math.random() * 900000).toString();
+                // if (idList === []) { console.log("empty"); }
+                var checkId = function(jobId, idList) {
+
+
+                    for (var i = 0; i < idList.length; i++) {
+                        if (jobId === idList[i]) {
+                            // console.log("inafanana");
+                            jobId = Math.floor(100000 + Math.random() * 900000).toString();
+                            checkId(jobId, idList);
+                            return jobId
+                        } else {
+                            // console.log("sawa");
+                            return jobId
+                        }
+                    }
+                }
+
+                return checkId(jobId, idList);
+            }
+            // jobIdList[0];
+        jobId = idCreator(jobIdList);
+
+       jobIdList.push(jobId);
         console.log(jobId);
+        
+        console.log(jobIdList);
         firstname = req.body.firstname;
         lastname = req.body.lastname;
         email = req.body.email;
@@ -75,14 +126,14 @@ router.route('/done')
 
 router.route('/tasks/accesor/unaccesed')
     .get(function(req, res) {
-        Task.find({"accesed": false})
+        Task.find({ "accesed": false })
             .select('category firstname lastname email location phoneNumber description availability quotedPrice accesorComments jobId accesed')
             .exec(function(err, tasks) {
 
 
                 if (err) return console.log(err);
 
-               
+
                 // res.json(tasks);
                 console.log(req.user);
 
@@ -91,20 +142,20 @@ router.route('/tasks/accesor/unaccesed')
                     'user': req.user
                 });
 
-               
+
 
             });
     })
 router.route('/tasks/accesor/accesed')
     .get(function(req, res) {
-        Task.find({"accesed": true})
+        Task.find({ "accesed": true })
             .select('category firstname lastname email location phoneNumber description availability quotedPrice accesorComments jobId accesed')
             .exec(function(err, tasks) {
 
 
                 if (err) return console.log(err);
 
-               
+
                 // res.json(tasks);
                 console.log(req.user);
 
@@ -113,13 +164,13 @@ router.route('/tasks/accesor/accesed')
                     'user': req.user
                 });
 
-               
+
 
             });
     })
 router.route('/tasks/admin/unaccesed')
     .get(function(req, res) {
-        Task.find({"accesed": false})
+        Task.find({ "accesed": false })
             .select('category firstname lastname email location phoneNumber description availability jobId quotedPrice accesorComments')
             .exec(function(err, tasks) {
 
@@ -129,7 +180,7 @@ router.route('/tasks/admin/unaccesed')
 
                 // res.json(tasks);
                 console.log(req.user);
-                
+
                 res.render('admin/unAccesedtasks', {
                     "tasks": tasks,
                     'user': req.user
@@ -141,14 +192,14 @@ router.route('/tasks/admin/unaccesed')
     })
 router.route('/tasks/admin/accesed')
     .get(function(req, res) {
-        Task.find({"accesed": true})
+        Task.find({ "accesed": true })
             .select('category firstname lastname email location phoneNumber description availability quotedPrice accesorComments jobId accesed')
             .exec(function(err, tasks) {
 
 
                 if (err) return console.log(err);
 
-               
+
                 // res.json(tasks);
                 console.log(req.user);
 
@@ -157,10 +208,11 @@ router.route('/tasks/admin/accesed')
                     'user': req.user
                 });
 
-               
+
 
             });
     })
+
 function updateTask(method, req, res) {
     taskId = req.params.id;
     accesorCategory = req.body.category;
@@ -176,7 +228,7 @@ function updateTask(method, req, res) {
 
     // retrieve the task from Mongodb
     Task.findById(taskId, function(err, task) {
-        if (err) return console.log(err);
+        if (err) return console.log("this is the error " + err);
 
         task.category = accesorCategory;
         task.firstname = accesorFirstName;
@@ -197,7 +249,8 @@ function updateTask(method, req, res) {
                 res.json(task);
 
             } else {
-                res.redirect('/tasks/accesor');
+
+                res.send('/tasks/accesor/accesed');
                 // res.json(task);
             };
 
@@ -225,7 +278,7 @@ router.route('/tasks/:id')
 
         });
     });
- router.route('/tasks/:id/edit')
+router.route('/tasks/:id/edit')
     .get(function(req, res) {
 
         taskId = req.params.id;
@@ -245,7 +298,7 @@ router.route('/tasks/:id')
     .post(function(req, res) {
         updateTask('POST', req, res);
 
-}); 
+    });
 
 function deleteTask(method, req, res) {
     taskId = req.params.id
