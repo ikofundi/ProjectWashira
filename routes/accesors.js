@@ -35,7 +35,7 @@ router.route('/accesor/signup')
                     }
 
                     passport.authenticate('local')(req, res, function(){
-                        res.redirect('/tasks/accesor/unaccesed');
+                        res.redirect('/admin/dashboard');
                     });
 
                 });

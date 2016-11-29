@@ -101,8 +101,8 @@ var accesorsRoute = require('./routes/accesors');
 app.use(accesorsRoute);
 var adminsRoute = require('./routes/admins');
 app.use(adminsRoute);
-// var smsRoute = require('./controllers/sms');
-// app.use(smsRoute);
+var techniciansRoute = require('./routes/technicians');
+app.use(techniciansRoute);
 // passport config
 var User = require('./models/user');
 

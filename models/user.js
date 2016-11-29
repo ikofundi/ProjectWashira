@@ -9,7 +9,6 @@ var userSchema = mongoose.Schema({
     phonenumber: {type: String, minlength: 13 , required: true},
     isAdmin: { type: Boolean, default: false },
     isAccesor: { type: Boolean, default: false },
-    isTechnician: { type: Boolean, default: false },
     resetPasswordToken: String,
   	resetPasswordExpires: Date
     });

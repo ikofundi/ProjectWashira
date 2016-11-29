@@ -69,14 +69,14 @@ module.exports = function acknowledgeGettingTask(to, firstname, availability, us
     post_req.end();
 }
 
-module.exports = function notifyCustomerOfQuotedPrice(to, firstname, username, apikey, req, res) {
+module.exports = function notifyCustomerOfQuotedPrice(to, firstname, username, apikey, req, res,quotedPrice, jobId) {
 
     // Define the recipient numbers in a comma separated string
     // Numbers should be in international format as shown
     var to = to;
     var firstname = firstname;
     // And of course we want our recipients to know what we really do
-    var message = "Hello " + firstname + " the price ";
+    var message = "Hello " + firstname + " the price for your task will be " + quotedPrice + "." + "Please deposit the amount to paybill 567567 account name " + jobId;
 
     // Build the post string from an object
 
