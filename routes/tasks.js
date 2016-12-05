@@ -17,63 +17,22 @@ router.route('/taskform')
         res.render('tasks/task-form');
     })
     .post(function(req, res) {
-        console.log(req.body);
+        // console.log(req.body);
 
-        // create job id
-        // createjobIdList = function () {
-        //     var jobIdList = [];
-        //    Task.find()
-        //     .select('jobId')
-        //     .exec(function(err, tasks) {
+        // create job id list
+        //     jobIdList = [];
 
+        // // find all the job ids
+        var jobId = Math.floor(100000 + Math.random() * 900000).toString();
+            // var jobId = '963142'
 
-        //         if (err) return console.log(err);
-        //         // id = JSON.stringify(tasks)
-        //         console.log(tasks);
-        //         for (var i = 0; i < tasks.length; i++) {
+  
+           
 
-        //             jobIdList[i] = tasks[i];
-        //             }
-                
-        //       var tasks = tasks;
-
-        //             return tasks
-        //     });
-             
-        // }
-
-        jobIdList = [];
-         
-        idCreator = function(idList) {
-                // let jobId = "345456";
-                // let idList = idList;
-                var jobId = Math.floor(100000 + Math.random() * 900000).toString();
-                // if (idList === []) { console.log("empty"); }
-                var checkId = function(jobId, idList) {
-
-
-                    for (var i = 0; i < idList.length; i++) {
-                        if (jobId === idList[i]) {
-                            // console.log("inafanana");
-                            jobId = Math.floor(100000 + Math.random() * 900000).toString();
-                            checkId(jobId, idList);
-                            return jobId
-                        } else {
-                            // console.log("sawa");
-                            return jobId
-                        }
-                    }
-                }
-
-                return checkId(jobId, idList);
-            }
-            // jobIdList[0];
-        jobId = idCreator(jobIdList);
-
-       jobIdList.push(jobId);
+       
         console.log(jobId);
-        
-        console.log(jobIdList);
+
+        // console.log(jobIdList);
         firstname = req.body.firstname;
         lastname = req.body.lastname;
         email = req.body.email;
@@ -95,7 +54,7 @@ router.route('/taskform')
             jobId: jobId
         }
 
-        console.log(formData);
+        // console.log(formData);
         //send sms acknowledging getting task
         // sms(formData.phoneNumber, formData.firstname, formData.availability, username, apikey, req, res);
         task = new Task(formData);
@@ -319,5 +278,8 @@ router.route('/tasks/:id/delete')
     .get(function(req, res) {
         deleteTask('GET', req, res);
     });
-
+router.route('/tasks/registerUrl')
+    .get(function (req, res) {
+        reqBody = 
+    })
 module.exports = router;

@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var User = require('../models/user');
 var flash = require('connect-flash');
-var LocalStrategy = require('passport-local').Strategy; 
+var LocalStrategy = require('passport-local').Strategy;
 var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn;
 var smtpTransport = require('nodemailer-smtp-transport');
 var nodemailer = require('nodemailer');
@@ -16,30 +16,30 @@ router.route('/accesor/signup')
     .get(function(req, res) {
         res.render('accesor/signup');
     })
-    .post(function(req, res){
-                user = new User({
-                    username: req.body.username,
-                    email: req.body.email,
-                    phonenumber: req.body.phonenumber,
-                    isAccesor: true
+    .post(function(req, res) {
+        user = new User({
+            username: req.body.username,
+            email: req.body.email,
+            phonenumber: req.body.phonenumber,
+            isAccesor: true
+        });
+        password = req.body.password;
+        confirm = req.body.confirm;
+        User.register(user, password, function(err, user) {
+            if (err) {
+                console.log("User error", user, err, err.message);
+                return res.render('/accesor/signup', {
+                    'user': user,
+                    'error': err.message
                 });
-                password = req.body.password;
-                confirm = req.body.confirm;
-                User.register(user, password, function(err, user){
-                    if (err) {
-                        console.log("User error", user, err, err.message);
-                        return res.render('/accesor/signup', {
-                            'user': user, 
-                            'error': err.message
-                        });
-                    }
+            }
 
-                    passport.authenticate('local')(req, res, function(){
-                        res.redirect('/admin/dashboard');
-                    });
-
-                });
+            passport.authenticate('local')(req, res, function() {
+                res.redirect('/admin/dashboard');
             });
+
+        });
+    });
 
 
 router.route('/accesor/login')
