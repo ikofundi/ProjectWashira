@@ -278,8 +278,8 @@ router.route('/tasks/:id/delete')
     .get(function(req, res) {
         deleteTask('GET', req, res);
     });
-router.route('/tasks/registerUrl')
-    .get(function (req, res) {
-        reqBody = 
-    })
+// router.route('/tasks/registerUrl')
+//     .get(function (req, res) {
+//         reqBody = 
+//     });
 module.exports = router;
