@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var soap = require('soap');
 var Task = require('../models/task');
 var sms = require('../controllers/sms');
 // var jobId = require('../controllers/jobId');
@@ -24,12 +25,12 @@ router.route('/taskform')
 
         // // find all the job ids
         var jobId = Math.floor(100000 + Math.random() * 900000).toString();
-            // var jobId = '963142'
+        // var jobId = '963142'
 
-  
-           
 
-       
+
+
+
         console.log(jobId);
 
         // console.log(jobIdList);
@@ -278,8 +279,26 @@ router.route('/tasks/:id/delete')
     .get(function(req, res) {
         deleteTask('GET', req, res);
     });
-// router.route('/tasks/registerUrl')
-//     .get(function (req, res) {
-//         reqBody = 
-//     });
+router.route('/tasks/mpesa/RegisterURL')
+    .all(function(req, res) {
+        var wsdlUrl = 'http://portal.safaricom.com/tregisterURL';
+        soap.createClient(wsdlUrl, function(err, soapClient) {
+            // we now have a soapClient - we also need to make sure there's no `err` here. 
+            if (err) {
+                return res.status(500).json(err);
+            }
+            soapClient.RequestSOAPHeader({
+                CommandID: "RegisterURL"
+                
+            }, function(err, result) {
+                if (err) {
+                    return res.status(500).json(err);
+                }
+                return res.json(result);
+            });
+
+        });
+    
+
+});
 module.exports = router;

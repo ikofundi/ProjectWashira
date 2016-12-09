@@ -42,7 +42,8 @@
     "util": "~0.10.3",
     "bcryptjs": "~2.3.0",
     "mocha": "~3.1.2",
-    "chai": "~3.5.0"
+    "chai": "~3.5.0",
+    "soap": "~0.18.0"
   },
   "devDependencies": {
     "grunt": "^1.0.1"

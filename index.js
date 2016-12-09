@@ -16,6 +16,7 @@ var bcrypt = require('bcrypt-nodejs');
 var async = require('async');
 var crypto = require('crypto');
 var flash = require('connect-flash');
+var soap = require('soap');
 // var favicon = require('static-favicon');
 
 // express middleware
