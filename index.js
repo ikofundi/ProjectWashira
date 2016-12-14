@@ -2,6 +2,7 @@ var express = require('express');
 var cons = require('consolidate');
 var app = express();
 var path = require('path');
+// passport
 var cookieParser = require('cookie-parser');
 var expressSession = require('express-session');
 var passport = require('passport');
@@ -10,6 +11,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var logger = require('morgan');
 var expressValidator = require('express-validator');
 var util = require('util');
+// nodemailer
 var nodemailer = require('nodemailer');
 var smtpTransport = require('nodemailer-smtp-transport');
 var bcrypt = require('bcrypt-nodejs');
@@ -24,8 +26,10 @@ var bodyParser = require('body-parser');
 
 // include mongoose
 var mongoose = require('mongoose');
+
+var mongodbUri = 'mongodb://heroku_qwlmtvmc:k338d2p91jmj9m2l5clrqc0ao1@ds133388.mlab.com:33388/heroku_qwlmtvmc';
 var uristring =
-    process.env.MONGOLAB_URI ||
+    mongodbUri ||
     process.env.MONGOHQ_URL ||
     'mongodb://localhost/washiradb';
 mongoose.connect(uristring, function(err, res) {

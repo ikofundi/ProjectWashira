@@ -69,60 +69,60 @@ module.exports = function acknowledgeGettingTask(to, firstname, availability, us
     post_req.end();
 }
 
-module.exports = function notifyCustomerOfQuotedPrice(to, firstname, username, apikey, req, res,quotedPrice, jobId) {
+// module.exports = function notifyCustomerOfQuotedPrice(to, firstname, username, apikey, req, res,quotedPrice, jobId) {
 
-    // Define the recipient numbers in a comma separated string
-    // Numbers should be in international format as shown
-    var to = to;
-    var firstname = firstname;
-    // And of course we want our recipients to know what we really do
-    var message = "Hello " + firstname + " the price for your task will be " + quotedPrice + "." + "Please deposit the amount to paybill 567567 account name " + jobId;
+//     // Define the recipient numbers in a comma separated string
+//     // Numbers should be in international format as shown
+//     var to = to;
+//     var firstname = firstname;
+//     // And of course we want our recipients to know what we really do
+//     var message = "Hello " + firstname + " the price for your task will be " + quotedPrice + "." + "Please deposit the amount to paybill 567567 account name " + jobId;
 
-    // Build the post string from an object
+//     // Build the post string from an object
 
-    var post_data = querystring.stringify({
-        'username': username,
-        'to': to,
-        'message': message
-    });
+//     var post_data = querystring.stringify({
+//         'username': username,
+//         'to': to,
+//         'message': message
+//     });
 
-    var post_options = {
-        host: 'api.africastalking.com',
-        path: '/version1/messaging',
-        method: 'POST',
+//     var post_options = {
+//         host: 'api.africastalking.com',
+//         path: '/version1/messaging',
+//         method: 'POST',
 
-        rejectUnauthorized: false,
-        requestCert: true,
-        agent: false,
+//         rejectUnauthorized: false,
+//         requestCert: true,
+//         agent: false,
 
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Content-Length': post_data.length,
-            'Accept': 'application/json',
-            'apikey': apikey
-        }
-    };
+//         headers: {
+//             'Content-Type': 'application/x-www-form-urlencoded',
+//             'Content-Length': post_data.length,
+//             'Accept': 'application/json',
+//             'apikey': apikey
+//         }
+//     };
 
-    var post_req = https.request(post_options, function(res) {
-        res.setEncoding('utf8');
-        res.on('data', function(chunk) {
-            var jsObject = JSON.parse(chunk);
-            var recipients = jsObject.SMSMessageData.Recipients;
-            if (recipients.length > 0) {
-                for (var i = 0; i < recipients.length; ++i) {
-                    var logStr = 'number=' + recipients[i].number;
-                    logStr += ';cost=' + recipients[i].cost;
-                    logStr += ';status=' + recipients[i].status; // status is either "Success" or "error message"
-                    console.log(logStr);
-                }
-            } else {
-                console.log('Error while sending: ' + jsObject.SMSMessageData.Message);
-            }
-        });
-    });
+//     var post_req = https.request(post_options, function(res) {
+//         res.setEncoding('utf8');
+//         res.on('data', function(chunk) {
+//             var jsObject = JSON.parse(chunk);
+//             var recipients = jsObject.SMSMessageData.Recipients;
+//             if (recipients.length > 0) {
+//                 for (var i = 0; i < recipients.length; ++i) {
+//                     var logStr = 'number=' + recipients[i].number;
+//                     logStr += ';cost=' + recipients[i].cost;
+//                     logStr += ';status=' + recipients[i].status; // status is either "Success" or "error message"
+//                     console.log(logStr);
+//                 }
+//             } else {
+//                 console.log('Error while sending: ' + jsObject.SMSMessageData.Message);
+//             }
+//         });
+//     });
 
-    // Add post parameters to the http request
-    post_req.write(post_data);
+//     // Add post parameters to the http request
+//     post_req.write(post_data);
 
-    post_req.end();
-}
+//     post_req.end();
+// }

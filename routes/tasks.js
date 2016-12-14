@@ -6,14 +6,17 @@ var sms = require('../controllers/sms');
 // var jobId = require('../controllers/jobId');
 var querystring = require('querystring');
 var https = require('https');
+var crypto = require('crypto');
 // Your login credentials
 var username = 'homefixer';
 var apikey = 'c430018837f7fa144d1c0b5ea21a21dbd8340bcc7dd0a9a23898afba9f3f6b23';
-
+// var pass = "Afric@123";
+// var hash = crypto.createHash('sha256').update(pass).digest('base64')
+// console.log(hash);
 router.route('/taskform')
     .get(function(req, res) {
 
-
+// console.log(hash);
 
         res.render('tasks/task-form');
     })
@@ -56,7 +59,7 @@ router.route('/taskform')
         }
 
         // console.log(formData);
-        //send sms acknowledging getting task
+        // send sms acknowledging getting task
         // sms(formData.phoneNumber, formData.firstname, formData.availability, username, apikey, req, res);
         task = new Task(formData);
         task.save(function(err, task) {
@@ -279,9 +282,10 @@ router.route('/tasks/:id/delete')
     .get(function(req, res) {
         deleteTask('GET', req, res);
     });
-router.route('/tasks/mpesa/RegisterURL')
+router.route('/tasks/mpesa')
     .all(function(req, res) {
         var wsdlUrl = 'http://portal.safaricom.com/tregisterURL';
+
         soap.createClient(wsdlUrl, function(err, soapClient) {
             // we now have a soapClient - we also need to make sure there's no `err` here. 
             if (err) {
@@ -289,7 +293,7 @@ router.route('/tasks/mpesa/RegisterURL')
             }
             soapClient.RequestSOAPHeader({
                 CommandID: "RegisterURL"
-                
+
             }, function(err, result) {
                 if (err) {
                     return res.status(500).json(err);
@@ -298,7 +302,7 @@ router.route('/tasks/mpesa/RegisterURL')
             });
 
         });
-    
 
-});
+
+    });
 module.exports = router;
