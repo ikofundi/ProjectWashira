@@ -1,6 +1,6 @@
 var express = require('express');
 var cons = require('consolidate');
-var app = module.exports = express();
+var app = express();
 var path = require('path');
 // passport
 var cookieParser = require('cookie-parser');
@@ -23,7 +23,7 @@ var soap = require('soap');
 
 // express middleware
 var bodyParser = require('body-parser');
-var MemoryStore = require('session-memory-store')(express);
+
 // include mongoose
 var mongoose = require('mongoose');
 
@@ -55,9 +55,9 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cookieParser());
 app.use(expressSession({
-   name: 'JSESSION',
-  secret: 'my secret',
-  store: new MemoryStore(options)
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: false
 
 }));
 app.use(express.static(path.join(__dirname, 'public')));
