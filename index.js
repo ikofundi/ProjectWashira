@@ -27,7 +27,7 @@ var bodyParser = require('body-parser');
 // include mongoose
 var mongoose = require('mongoose');
 
-var mongodbUri = 'mongodb://heroku_qwlmtvmc:k338d2p91jmj9m2l5clrqc0ao1@ds133388.mlab.com:33388/heroku_qwlmtvmc';
+// var mongodbUri = 'mongodb://heroku_qwlmtvmc:k338d2p91jmj9m2l5clrqc0ao1@ds133388.mlab.com:33388/heroku_qwlmtvmc';
 var uristring =
     process.env.MONGOLAB_URI ||
     process.env.MONGOHQ_URL ||
@@ -55,9 +55,9 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cookieParser());
 app.use(expressSession({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: false
+    name: 'JSESSION',
+  secret: 'my secret',
+  store: new MemoryStore(options)
 
 }));
 app.use(express.static(path.join(__dirname, 'public')));
