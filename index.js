@@ -55,9 +55,9 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cookieParser());
 app.use(expressSession({
-    name: 'JSESSION',
-  secret: 'my secret',
-  store: new MemoryStore(options)
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: false
 
 }));
 app.use(express.static(path.join(__dirname, 'public')));
