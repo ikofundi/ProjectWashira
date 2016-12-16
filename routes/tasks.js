@@ -10,9 +10,7 @@ var crypto = require('crypto');
 // Your login credentials
 var username = 'homefixer';
 var apikey = 'c430018837f7fa144d1c0b5ea21a21dbd8340bcc7dd0a9a23898afba9f3f6b23';
-// var pass = "Afric@123";
-// var hash = crypto.createHash('sha256').update(pass).digest('base64')
-// console.log(hash);
+
 router.route('/taskform')
     .get(function(req, res) {
 
@@ -282,19 +280,24 @@ router.route('/tasks/:id/delete')
     .get(function(req, res) {
         deleteTask('GET', req, res);
     });
-router.route('/tasks/mpesa')
+router.route('/tasks/mpesa/registerUrl')
     .all(function(req, res) {
-        var wsdlUrl = 'http://portal.safaricom.com/tregisterURL';
+        var pass = "Afric@123";
+        var hash = crypto.createHash('sha256').update(pass).digest('base64')
 
+        var wsdlUrl = '../CBPInterface_Request1.wsdl';
+        soapHeader = {
+            spId: "107015",
+            spPassword: hash,
+            timeStamp: Date.now(),
+            serviceId: "107015000"
+        }
         soap.createClient(wsdlUrl, function(err, soapClient) {
             // we now have a soapClient - we also need to make sure there's no `err` here. 
             if (err) {
                 return res.status(500).json(err);
             }
-            soapClient.RequestSOAPHeader({
-                CommandID: "RegisterURL"
-
-            }, function(err, result) {
+            soapClient.RequestSOAPHeader(soapHeader, function(err, result) {
                 if (err) {
                     return res.status(500).json(err);
                 }
