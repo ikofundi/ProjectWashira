@@ -14,7 +14,7 @@ var apikey = 'c430018837f7fa144d1c0b5ea21a21dbd8340bcc7dd0a9a23898afba9f3f6b23';
 router.route('/taskform')
     .get(function(req, res) {
 
-// console.log(hash);
+        // console.log(hash);
 
         res.render('tasks/task-form');
     })
@@ -282,30 +282,154 @@ router.route('/tasks/:id/delete')
     });
 router.route('/tasks/mpesa/registerUrl')
     .all(function(req, res) {
-        var pass = "Afric@123";
-        var hash = crypto.createHash('sha256').update(pass).digest('base64')
+            var pass = "Afric@123";
+            var hash = crypto.createHash('sha256').update(pass).digest('base64')
 
-        var wsdlUrl = '../CBPInterface_Request1.wsdl';
-        soapHeader = {
-            spId: "107015",
-            spPassword: hash,
-            timeStamp: Date.now(),
-            serviceId: "107015000"
-        }
-        soap.createClient(wsdlUrl, function(err, soapClient) {
-            // we now have a soapClient - we also need to make sure there's no `err` here. 
-            if (err) {
-                return res.status(500).json(err);
-            }
-            soapClient.RequestSOAPHeader(soapHeader, function(err, result) {
+            var wsdlUrl = '../CBPInterface_Request1.wsdl';
+            var soapHeader = {
+                spId: "107015",
+                spPassword: hash,
+                timeStamp: Date.now(),
+                serviceId: "107015000"
+            };
+            var msg = {
+                Transaction: {
+                    CommandID: "RegisterURL",
+                    OriginatorConversationID: "Reg-266-1126",
+                    Parameters: {
+                        Parameter: {
+                            Key: "ResponseType",
+                            Value: "Completed",
+                        }
+                    },
+                    ReferenceData: {
+                        ReferenceItem: {
+                            Key: "ValidationURL",
+                            Value: "https://projectwashira.herokuapp.com/tasks/mpesa/validatec2bpayment"
+                        },
+                        ReferenceItem: {
+                            Key: "ConfirmationURL",
+                            Value: "https://projectwashira.herokuapp.com/tasks/mpesa/confirmc2bpayment"
+                        }
+                    },
+                },
+                Identity: {
+                    Caller: {
+                        CallerType: "0",
+                        ThirdpartyID: "",
+                        password: "",
+                        CheckSum: "",
+                        ResultURL: ""
+                    },
+                    Initiator: {
+                        PrimaryParty: {
+                            IdentifierType: "1",
+                            Identifier: "",
+                            ShortCode: "777135"
+                        }
+
+
+                    }
+                },
+                KeyOwner: "1"
+            };
+            soap.createClient(wsdlUrl, function(err, soapClient) {
+                // we now have a soapClient - we also need to make sure there's no `err` here. 
                 if (err) {
                     return res.status(500).json(err);
                 }
-                return res.json(result);
-            });
+                soapClient.RequestSOAPHeader(soapHeader, function(err, result) {
+                    if (err) {
+                        return res.status(500).json(err);
+                    }
+                    return res.json(result);
+                });
+                soapClient(wsdlUrl, function(err, soapClient) {
+                    // we now have a soapClient - we also need to make sure there's no `err` here. 
+                    if (err) {
+                        return res.status(500).json(err);
+                    }
+                    soapClient.RequestMsg(msg, function(err, result) {
+                        if (err) {
+                            return res.status(500).json(err);
+                        }
+                        return res.json(result);
+                    });
 
+                });
+
+
+            });
         });
 
+            router.route('/tasks/mpesa/validatec2bpayment')
+                .all(function(req, res) {
+                    var url = '../CBPInterface_C2BPaymentValidationAndConfirmation.wsdl';
+                    var args = {
+                            TransType: "",
+                            TransID: "",
+                            TransTime: "",
+                            TransAmount: "",
+                            BusinessShortCode: "",
+                            BillRefNumber: "",
+                            InvoiceNumber: "",
+                            OrgAccountBalance: "",
+                            ThirdPartyTransID: "",
+                            MSISDN: "",
+                            KYCInfo: {
+                                KYCName: "",
+                                KYCValue: "",
+                            }
+                        }
+                        // create soap client
+                    soap.createClient(url, function(err, soapClient) {
+                        // make sure there is no error
+                        if (err) {
+                            return res.status(500).json(err);
+                        }
 
-    });
-module.exports = router;
+                        soapClient.C2BPaymentValidationRequest(args, function(err, result) {
+                            if (err) {
+                                return res.status(500).json(err);
+
+                            }
+                            return res.json(result);
+                        })
+                    })
+                })
+            router.route('/tasks/mpesa/confirmc2bpayment')
+                .all(function(req, res) {
+                    var url = '../CBPInterface_C2BPaymentValidationAndConfirmation.wsdl';
+                    var args = {
+                            TransType: "",
+                            TransID: "",
+                            TransTime: "",
+                            TransAmount: "",
+                            BusinessShortCode: "",
+                            BillRefNumber: "",
+                            InvoiceNumber: "",
+                            OrgAccountBalance: "",
+                            ThirdPartyTransID: "",
+                            MSISDN: "",
+                            KYCInfo: {
+                                KYCName: "",
+                                KYCValue: "",
+                            }
+                        }
+                        // create soap client
+                    soap.createClient(url, function(err, soapClient) {
+                        // make sure there is no error
+                        if (err) {
+                            return res.status(500).json(err);
+                        }
+
+                        soapClient.C2BPaymentConfirmationRequest(args, function(err, result) {
+                            if (err) {
+                                return res.status(500).json(err);
+
+                            }
+                            return res.json(result);
+                        });
+                    });
+                });
+            module.exports = router;
