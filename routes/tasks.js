@@ -394,7 +394,7 @@ router.route('/tasks/mpesa/validatec2bpayment')
     .post(function(req, res) {
         // check for request
         console.log(xml);
-        var xml = req.body.toString();
+        var xml = req.body;
         parseString(xml, function(err, result) {
             console.dir(JSON.stringify(result));
             res.redirect('/tasks/mpesa/validatec2bpayment');
