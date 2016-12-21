@@ -19,6 +19,11 @@ var async = require('async');
 var crypto = require('crypto');
 var flash = require('connect-flash');
 var soap = require('soap');
+// soap
+xmlparser = require('express-xml-bodyparser');
+// cross origin resource(cors)
+var cors = require('cors');
+app.use(cors());
 // var favicon = require('static-favicon');
 
 // express middleware
@@ -63,6 +68,7 @@ app.use(expressSession({
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(xmlparser());
 
 // Express Validator
 app.use(expressValidator({

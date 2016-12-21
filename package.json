@@ -49,7 +49,10 @@
     "nodemailer-smtp-transport": "~2.7.2",
     "session-memory-store": "~0.2.2",
     "express-session-mongo": "~0.1.0",
-    "xml2js": "~0.4.17"
+    "xml2js": "~0.4.17",
+    "body-parser-xml": "~1.1.0",
+    "cors": "~2.8.1",
+    "express-xml-bodyparser": "~0.3.0"
   },
   "engines": {
     "node": "0.10.25"

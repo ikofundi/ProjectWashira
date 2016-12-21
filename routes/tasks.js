@@ -4,11 +4,12 @@ var soap = require('soap');
 var Task = require('../models/task');
 var sms = require('../controllers/sms');
 var path = require('path');
-// var jobId = require('../controllers/jobId');
 var querystring = require('querystring');
 var https = require('https');
 var crypto = require('crypto');
+var bodyParser = require("body-parser");
 var parseString = require('xml2js').parseString;
+xmlparser = require('express-xml-bodyparser');
 // Your login credentials
 var username = 'homefixer';
 var apikey = 'c430018837f7fa144d1c0b5ea21a21dbd8340bcc7dd0a9a23898afba9f3f6b23';
@@ -372,34 +373,33 @@ router.route('/tasks/mpesa/validatec2bpayment')
     .get(function(req, res) {
         var url = '../CBPInterface_C2BPaymentValidationAndConfirmation.wsdl';
         var args = {
-            ResultCode: "0",
-            ResultDesc: "Service Processing succesful",
-            ThirdPartyTransID: ""
-        }
-        // create soap client
-        soap.createClient(url, function (err, soapClient) {
+                ResultCode: "0",
+                ResultDesc: "Service Processing succesful",
+                ThirdPartyTransID: ""
+            }
+            // create soap client
+        soap.createClient(url, function(err, soapClient) {
             // check for errors
             if (err) {
-               return res.status(500).json(err); 
+                return res.status(500).json(err);
             }
-            soapClient.C2BPaymentValidationResult(args, function (err, result) {
+            soapClient.C2BPaymentValidationResult(args, function(err, result) {
                 if (err) {
-               return res.status(500).json(err); 
-            }
-            console.log('payment validated');
+                    return res.status(500).json(err);
+                }
+                console.log('payment validated');
             })
         })
 
     })
-    .post(function(req, res) {
-        // check for request
-        console.log(xml);
-        var xml = req.body;
-        parseString(xml, function(err, result) {
-            console.dir(JSON.stringify(result));
-            res.redirect('/tasks/mpesa/validatec2bpayment');
-        });
-    })
+    .post(xmlparser({trim: false, explicitArray: false}),function(req, res) {
+        // req.setEncoding('utf8');
+        var request = req.body;
+        console.log(request);
+        res.json(request);
+        // res.redirect('/tasks/mpesa/validatec2bpayment');
+    });
+
 router.route('/tasks/mpesa/confirmc2bpayment')
     .all(function(req, res) {
         var url = '../CBPInterface_C2BPaymentValidationAndConfirmation.wsdl';
