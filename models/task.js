@@ -12,6 +12,7 @@ var taskSchema = mongoose.Schema({
     availability: String,
     accesorComments: String,
     jobId: String,
+    amountPaid: String,
     accesed:  { type: Boolean, default: false }
 });
 

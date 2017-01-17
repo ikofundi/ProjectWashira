@@ -1,0 +1,27 @@
+#top{
+	background-color: #fce4ec;
+	min-height: 80px;
+	/*background-image: url('/images/hand.jpg');*/
+	background-repeat: no-repeat;
+	width: 100%;
+	background-size: cover;
+}
+#carousel-example-generic{
+	/*max-height: 100px;*/
+}
+#img1{
+	max-height: 500px;
+}
+#space{
+
+	background-color: #283593;
+	min-height: 200px;
+}
+#logo{
+	top: -40px;
+	left: 20px;
+	position: absolute;
+}
+#nav{
+	max-height: 20px;
+}

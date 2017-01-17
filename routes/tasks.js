@@ -28,9 +28,10 @@ router.route('/taskform')
         // console.log(req.body);
 
         // create job id list
-        //     jobIdList = [];
+
 
         // // find all the job ids
+
         var jobId = Math.floor(100000 + Math.random() * 900000).toString();
         // var jobId = '963142'
 
@@ -370,69 +371,75 @@ router.route('/tasks/:id/delete')
 //         });
 
 router.route('/tasks/mpesa/validatec2bpayment')
-    .get(function(req, res) {
-        var url = '../CBPInterface_C2BPaymentValidationAndConfirmation.wsdl';
-        var args = {
-                ResultCode: "0",
-                ResultDesc: "Service Processing succesful",
-                ThirdPartyTransID: ""
-            }
-            // create soap client
-        soap.createClient(url, function(err, soapClient) {
-            // check for errors
-            if (err) {
-                return res.status(500).json(err);
-            }
-            soapClient.C2BPaymentValidationResult(args, function(err, result) {
-                if (err) {
-                    return res.status(500).json(err);
-                }
-                console.log('payment validated');
-            })
-        })
+    .post(xmlparser({ trim: false, explicitArray: false }), function(req, res) {
+        // the req object contains transaction details from safcom
+        req.setEncoding('utf8');
+        // name the details incoming
+        var incoming = req.body;
+        // stringify the Json request
+        var request = JSON.stringify(incoming);
+        console.log(incoming);
 
-    })
-    .post(xmlparser({trim: false, explicitArray: false}),function(req, res) {
-        // req.setEncoding('utf8');
-        var request = req.body;
-        console.log(request);
-        res.json(request);
+        // change the request to a javascript object
+        var reqObject = JSON.parse(request);
+        // set response content type to xml
+        res.set('Content-Type', 'text/xml');
+        // extract the transaction details from object and save each separately as a string
+        var transAmount = reqObject["soapenv:envelope"]["soapenv:body"][0]["c2b:c2bpaymentvalidationrequest"][0]["transamount"][0];
+        var msisdn = reqObject["soapenv:envelope"]["soapenv:body"][0]["c2b:c2bpaymentvalidationrequest"][0]["msisdn"][0];
+        var mpesaFirstName = reqObject["soapenv:envelope"]["soapenv:body"][0]["c2b:c2bpaymentvalidationrequest"][0]["kycinfo"][0]["kycname"][0];
+
+        // console.log(transAmount);
+        // res.send(msisdn);
+
+        res.send('<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:c2b="http://cps.huawei.com/cpsinterface/c2bpayment"><soapenv:Header/><c2b:C2BPaymentValidationResult><ResultCode>0</ResultCode><ResultDesc>Service processing successful</ResultDesc><ThirdPartyTransID>1234560000088888</ThirdPartyTransID></c2b:C2BPaymentValidationResult></soapenv:Body></soapenv:Envelope>');
+
         // res.redirect('/tasks/mpesa/validatec2bpayment');
     });
 
 router.route('/tasks/mpesa/confirmc2bpayment')
-    .all(function(req, res) {
-        var url = '../CBPInterface_C2BPaymentValidationAndConfirmation.wsdl';
-        var args = {
-                TransType: "",
-                TransID: "",
-                TransTime: "",
-                TransAmount: "",
-                BusinessShortCode: "",
-                BillRefNumber: "",
-                InvoiceNumber: "",
-                OrgAccountBalance: "",
-                ThirdPartyTransID: "",
-                MSISDN: "",
-                KYCInfo: {
-                    KYCName: "",
-                    KYCValue: "",
-                }
-            }
-            // create soap client
-        soap.createClient(url, function(err, soapClient) {
-            // make sure there is no error
-            if (err) {
-                return res.status(500).json(err);
+    .post(xmlparser({ trim: false, explicitArray: false }), function(req, res) {
+        // the req object contains transaction details from safcom
+        req.setEncoding('utf8');
+        // name the details incoming
+        var incoming = req.body;
+        // console.log(incoming);
+        // stringify the Json request
+        var request = JSON.stringify(incoming);
+        // change the request to a javascript object
+        var reqObject = JSON.parse(request);
+
+        // extract the transaction details from object and save each separately as a string
+        var transAmount = reqObject["soapenv:envelope"]["soapenv:body"][0]["c2b:c2bpaymentvalidationrequest"][0]["transamount"][0];
+        var msisdn = reqObject["soapenv:envelope"]["soapenv:body"][0]["c2b:c2bpaymentvalidationrequest"][0]["msisdn"][0];
+        var mpesaFirstName = reqObject["soapenv:envelope"]["soapenv:body"][0]["c2b:c2bpaymentvalidationrequest"][0]["kycinfo"][0]["kycname"][0];
+        // concatenate the returned phone number that lacks + sign with a + sign
+        msisdn = "+".concat(msisdn);
+        // console.log(pn);
+        Task.findOneAndUpdate({"phoneNumber": msisdn}, {$set:{amountPaid: transAmount}}, {new: true}, function(err, task) {
+
+
+                if (err) return console.log(err);
+
+                // task.paidHalf = false;
+                res.json(task);
+                
+
+
+
+
+
             }
 
-            soapClient.C2BPaymentConfirmationRequest(args, function(err, result) {
-                if (err) {
-                    return res.status(500).json(err);
+        )
 
-                }
-                return res.json(result);
-            });
-        });
+        
+
+
+        // set response content type to xml
+        // res.set('Content-Type', 'text/xml');
+        // res.send('<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:c2b="http://cps.huawei.com/cpsinterface/c2bpayment"><soapenv:Header/><soapenv:Body> <c2b:C2BPaymentConfirmationResult>C2B Payment Transaction 1234560000007031 result received.</c2b:C2BPaymentConfirmationResult></soapenv:Body></soapenv:Envelope>');
+
     });
+
 module.exports = router;

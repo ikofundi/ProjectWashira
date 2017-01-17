@@ -19,6 +19,7 @@ var async = require('async');
 var crypto = require('crypto');
 var flash = require('connect-flash');
 var soap = require('soap');
+
 // soap
 xmlparser = require('express-xml-bodyparser');
 // cross origin resource(cors)
@@ -52,7 +53,7 @@ app.set('port', (process.env.PORT || 8081));
 app.engine('html', cons.liquid);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'html');
-// app.use(favicon());
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(logger('dev'));
 // express middleware
 app.use(bodyParser.urlencoded({
@@ -128,7 +129,7 @@ passport.deserializeUser(User.deserializeUser());
 
 
 
-app.listen(app.get('port'), function() {
+app.listen(app.get('port'),'0.0.0.0', function() {
     console.log('server running on http://127.0.0.1:%s', app.get('port'));
 
 });
