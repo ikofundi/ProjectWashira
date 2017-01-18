@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Home</title>
+    <title>IkoFundi|All your fundi needs in one place </title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <!-- Optional theme -->
@@ -24,7 +24,7 @@
 
 <body>
     <nav class="navbar navbar-default navbar-fixed-top" id="nav">
-    	 <img id="logo" src="/images/logo.png" alt="">
+        <img id="logo" src="/images/new.png" alt="">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -54,7 +54,7 @@
                     </li>
                 </ul> -->
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/taskform">Book a Fundi</a></li>
+                    <!-- <li></li> -->
                     <!-- <li><a href="../navbar-static-top/">Static top</a></li> -->
                     <!-- <li class="active"><a href="./">Fixed top <span class="sr-only">(current)</span></a></li> -->
                 </ul>
@@ -62,16 +62,15 @@
             <!--/.nav-collapse -->
         </div>
     </nav>
-  
     <section class="text-center">
         <!-- carousel starts -->
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
             <!-- Indicators -->
             <ol class="carousel-indicators">
-                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                <li data-target="#myCarousel" data-slide-to="1"></li>
-                <li data-target="#myCarousel" data-slide-to="2"></li>
-                <li data-target="#myCarousel" data-slide-to="3"></li>
+                <!-- <li data-target="#myCarousel" data-slide-to="0" class="active"></li> -->
+                <!-- <li data-target="#myCarousel" data-slide-to="1"></li> -->
+                <!-- <li data-target="#myCarousel" data-slide-to="2"></li> -->
+                <!-- <li data-target="#myCarousel" data-slide-to="3"></li> -->
             </ol>
             <!-- Wrapper for slides -->
             <div class="carousel-inner" role="listbox">
@@ -85,7 +84,7 @@
                     <img src="/images/hand.jpg" alt="Flower" width="460" height="345">
                 </div>
                 <div class="item">
-                    <img src="/images/hand.jpg" alt="Flower" width="460" height="345">
+                    <img class="img-responsive" src="/images/iko.jpg" alt="Flower" width="460" height="345">
                 </div>
             </div>
             <!-- Left and right controls -->
@@ -101,11 +100,30 @@
         </div>
         </div>
     </section>
-    <section id="space">
+    <section id="booking" class="text-center">
+        <a href="/taskform">
+            <button type="button" id="bookfundi" class="btn btn-info text-center">
+                <h3 id="bookfunditext">Book a Fundi</h3></button>
+        </a>
+    </section>
+    <section id="how_it_works" class="row text-center">
+        <h2>How it works</h2>
+        <div class="row col-sm-3">
+            <img class="img-responsive" src="/images/new.png" alt="">
+        </div>
+        <div class="row col-sm-3">
+            <img class="img-responsive" src="/images/new.png" alt="">
+        </div>
+        <div class="row col-sm-3">
+            <img class="img-responsive" src="/images/new.png" alt="">
+        </div>
+        <div class="row col-sm-3">
+            <img class="img-responsive" src="/images/new.png" alt="">
+        </div>
     </section>
     <p><a href="/accesor/login">Accesor</a> or <a href="/admin/login">Admin</a></p>
 </body>
-<!-- <script src="/js/jquery.js"></script> -->
+<script src="/js/jquery.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 

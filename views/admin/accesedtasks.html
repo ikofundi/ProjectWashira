@@ -27,6 +27,7 @@
                 <thead>
                     <th>Job Id</th>
                     <th>Category</th>
+                    <th>Amount Paid</th>
                     <th>Firstname</th>
                     <th>Lastname</th>
                     <th class="text-center">Email</th>
@@ -42,6 +43,7 @@
                     <tr>
                         <td class="info">{{ task.jobId | upcase}}</td>
                         <td class="active">{{ task.category | upcase }}</td>
+                        <td class="active">{{ task.amountPaid | upcase }}</td>
                         <td class="success">{{ task.firstname | upcase}}</td>
                         <td class="info">{{ task.lastname | upcase}}</td>
                         <td class="info">{{ task.email | upcase}}</td>

@@ -139,7 +139,7 @@ router.route('/tasks/accesor/accesed')
 router.route('/tasks/admin/unaccesed')
     .get(function(req, res) {
         Task.find({ "accesed": false })
-            .select('category firstname lastname email location phoneNumber description availability jobId quotedPrice accesorComments')
+            .select('category firstname lastname email location phoneNumber  description availability jobId quotedPrice accesorComments')
             .exec(function(err, tasks) {
 
 
@@ -161,7 +161,7 @@ router.route('/tasks/admin/unaccesed')
 router.route('/tasks/admin/accesed')
     .get(function(req, res) {
         Task.find({ "accesed": true })
-            .select('category firstname lastname email location phoneNumber description availability quotedPrice accesorComments jobId accesed')
+            .select('category firstname lastname amountPaid email location phoneNumber description availability quotedPrice accesorComments jobId accesed')
             .exec(function(err, tasks) {
 
 
@@ -217,9 +217,8 @@ function updateTask(method, req, res) {
                 res.json(task);
 
             } else {
-
-                res.send('/tasks/accesor/accesed');
-                // res.json(task);
+                   res.redirect('/tasks/accesor/accesed');
+               
             };
 
         });
@@ -415,7 +414,7 @@ router.route('/tasks/mpesa/confirmc2bpayment')
         var mpesaFirstName = reqObject["soapenv:envelope"]["soapenv:body"][0]["c2b:c2bpaymentvalidationrequest"][0]["kycinfo"][0]["kycname"][0];
         // concatenate the returned phone number that lacks + sign with a + sign
         msisdn = "+".concat(msisdn);
-        // console.log(pn);
+        // Find the task using the phone number returned by safcom and set the amount paid
         Task.findOneAndUpdate({"phoneNumber": msisdn}, {$set:{amountPaid: transAmount}}, {new: true}, function(err, task) {
 
 
@@ -437,7 +436,8 @@ router.route('/tasks/mpesa/confirmc2bpayment')
 
 
         // set response content type to xml
-        // res.set('Content-Type', 'text/xml');
+        res.set('Content-Type', 'text/xml');
+        // send response to safcom
         // res.send('<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:c2b="http://cps.huawei.com/cpsinterface/c2bpayment"><soapenv:Header/><soapenv:Body> <c2b:C2BPaymentConfirmationResult>C2B Payment Transaction 1234560000007031 result received.</c2b:C2BPaymentConfirmationResult></soapenv:Body></soapenv:Envelope>');
 
     });
