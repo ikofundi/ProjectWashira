@@ -35,17 +35,20 @@
     background-image: none;
 }
 #booking{
-	max-height: 50px;
-	background-color: #ebb92f;
+	max-height: 90px;
+	/*background-color: #ebb92f;*/
 	opacity: 0.8;
+
 	 
 }
 #bookfundi{
+
 	width: 400px;
-	height: 50px;
+	height: 90px;
 	box-sizing: border-box; 
 	line-height: 80px;
 }
 #bookfunditext{
-	/*top: -1px;*/
-}
+	font-weight: bold;
+	vertical-align: super;
+	}
