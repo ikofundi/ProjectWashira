@@ -2,7 +2,9 @@ var express = require('express');
 var router = express.Router();
 var soap = require('soap');
 var Task = require('../models/task');
+var Technician = require('../models/technician');
 var sms = require('../controllers/sms');
+var notifyCustomerOfMpesaReceipt = require('../controllers/notifyCustomerOfMpesaReceipt');
 var path = require('path');
 var querystring = require('querystring');
 var https = require('https');
@@ -42,14 +44,14 @@ router.route('/taskform')
         console.log(jobId);
 
         // console.log(jobIdList);
-        firstname = req.body.firstname;
-        lastname = req.body.lastname;
-        email = req.body.email;
-        location = req.body.location;
+        firstname = req.body.firstname.toLowerCase();
+        lastname = req.body.lastname.toLowerCase();
+        email = req.body.email.toLowerCase();
+        location = req.body.location.toLowerCase();
         phoneNumber = req.body.phoneNumber;
-        category = req.body.category;
+        category = req.body.category.toLowerCase();
         availability = req.body.availability;
-        description = req.body.description;
+        description = req.body.description.toLowerCase();
 
         formData = {
             firstname: firstname,
@@ -419,9 +421,17 @@ router.route('/tasks/mpesa/confirmc2bpayment')
 
 
                 if (err) return console.log(err);
+                // send sms to customer acknowledging receipt of mpesa payment
+                // notifyCustomerOfMpesaReceipt(msisdn, transAmount, username, apikey, req, res);
+                taskCategory = task.category.toLowerCase();
+                // find technician by category of the task returned by safcom
+                Technician.find({"category": task.category}, function (err, technician) {
+                    if (err) return console.log(err);
 
-                // task.paidHalf = false;
-                res.json(task);
+                    console.log(taskCategory);
+                      res.json(taskCategory);
+                })
+                // res.json(task.category);
                 
 
 

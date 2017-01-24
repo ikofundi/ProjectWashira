@@ -5,20 +5,15 @@ var https = require('https');
 
 "use strict";
 
-// // Your login credentials
-// var username = 'homefixer';
-// var apikey   = 'c430018837f7fa144d1c0b5ea21a21dbd8340bcc7dd0a9a23898afba9f3f6b23';
 
-
-
-module.exports = function acknowledgeGettingTask(to, firstname, availability, username, apikey, req, res) {
+ module.exports = function notifyCustomerOfQuotedPrice(to, firstname, username, apikey, req, res,quotedPrice, jobId) {
 
     // Define the recipient numbers in a comma separated string
     // Numbers should be in international format as shown
     var to = to;
     var firstname = firstname;
     // And of course we want our recipients to know what we really do
-    var message = "Thank you " + firstname + " for requesting Homefix services. We will send an acessor at the time you have specified " + availability;
+    var message = "Hello " + firstname + " the price for your task will be " + quotedPrice + "." + "Please deposit the amount to paybill 567567 account name " + jobId;
 
     // Build the post string from an object
 
@@ -68,4 +63,3 @@ module.exports = function acknowledgeGettingTask(to, firstname, availability, us
 
     post_req.end();
 }
-
