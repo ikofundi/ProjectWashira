@@ -5,21 +5,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>IkoFundi|All your fundi needs in one place </title>
+    <title>IkoFundi | All your fundi needs in one place </title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <!-- Latest compiled and minified JavaScript -->
     <link rel="stylesheet" type="text/css" href="/index/style.css" />
-    <style>
-    .carousel-inner > .item > img,
-    .carousel-inner > .item > a > img {
-        width: 100%;
-        height: 500px;
-        margin: auto;
-    }
-    </style>
 </head>
 
 <body>
@@ -62,7 +54,7 @@
             <!--/.nav-collapse -->
         </div>
     </nav>
-    <section class="text-center">
+    <section id="carousel" class="text-center">
         <!-- carousel starts -->
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
             <!-- Indicators -->
@@ -99,35 +91,48 @@
             </a> -->
         </div>
         </div>
-    </section><br>
+    </section>
+    <br>
     <section id="booking" class="text-center">
         <a href="/taskform">
-            <button type="button" id="bookfundi" class="btn btn-success text-center">
+            <button type="button" id="bookfundi" class=" text-center">
                 <h3 id="bookfunditext">Book a Fundi</h3></button>
         </a>
     </section>
-    <section id="how_it_works" class="row text-center">
-        <h2>How it works</h2>
-        <div class="row col-sm-3 text-center">
-            <img class="img-responsive" src="/images/new.png" alt="">
-            <h6>Fill out details form</h6>
+    <br>
+    <section id="how_it_works" class="row text-center ">
+        <h2 id="howtext">How <span id="iko">ikoFundi</span> works:</h2>
+        <h4>Get sorted in 4 easy steps</h4>
+        <br>
+        <div id="stepdiv1" class="row col-sm-3  text-center col-centered">
+            <img id="step1" src="/images/fill_form.png" alt="">
+            <br>
+            <br>
+            <p class="explain">1.Tell us the date & time You will be available</p>
         </div>
-        <div class="row col-sm-3 text-center">
-            <img class="img-responsive" src="/images/new.png" alt="">
-            <p>We will send our team to access job</p>
+        <div id="stepdiv2" class="row col-sm-3 col-md-3 col-lg-3 text-center col-centered">
+            <img id="step2" src="/images/access.png" alt="">
+            <br>
+            <br>
+            <p class="explain">2.We will send our team to access job</p>
         </div>
-        <div class="row col-sm-3">
-            <img class="img-responsive" src="/images/new.png" alt="">
-            <p>You will pay</p>
+        <div id="stepdiv3" class="row col-sm-3 col-md-3 col-lg-3 text-center col-centered">
+            <img id="step3" src="/images/pay.png" alt="">
+            <br>
+            <br>
+            <p class="explain">3.Confirm & pay the quoted Price</p>
         </div>
-        <div class="row col-sm-3">
-            <img class="img-responsive" src="/images/new.png" alt="">
-            <p>We will send Fundi</p>
+        <div id="stepdiv4" class="row col-sm-3 col-md-3 col-lg-3 text-center col-centered">
+            <img id="step4" src="/images/fundi.png" alt="">
+            <br>
+            <br>
+            <p class="explain">4.We will send a professional</p>
         </div>
     </section>
     <p><a href="/accesor/login">Accesor</a> or <a href="/admin/login">Admin</a></p>
 </body>
 <script src="/js/jquery.js"></script>
+<script src="/js/style.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
