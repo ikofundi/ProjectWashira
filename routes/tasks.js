@@ -1,3 +1,5 @@
+// This page is for all the logic concerned with the task.
+
 var express = require('express');
 var router = express.Router();
 var soap = require('soap');
@@ -12,38 +14,30 @@ var crypto = require('crypto');
 var bodyParser = require("body-parser");
 var parseString = require('xml2js').parseString;
 xmlparser = require('express-xml-bodyparser');
-// Your login credentials
+// Declare Africaistalking username and password 
 var username = 'homefixer';
 var apikey = 'c430018837f7fa144d1c0b5ea21a21dbd8340bcc7dd0a9a23898afba9f3f6b23';
-//   var hash = crypto.createHash('sha256').update('pass').digest('base64')
+
+// below is how to hash a string in sha256 and base64, the password(variable pass) was given to us by safaricom.
+// uncomment if needed by safcom
 // var pass = "Afric@123";
+// var hash = crypto.createHash('sha256').update('pass').digest('base64')
 
 
+// This route requests the form for filling client's task.It also handles the response which contains the info and stores it in the database.
+// It is also where the job id for the task is created.
 router.route('/taskform')
     .get(function(req, res) {
-
-        // console.log(hash);
 
         res.render('tasks/task-form');
     })
     .post(function(req, res) {
-        // console.log(req.body);
-
-        // create job id list
-
-
-        // // find all the job ids
-
+       
+// create a random 6 figure digit and declare it as var job id
         var jobId = Math.floor(100000 + Math.random() * 900000).toString();
-        // var jobId = '963142'
-
-
-
-
-
         console.log(jobId);
+// save each input in the request body to a variable 
 
-        // console.log(jobIdList);
         firstname = req.body.firstname.toLowerCase();
         lastname = req.body.lastname.toLowerCase();
         email = req.body.email.toLowerCase();

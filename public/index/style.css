@@ -1,7 +1,7 @@
 .carousel-inner > .item > img,
     .carousel-inner > .item > a > img {
         width: 100%;
-        height: 500px;
+        height: 350px;
         margin: auto;
     }
 #top{
@@ -64,8 +64,9 @@
 }
 #bookfundi{
 	background-color: green;
-	width: 400px;
-	height: 90px;
+	width: 200px;
+	height: 80px;
+	border-radius: 10px;
 	box-sizing: border-box; 
 	line-height: 80px;
 }

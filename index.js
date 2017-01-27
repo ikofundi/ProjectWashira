@@ -28,7 +28,7 @@ app.use(cors());
 // var favicon = require('static-favicon');
 
 // express middleware
-var bodyParser = require('body-parser');
+var bodyParser = require('body-parser');;
 
 // include mongoose
 var mongoose = require('mongoose');
