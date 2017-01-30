@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "engines": {
     "npm": "3.5.2"
-  }
+  },
   "description": "Get tasks done by profesionals",
   "main": "index.js",
   "scripts": {
