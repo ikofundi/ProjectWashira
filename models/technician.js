@@ -2,12 +2,12 @@ var mongoose = require('mongoose');
 // define schema
 var technicianSchema = mongoose.Schema({
     category: String,
-    firstname: String,
-    lastname: String,
+    firstName: String,
+    lastName: String,
     email: String,
     location: String,
     phoneNumber: {type: String, minlength: 13, maxlength: 13},
-    Idnumber: {type: String, minlength: 8, maxlength: 8},
+    idNumber: {type: String, minlength: 8, maxlength: 8},
     
 });
 

@@ -31,39 +31,39 @@ $(document).ready(function() {
     $("#bookfundi").mouseleave(function() {
         $("#iko").css("color", "#ebb92f");
     });
-     $("#bookfundi").mouseenter(function() {
-        $(".navbar-default").css("background-color", "green");
+    //  $("#bookfundi").mouseenter(function() {
+    //     $(".navbar-default").css("background-color", "green");
 
-    });
-    $("#bookfundi").mouseleave(function() {
-        $(".navbar-default").css("background-color", "#ebb92f");
-    });
+    // });
+    // $("#bookfundi").mouseleave(function() {
+    //     $(".navbar-default").css("background-color", "#ebb92f");
+    // });
     $("#step1").mouseenter(function() {
-       $(this).attr('src', "/images/fillg.png");
+       $(this).fadeOut(100);
 
     });
     $("#step1").mouseleave(function() {
-       $(this).attr('src', "/images/fill_form.png");
+       $(this).fadeIn();
     });
-        $("#stepdiv2").mouseenter(function() {
-       $("#step2").attr('src', "/images/accessg.png");
+    //     $("#stepdiv2").mouseenter(function() {
+    //    $("#step2").attr('src', "/images/accessg.png");
 
-    });
-    $("#step2").mouseleave(function() {
-       $(this).attr('src', "/images/access.png");
-    });
-    $("#step3").mouseenter(function() {
-       $(this).attr('src', "/images/payg.png");
+    // });
+    // $("#step2").mouseleave(function() {
+    //    $(this).attr('src', "/images/access.png");
+    // });
+    // $("#step3").mouseenter(function() {
+    //    $(this).attr('src', "/images/payg.png");
 
-    });
-    $("#step3").mouseleave(function() {
-       $(this).attr('src', "/images/pay.png");
-    });
-     $("#step4").mouseenter(function() {
-       $(this).attr('src', "/images/fundig.png");
+    // });
+    // $("#step3").mouseleave(function() {
+    //    $(this).attr('src', "/images/pay.png");
+    // });
+    //  $("#step4").mouseenter(function() {
+    //    $(this).attr('src', "/images/fundig.png");
 
-    });
-    $("#step4").mouseleave(function() {
-       $(this).attr('src', "/images/fundi.png");
-    });
+    // });
+    // $("#step4").mouseleave(function() {
+    //    $(this).attr('src', "/images/fundi.png");
+    // });
 });

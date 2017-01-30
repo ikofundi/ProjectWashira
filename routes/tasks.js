@@ -32,11 +32,11 @@ router.route('/taskform')
         res.render('tasks/task-form');
     })
     .post(function(req, res) {
-       
-// create a random 6 figure digit and declare it as var job id
+
+        // create a random 6 figure digit and declare it as var job id
         var jobId = Math.floor(100000 + Math.random() * 900000).toString();
         console.log(jobId);
-// save each input in the request body to a variable 
+        // save each input in the request body to a variable 
 
         firstname = req.body.firstname.toLowerCase();
         lastname = req.body.lastname.toLowerCase();
@@ -213,8 +213,8 @@ function updateTask(method, req, res) {
                 res.json(task);
 
             } else {
-                   res.redirect('/tasks/accesor/accesed');
-               
+                res.redirect('/tasks/accesor/accesed');
+
             };
 
         });
@@ -411,35 +411,36 @@ router.route('/tasks/mpesa/confirmc2bpayment')
         // concatenate the returned phone number that lacks + sign with a + sign
         msisdn = "+".concat(msisdn);
         // Find the task using the phone number returned by safcom and set the amount paid
-        Task.findOneAndUpdate({"phoneNumber": msisdn}, {$set:{amountPaid: transAmount}}, {new: true}, function(err, task) {
+        Task.findOneAndUpdate({ "phoneNumber": msisdn }, { $set: { amountPaid: transAmount } }, { new: true }, function(err, task) {
 
 
-                if (err) return console.log(err);
-                // send sms to customer acknowledging receipt of mpesa payment
-                // notifyCustomerOfMpesaReceipt(msisdn, transAmount, username, apikey, req, res);
-                taskCategory = task.category.toLowerCase();
-                // find technician by category of the task returned by safcom
-                Technician.find({"category": task.category}, function (err, technician) {
                     if (err) return console.log(err);
-
-                    console.log(taskCategory);
-                      res.json(taskCategory);
-                })
-                // res.json(task.category);
-                
-
-
-
-
-
-            }
-
-        )
-
-        
+                    // send sms to customer acknowledging receipt of mpesa payment
+                    // notifyCustomerOfMpesaReceipt(msisdn, transAmount, username, apikey, req, res);
+                    console.log(task.category);
+                    taskCategory = task.category.toLowerCase();
+                    // find technician by category of the task returned by safcom
+                    Technician.find({ "category": taskCategory })
+                        .select('category firstname lastname email  phoneNumber ')
+                        .exec(function(err, technician) {
 
 
-        // set response content type to xml
+                            if (err) return console.log(err);
+
+                            console.log(technician[0]);
+                            res.json(technician);
+                        });
+
+
+
+
+
+
+
+                }
+
+            )
+            // set response content type to xml
         res.set('Content-Type', 'text/xml');
         // send response to safcom
         // res.send('<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:c2b="http://cps.huawei.com/cpsinterface/c2bpayment"><soapenv:Header/><soapenv:Body> <c2b:C2BPaymentConfirmationResult>C2B Payment Transaction 1234560000007031 result received.</c2b:C2BPaymentConfirmationResult></soapenv:Body></soapenv:Envelope>');
