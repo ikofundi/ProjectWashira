@@ -1,7 +1,10 @@
 {
   "name": "projectwashira",
   "version": "1.0.0",
-  "description": "Get tasks done by proffesionals",
+  "engines": {
+    "npm": "3.5.2"
+  }
+  "description": "Get tasks done by profesionals",
   "main": "index.js",
   "scripts": {
     "test": "mocha"
