@@ -7,6 +7,7 @@ var Task = require('../models/task');
 var Technician = require('../models/technician');
 var sms = require('../controllers/sms');
 var notifyCustomerOfMpesaReceipt = require('../controllers/notifyCustomerOfMpesaReceipt');
+var notifyTechnicianOfTask = require('../controllers/notifyTechnicianOfTask');
 var path = require('path');
 var querystring = require('querystring');
 var https = require('https');
@@ -15,8 +16,8 @@ var bodyParser = require("body-parser");
 var parseString = require('xml2js').parseString;
 xmlparser = require('express-xml-bodyparser');
 // Declare Africaistalking username and password 
-var username = 'homefixer';
-var apikey = 'c430018837f7fa144d1c0b5ea21a21dbd8340bcc7dd0a9a23898afba9f3f6b23';
+var username = 'IKOFUNDI';
+var apikey = 'c579e40343543d7348e178a4fc626f644f047dfcc2a1df563ab09e1dd58bbade';
 
 // below is how to hash a string in sha256 and base64, the password(variable pass) was given to us by safaricom.
 // uncomment if needed by safcom
@@ -61,7 +62,7 @@ router.route('/taskform')
 
         // console.log(formData);
         // send sms acknowledging getting task
-        // sms(formData.phoneNumber, formData.firstname, formData.availability, username, apikey, req, res);
+        sms(formData.phoneNumber, formData.firstname, formData.availability, username, apikey, req, res);
         task = new Task(formData);
         task.save(function(err, task) {
             if (err) {
@@ -73,20 +74,14 @@ router.route('/taskform')
                     console.log('notified Accesor of ' + task)
                 }
                 notifyAccesor(task);
-                res.redirect('/done');
+                res.redirect('/');
             }
 
         });
     });
 
 
-router.route('/done')
-    .get(function(req, res) {
 
-
-
-        res.render('tasks/done');
-    });
 
 router.route('/tasks/accesor/unaccesed')
     .get(function(req, res) {
@@ -407,11 +402,12 @@ router.route('/tasks/mpesa/confirmc2bpayment')
         // extract the transaction details from object and save each separately as a string
         var transAmount = reqObject["soapenv:envelope"]["soapenv:body"][0]["c2b:c2bpaymentvalidationrequest"][0]["transamount"][0];
         var msisdn = reqObject["soapenv:envelope"]["soapenv:body"][0]["c2b:c2bpaymentvalidationrequest"][0]["msisdn"][0];
-        var mpesaFirstName = reqObject["soapenv:envelope"]["soapenv:body"][0]["c2b:c2bpaymentvalidationrequest"][0]["kycinfo"][0]["kycname"][0];
+        var accountName = reqObject["soapenv:envelope"]["soapenv:body"][0]["c2b:c2bpaymentvalidationrequest"][0]["invoicenumber"][0];
         // concatenate the returned phone number that lacks + sign with a + sign
         msisdn = "+".concat(msisdn);
+        console.log(accountName);
         // Find the task using the phone number returned by safcom and set the amount paid
-        Task.findOneAndUpdate({ "phoneNumber": msisdn }, { $set: { amountPaid: transAmount } }, { new: true }, function(err, task) {
+        Task.findOneAndUpdate({ "phoneNumber": msisdn, "jobId": accountName }, { $set: { amountPaid: transAmount } }, { new: true }, function(err, task) {
 
 
                     if (err) return console.log(err);
@@ -426,9 +422,20 @@ router.route('/tasks/mpesa/confirmc2bpayment')
 
 
                             if (err) return console.log(err);
+                            // create an empty array technicianPhoneNumbers to store phone numbers of the technicians found
+                            var technicianPhoneNumbers = [];
+                            // loop through the array returned by the query
+                            for (var i = 0; i < technician.length; i++) {
+                                // push each technician's number to the technicianPhoneNumbers array
+                                technicianPhoneNumbers.push(technician[i]["phoneNumber"]);
+                                // change the array to a comma separated string for use with africaistalking apikey
 
-                            console.log(technician[0]);
-                            res.json(technician);
+                                var technicianPhoneNumbersAsString = technicianPhoneNumbers.join();
+                            }
+                            // send message of task availabililty to technicians on that task's category
+                                notifyTechnicianOfTask(technicianPhoneNumbersAsString, task.quotedPrice, username, apikey, req, res );
+                            console.log(technician);
+                            res.json(technicianPhoneNumbersAsString);
                         });
 
 

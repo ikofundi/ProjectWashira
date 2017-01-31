@@ -6,14 +6,14 @@ var https = require('https');
 "use strict";
 
 
- module.exports = function notifyTechnicianOfTask(to, transAmount, username, apikey, req, res) {
+ module.exports = function notifyTechnicianOfTask(to, price, username, apikey, req, res) {
 
     // Define the recipient numbers in a comma separated string
     // Numbers should be in international format as shown
    var to = to;
-   var amount = transAmount;
+   
     // And of course we want our recipients to know what we really do
-    var message = " We have received your mpesa payment of  " + amount + "." + "Expect a call from our fundi at any moment.";
+    var message = " This is to notify of availability of a job in your category worth  " + price+ ". Reply with YES to pick the job and get more details."  ;
 
     // Build the post string from an object
 
