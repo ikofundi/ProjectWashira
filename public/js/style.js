@@ -31,39 +31,33 @@ $(document).ready(function() {
     $("#bookfundi").mouseleave(function() {
         $("#iko").css("color", "#ebb92f");
     });
-    //  $("#bookfundi").mouseenter(function() {
-    //     $(".navbar-default").css("background-color", "green");
-
-    // });
-    // $("#bookfundi").mouseleave(function() {
-    //     $(".navbar-default").css("background-color", "#ebb92f");
-    // });
-    $("#step1").mouseenter(function() {
-       $(this).fadeOut(100);
+    $("#navtext").mouseenter(function() {
+        $(this).css("color", "green");
 
     });
-    $("#step1").mouseleave(function() {
-       $(this).fadeIn();
+    $("#navtext").mouseleave(function() {
+        $(this).css("color", "white");
     });
-    //     $("#stepdiv2").mouseenter(function() {
-    //    $("#step2").attr('src', "/images/accessg.png");
+    $("#navtext").mouseenter(function() {
+        $(this).css("background-color", "#ebb92f");
 
-    // });
-    // $("#step2").mouseleave(function() {
-    //    $(this).attr('src', "/images/access.png");
-    // });
-    // $("#step3").mouseenter(function() {
-    //    $(this).attr('src', "/images/payg.png");
+    });
+    $("#navtext").mouseleave(function() {
+        $(this).css("background-color", "green");
+    });
 
-    // });
-    // $("#step3").mouseleave(function() {
-    //    $(this).attr('src', "/images/pay.png");
-    // });
-    //  $("#step4").mouseenter(function() {
-    //    $(this).attr('src', "/images/fundig.png");
+    jQuery(function() {
+        var $els = $('div[id^=quote]'),
+            i = 0,
+            len = $els.length;
 
-    // });
-    // $("#step4").mouseleave(function() {
-    //    $(this).attr('src', "/images/fundi.png");
-    // });
+        $els.slice(1).hide();
+        setInterval(function() {
+            $els.eq(i).fadeOut(function() {
+                i = (i + 1) % len
+                $els.eq(i).fadeIn();
+            })
+        }, 5500)
+    })
+
 });

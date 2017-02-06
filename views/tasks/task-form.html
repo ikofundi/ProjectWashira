@@ -1,58 +1,92 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<meta charset="utf-8">
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>task-form</title>
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-<!-- Optional theme -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
-<!-- Latest compiled and minified JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <title>task-form</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </head>
+
 <body>
-	<section class="row"></section>
-	<section class="row">
-		<div class="row col-sm-4"></div>
-		<div class="jumbotron col-sm-4 text-center">
-			<form action="/taskform" method="post" id="taskform">
-				<label for="">FIRST NAME</label>
-		        <input type="text" name="firstname" placeholder="John" required validate><br><br>
-		        <label for="">LAST NAME</label>
-		        <input type="text" name="lastname" placeholder="Doe" required validate><br><br>
-		        <label for="">EMAIL</label>
-		        <input type="email" name="email" placeholder="johndoe@user.com" required validate><br><br>
-		        <label for="">LOCATION</label>
-		        <input type="text" name="location" placeholder="e.g Westlands" required validate><br><br>
-		        <label for="">PHONE NUMBER</label>
-		        <input type="text" name="phoneNumber" placeholder="755234432" value="+254" required validate><br><br>
-		        <label for="">CATEGORY</label>
-		        <select name="category">
-		          <option value="video games & consoles">video games & consoles</option>
-		          <option value="computers">computers</option>
-				  <option value="plumbing">plumbing</option>
-				  <option value="Applliances & electricals">applliances & electricals</option>
-				  <option value="Painting">painting</option>
-				  <option value="Capentry">capentry</option>
-				  <option value="Cleaning & maid services">cleaning & maid services</option>
-				  <option value="Landscaping">landscaping</option>
-				  <option value="Remodels & additions">remodels & additions</option>
-				  <option value="Windows & doors">windows & doors</option>
-				</select><br><br>
-		        <label for="">WHEN WILL YOU BE AVAILABLE FOR US TO ACCESS</label>
-		        <input type="date" name="availability" placeholder="Enter date" required validate>
-		        <input type="time" name="availability" placeholder="Enter time" required validate><br><br>
-		        <label for="">DESCRIBE YOUR PROBLEM</label>
-		       <textarea name="description" id="taskform" cols="30" rows="10" placeholder="Tell us more about your problem" required></textarea><br><br>
-		        <button type="submit">SUBMIT</button>
-			</form>
-		</div>
-		<div class="row col-sm-4"></div>
-	</section>
-	<section class="row"></section>
+    <section class="row"></section>
+    <section class="row">
+        <div class="row col-sm-4"></div>
+        <div class="jumbotron col-sm-4 text-center">
+            <form action="/taskform" method="post" id="taskform">
+                <label for="">FIRST NAME</label>
+                <input type="text" name="firstname" placeholder="John" required validate>
+                <br>
+                <br>
+                <label for="">LAST NAME</label>
+                <input type="text" name="lastname" placeholder="Doe" required validate>
+                <br>
+                <br>
+                <label for="">EMAIL</label>
+                <input type="email" name="email" placeholder="johndoe@user.com" required validate>
+                <br>
+                <br>
+                <label for="">LOCATION</label>
+                <input type="text" name="location" placeholder="e.g Westlands" required validate>
+                <br>
+                <br>
+                <label for="">PHONE NUMBER</label>
+                <input type="text" name="phoneNumber" placeholder="755234432" value="+254" required validate>
+                <br>
+                <br>
+                <label for="">CATEGORY</label>
+                <select name="category">
+                    <option value="video games & consoles">video games & consoles</option>
+                    <option value="computers">computers</option>
+                    <option value="plumbing">plumbing</option>
+                    <option value="Applliances & electricals">applliances & electricals</option>
+                    <option value="Painting">painting</option>
+                    <option value="Capentry">capentry</option>
+                    <option value="Cleaning & maid services">cleaning & maid services</option>
+                    <option value="Landscaping">landscaping</option>
+                    <option value="Remodels & additions">remodels & additions</option>
+                    <option value="Windows & doors">windows & doors</option>
+                </select>
+                <br>
+                <br>
+                <label for="">WHEN WILL YOU BE AVAILABLE FOR US TO ACCESS</label>
+                <input id="date" type="date" name="availability" placeholder="Enter date" required validate>
+                <input type="time" name="availability" placeholder="Enter time" required validate>
+                <br>
+                <br>
+                <label for="">DESCRIBE YOUR PROBLEM</label>
+                <textarea name="description" id="taskform" cols="30" rows="10" placeholder="Tell us more about your problem" required></textarea>
+                <br>
+                <br>
+                <button type="submit">SUBMIT</button>
+            </form>
+        </div>
+        <div class="row col-sm-4"></div>
+    </section>
+    <section class="row"></section>
+    <script src="/js/jquery.js"></script>
+    <script src="//cdn.jsdelivr.net/webshim/1.14.5/polyfiller.js"></script>
+    <script>
+    webshims.setOptions('forms-ext', {
+        types: 'date'
+    });
+    webshims.polyfill('forms forms-ext');
+    $.webshims.formcfg = {
+        en: {
+            dFormat: '-',
+            dateSigns: '-',
+            patterns: {
+                d: "yy-mm-dd"
+            }
+        }
+    };
+    </script>
 </body>
+
 </html>
