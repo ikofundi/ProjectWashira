@@ -62,7 +62,7 @@ router.route('/taskform')
 
         // console.log(formData);
         // send sms acknowledging getting task
-        sms(formData.phoneNumber, formData.firstname, formData.availability, username, apikey, req, res);
+        // sms(formData.phoneNumber, formData.firstname, formData.availability, username, apikey, req, res);
         task = new Task(formData);
         task.save(function(err, task) {
             if (err) {

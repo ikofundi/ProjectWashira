@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>IkoFundi | All your fundi needs in one place </title>
+    <title>IkoFundi | Our services</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/bootstrap-3.3.6-dist/css/bootstrap.min.css">
@@ -15,7 +15,7 @@
     <!-- Latest compiled and minified JavaScript -->
     <link rel="stylesheet" href="/bootstrap-3.3.6-dist/js/bootstrap.min.js">
     <!-- css styling -->
-    <link rel="stylesheet" type="text/css" href="/styles/main.css" />
+    <link rel="stylesheet" type="text/css" href="/styles/ourservices.css" />
 </head>
 
 <body>
@@ -51,7 +51,7 @@
                 </ul> -->
                 <ul class="nav navbar-nav navbar-right">
                     <!-- <li></li> -->
-                    <li><a href="/taskform"><span id="navtext">Book a fundi</span></a></li>
+                    <!--  <li><a href="/taskform"><span id="navtext">Book a fundi</span></a></li> -->
                     <!-- <li class="active"><a href="./">Fixed top <span class="sr-only">(current)</span></a></li> -->
                 </ul>
             </div>
@@ -99,112 +99,15 @@
         </div>
         <!-- </div> -->
     </section>
-    <!-- <br> -->
-    <section id="booking" class="text-center">
-        <h2 id="topquiz">In need of a trusted & reliable fundi?</h2>
-        <a href="/taskform">
-            <button type="button" id="bookfundi" class=" text-center">
-                <h3 id="bookfunditext">Book a Fundi NOW</h3></button>
-        </a>
-    </section>
-    <section id="how_it_works" class="container-fluid text-center ">
-        <h1 id="howtext">How <span id="iko">ikoFundi</span> works:</h1>
-        <br>
-        <div class="container-fluid">
-            <div id="stepdiv1" class="col-sm-3  text-center">
-                <img id="step1" src="/images/fill_form.png" alt="">
-                <br>
-                <br>
-                <p class="explain">1.Tell us the date & time you will be available</p>
-            </div>
-            <div id="stepdiv2" class="col-sm-3 text-center col-centered">
-                <img id="step2" src="/images/access.png" alt="">
-                <br>
-                <br>
-                <p class="explain">2.We will send our team to access job</p>
-            </div>
-            <div id="stepdiv3" class="col-sm-3 text-center">
-                <img id="step3" src="/images/pay.png" alt="">
-                <br>
-                <br>
-                <p class="explain">3.Confirm & pay</p>
-            </div>
-            <div id="stepdiv4" class="col-sm-3 text-center">
-                <img id="step4" src="/images/fundi.png" alt="">
-                <br>
-                <br>
-                <p class="explain">4.We will send a professional</p>
-            </div>
-        </div>
-    </section>
-    <section id="reviews" class="text-center">
-        <br>
-        <h1 id="howtext">What our <span id="mteja">customers</span> are saying:</h1>
-        <div class="wrapper" style="height:100px">
-            <div id="quote1" class="row">
-                <br>
-                <blockquote>
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <img class="img-responsive" src="/images/favatar.png" alt="">
-                        </div>
-                        <div class="col-sm-8">
-                            <p id="comment">"This service helps me save time"</p>
-                            <p id="commentor">Jane Doe</p>
-                        </div>
-                    </div>
-                    <br>
-                </blockquote>
-            </div>
-            <div id="quote2">
-                <blockquote>
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <img class="img-responsive" src="/images/avatar.png" alt="">
-                        </div>
-                        <div class="col-sm-8">
-                            <p id="comment">"You guys are a solution to getting a trusted and proffesional fundi. Your prices are also the best"</p>
-                            <p id="commentor">John Doe</p>
-                        </div>
-                    </div>
-                    <br>
-                </blockquote>
-            </div>
-            <div id="quote3">
-                <blockquote>
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <img class="img-responsive" src="/images/favatar.png" alt="">
-                        </div>
-                        <div class="col-sm-8">
-                            <p id="comment">"I like the speed in which you offer the service.Your people keep time well and do a great job"</p>
-                            <p id="commentor">Jane Doe</p>
-                        </div>
-                    </div>
-                    <br>
-                </blockquote>
-            </div>
-        </div>
-    </section>
-    <section id="links" class="row">
-        <div class="col-sm-10">
-            <p><a href="/accesor/login">Accesor</a> or <a href="/admin/login">Admin</a></p>
-        </div><br>
-        <div class="row col-sm-2" id="socialholder">
-            <a class=" col-sm-4 " href="https://www.facebook.com/justmonterokirilenko">
-                <div  id="facebook">
-                </div>
-            </a>
-            <a class=" col-sm-4 " href="https://www.twitter.com">
-                <div  id="twitter">
-                </div>
-            </a>
-            <a class="row col-sm-4 " href="https://www.instagram.com">
-                <div  id="ig">
-                </div>
-            </a>
-           
-        </div>
+    {% if categories %}
+    <section>
+    {% for category in categories %}
+      
+        <a href="/taskform"><div id="category" class="thumbnail text-center col-sm-4">
+            {{category.name}}
+        </div></a>
+        
+        
     </section>
 </body>
 <script src="/js/jquery.js"></script>
