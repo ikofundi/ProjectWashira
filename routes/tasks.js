@@ -433,7 +433,7 @@ router.route('/tasks/mpesa/confirmc2bpayment')
                                 var technicianPhoneNumbersAsString = technicianPhoneNumbers.join();
                             }
                             // send message of task availabililty to technicians on that task's category
-                                notifyTechnicianOfTask(technicianPhoneNumbersAsString, task.quotedPrice, username, apikey, req, res );
+                            notifyTechnicianOfTask(technicianPhoneNumbersAsString, task.quotedPrice, username, apikey, req, res);
                             console.log(technician);
                             res.json(technicianPhoneNumbersAsString);
                         });
