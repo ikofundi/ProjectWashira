@@ -39,8 +39,8 @@
 
 }
 #logo{
-	top: -20px;
-	right: 20px;
+	top: -10px;
+	left: 30px;
 	position: absolute;
 }
 #nav{
@@ -65,7 +65,7 @@
 }
 .navbar{ 
     background-image: none;
-}
+}http://127.0.0.1:8081/ourservices
 #booking{
 	/*max-height: 90px;*/
 	/*background-color: #ebb92f;*/
@@ -110,7 +110,7 @@ blockquote{
   /*Font*/
   font-family: Georgia, serif;
   font-size: 16px;
-  line-height: 1.2;
+  line-height: 1.2;http://127.0.0.1:8081/ourservices
   color: #666;
   text-align: justify;
   
@@ -147,7 +147,7 @@ blockquote{
 	left: 50%;
 	margin-left: -142px;
 	background-color: #ebb92f;
-	background-image: url(images/Facebook.png);
+	background-image: url(/images/Faceookb.png);
 	background-repeat: no-repeat;
 	/*background-size: contain;*/
 	background-attachment: scroll;
@@ -176,7 +176,7 @@ blockquote{
 	left: 50%;
 	margin-left: -85px;
 	background-color: #ebb92f;
-	background-image: url(images/Twitter.png);
+	background-image: url(/images/twitterb.png);
 	background-repeat: no-repeat;
 	/*background-size: contain;*/
 	background-attachment: scroll;
@@ -207,7 +207,7 @@ blockquote{
 	left: 50%;
 	margin-left: -28px;
 	background-color: #ebb92f;
-	background-image: url(images/Instagram.png);
+	background-image: url(/images/instagramb.png);
 	background-repeat: no-repeat;
 	/*background-size: contain;*/
 	/*background-attachment: scroll;*/

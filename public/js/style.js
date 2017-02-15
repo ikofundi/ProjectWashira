@@ -1,14 +1,14 @@
 $(document).ready(function() {
-    var $element = $('#logo');
+    // var $element = $('#logo');
 
-    $(window).scroll(function() {
+    // $(window).scroll(function() {
 
-        if ($(this).scrollTop() > 0) {
-            $element.fadeOut(1000);
-        } else {
-            $element.fadeIn(1000);
-        }
-    });
+    //     if ($(this).scrollTop() > 0) {
+    //         $element.fadeOut(1000);
+    //     } else {
+    //         $element.fadeIn(1000);
+    //     }
+    // });
     $("#bookfundi").mouseenter(function() {
         $(this).css("background-color", "#ebb92f");
 

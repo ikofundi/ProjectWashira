@@ -6,7 +6,7 @@
 .carousel-inner > .item > img,
 .carousel-inner > .item > a > img {
     width: 100%;
-    height: 450px;
+    height: 400px;
     margin: auto;
 }
 .navbar-default {
@@ -16,6 +16,11 @@
 }
 .navbar{ 
     background-image: none;
+}
+#logo{
+	top: -10px;
+	left: 30px;
+	position: absolute;
 }
 #category{
 	background-color: #ebb92f;

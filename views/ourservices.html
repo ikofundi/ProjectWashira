@@ -15,7 +15,7 @@
     <!-- Latest compiled and minified JavaScript -->
     <link rel="stylesheet" href="/bootstrap-3.3.6-dist/js/bootstrap.min.js">
     <!-- css styling -->
-    <link rel="stylesheet" type="text/css" href="/styles/taskform.css" />
+    <link rel="stylesheet" type="text/css" href="/styles/ourservices.css" />
 </head>
 
 <body>
@@ -29,7 +29,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#"><img class="img-responsive" src="/images/logo.pn" alt="logo"></a>
+                <a class="navbar-brand" id="logo" href="/"><img class="img-responsive" src="/images/logo.png" alt="logo"></a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <!--   <ul class="nav navbar-nav">
@@ -51,8 +51,8 @@
                 </ul> -->
                 <ul class="nav navbar-nav navbar-right">
                     <!-- <li></li> -->
-                    <!--  <li><a href="/taskform"><span id="navtext">Book a fundi</span></a></li> -->
-                    <!-- <li class="active"><a href="./">Fixed top <span class="sr-only">(current)</span></a></li> -->
+                    <li><a href="/"><span id="navtext">Home</span></a></li>
+                    <li><a href="/taskform"><span id="navtext">Book a fundi</span></a></li>
                 </ul>
             </div>
             <!--/.nav-collapse -->
@@ -71,24 +71,119 @@
             <!-- Wrapper for slides -->
             <div class="carousel-inner" role="listbox">
                 <div class="item active img-responsive">
-                    <img src="/images/fundi-services.png" alt="">
+                    <img src="/images/blockedpipe.jpg" alt="">
                 </div>
                 <div class="item">
                     <img src="/images/fixed.png" alt="" width="460" height="345">
                 </div>
+                <div class="item  img-responsive">
+                    <img src="/images/plumbing.jpg" alt="">
+                </div>
             </div>
         </div>
     </section>
-    <br>
     <section class="row">
         <div class="col-sm-6">
-            
+            <div class="col-sm-2"></div>
+            <div class="col-sm-10">
+                <br><br><br>
+                <h1 id="solvetext">
+                    <span id="solve">We Solve</span>  <br> All your <br> House <br> Problems
+                </h1>
+            </div>
+            <div class="col-sm-2"></div>
         </div>
-        <div class="col-sm-6">
-            
+        <div class="row col-sm-6 text-center">
+            <br>
+            <h6 id="specialize">Click a category below to book a fundi:</h6>
+            <br>
+            <div class="col-sm-6">
+                <div class="row thumbnail">
+                    <p> <img id="categoryalign" src="/images/point.png" alt=""><a id="point" href="/taskform"> Video games and consoles</a></p>
+                </div>
+                <div class="row thumbnail">
+                    <p> <img src="/images/point.png" alt=""><a id="point" href="/taskform"> Appliances & Electricals</a></p>
+                </div>
+                <div class="row thumbnail">
+                    <p><img id="categoryalign" src="/images/point.png" alt=""><a id="point" href="/taskform"> Plumbing</a></p>
+                </div>
+                <div class="row thumbnail">
+                    <p><img id="categoryalign" src="/images/point.png" alt=""><a id="point" href="/taskform"> Computers</a></p>
+                </div>
+                <div class="row thumbnail">
+                    <p> <img src="/images/point.png" alt=""><a id="point" href="/taskform"> Painting</a></p>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="row thumbnail">
+                   <p><img src="/images/point.png" alt=""><a id="point" href="/taskform"> Cleaning & maid services</a></p>  
+                </div>
+                <div class="row thumbnail">
+                    <p><img src="/images/point.png" alt=""><a id="point" href="/taskform"> Landscaping</a></p>
+                </div>
+                <div class="row thumbnail">
+                   <p> <img src="/images/point.png" alt=""><a id="point" href="/taskform"> Windows & doors</a></p> 
+                </div>
+                <div class="row thumbnail">
+                    <p> <img src="/images/point.png" alt=""><a id="point" href="/taskform"> Capentry</a></p>
+                </div>
+                <div class="row thumbnail">
+                     <p> <img src="/images/point.png" alt=""><a id="point" href="/taskform"> Remodels & additions</a></p>
+                </div>
+            </div>
         </div>
     </section>
-    
+    <section id="reviews" class="text-center">
+        <br>
+        <h1 id="howtext">What our <span id="mteja">customers</span> are saying:</h1>
+        <div class="wrapper" style="height:100px">
+            <div id="quote1" class="row">
+                <br>
+                <blockquote>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <img class="img-responsive" src="/images/favatar.png" alt="">
+                        </div>
+                        <div class="col-sm-8">
+                            <p id="comment">"This service helps me save time"</p>
+                            <p id="commentor">Jane Doe</p>
+                        </div>
+                    </div>
+                    <br>
+                </blockquote>
+            </div>
+            <div id="quote2">
+                <blockquote>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <img class="img-responsive" src="/images/avatar.png" alt="">
+                        </div>
+                        <div class="col-sm-8">
+                            <p id="comment">"You guys are a solution to getting a trusted and proffesional fundi. Your prices are also the best"</p>
+                            <p id="commentor">John Doe</p>
+                        </div>
+                    </div>
+                    <br>
+                </blockquote>
+            </div>
+            <div id="quote3">
+                <blockquote>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <img class="img-responsive" src="/images/favatar.png" alt="">
+                        </div>
+                        <div class="col-sm-8">
+                            <p id="comment">"I like the speed in which you offer the service.Your people keep time well and do a great job"</p>
+                            <p id="commentor">Jane Doe</p>
+                        </div>
+                    </div>
+                    <br>
+                </blockquote>
+            </div>
+        </div>
+    </section>
+    <section id="space">
+    </section>
 </body>
 <script src="/js/jquery.js"></script>
 <script src="/js/style.js"></script>
