@@ -278,179 +278,112 @@ router.route('/tasks/:id/delete')
         deleteTask('GET', req, res);
     });
 
-// router.route('/tasks/mpesa/registerUrl')
-//     .all(function(req, res) {
-//             // var pass = "Afric@123";
-//             // var hash = crypto.createHash('sha256').update(pass).digest('base64');
 
-//             var wsdlUrl = 'CBPInterface_Request1.wsdl';
-//             var soapHeader = {
-//                 spId: "107015",
-//                 spPassword: hash,
-//                 timeStamp: Date.now(),
-//                 serviceId: "107015000"
-//             };
-//             var msg = {
-//                 Transaction: {
-//                     CommandID: "RegisterURL",
-//                     OriginatorConversationID: "Reg-266-1126",
-//                     Parameters: {
-//                         Parameter: {
-//                             Key: "ResponseType",
-//                             Value: "Completed",
-//                         }
-//                     },
-//                     ReferenceData: {
-//                         ReferenceItem: {
-//                             Key: "ValidationURL",
-//                             Value: "https://projectwashira.herokuapp.com/tasks/mpesa/validatec2bpayment"
-//                         },
-//                         ReferenceItem: {
-//                             Key: "ConfirmationURL",
-//                             Value: "https://projectwashira.herokuapp.com/tasks/mpesa/confirmc2bpayment"
-//                         }
-//                     },
-//                 },
-//                 Identity: {
-//                     Caller: {
-//                         CallerType: "0",
-//                         ThirdpartyID: "",
-//                         password: "",
-//                         CheckSum: "",
-//                         ResultURL: ""
-//                     },
-//                     Initiator: {
-//                         PrimaryParty: {
-//                             IdentifierType: "1",
-//                             Identifier: "",
-//                             ShortCode: "777135"
-//                         }
+// router.route('/tasks/mpesa/validatec2bpayment')
+//     .post(xmlparser({ trim: false, explicitArray: false }), function(req, res) {
+//         // the req object contains transaction details from safcom
+//         req.setEncoding('utf8');
+//         // name the details incoming
+//         var incoming = req.body;
+//         // stringify the Json request
+//         var request = JSON.stringify(incoming);
+//         console.log(incoming);
+
+//         // change the request to a javascript object
+//         var reqObject = JSON.parse(request);
+//         // set response header content type to xml
+//         res.set('Content-Type', 'text/xml');
+//         // extract the transaction details from object and save each separately as a string
+//         var transAmount = reqObject["soapenv:envelope"]["soapenv:body"][0]["c2b:c2bpaymentvalidationrequest"][0]["transamount"][0];
+//         var msisdn = reqObject["soapenv:envelope"]["soapenv:body"][0]["c2b:c2bpaymentvalidationrequest"][0]["msisdn"][0];
+//         var mpesaFirstName = reqObject["soapenv:envelope"]["soapenv:body"][0]["c2b:c2bpaymentvalidationrequest"][0]["kycinfo"][0]["kycname"][0];
+//         msisdn = "+".concat(msisdn);
+//         // find task using the req body phone number
+//         Task.find({ "phoneNumber": msisdn })
+//             .select('category firstname lastname amountPaid email location phoneNumber description availability quotedPrice accesorComments jobId accesed')
+//             .exec(function(err, tasks) {
 
 
-//                     }
-//                 },
-//                 KeyOwner: "1"
-//             };
-//             soap.createClient(wsdlUrl, function(err, soapClient) {
-//                 // we now have a soapClient - we also need to make sure there's no `err` here. 
-//                 if (err) {
-//                     return res.status(500).json(err);
+//                 if (err) return console.log(err);
+//                 console.log(tasks.length);
+//                 if (tasks.length != 0) {
+//                     res.send('<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:c2b="http://cps.huawei.com/cpsinterface/c2bpayment"><soapenv:Header/><c2b:C2BPaymentValidationResult><ResultCode>0</ResultCode><ResultDesc>Service processing successful</ResultDesc><ThirdPartyTransID>1234560000088888</ThirdPartyTransID></c2b:C2BPaymentValidationResult></soapenv:Body></soapenv:Envelope>');
+//                 } else {
+//                     res.send('<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:c2b="http://cps.huawei.com/cpsinterface/c2bpayment"><soapenv:Header/><c2b:C2BPaymentValidationResult><ResultCode>1</ResultCode><ResultDesc>Service processing unsuccessful</ResultDesc><ThirdPartyTransID>1234560000088888</ThirdPartyTransID></c2b:C2BPaymentValidationResult></soapenv:Body></soapenv:Envelope>');
 //                 }
-//                 soapClient.RequestSOAPHeader(soapHeader, function(err, result) {
-//                     if (err) {
-//                         return res.status(500).json(err);
-//                     }
-//                     return res.json(result);
-//                 });
-//                 soapClient(wsdlUrl, function(err, soapClient) {
-//                     // we now have a soapClient - we also need to make sure there's no `err` here. 
-//                     if (err) {
-//                         return res.status(500).json(err);
-//                     }
-//                     soapClient.RequestMsg(msg, function(err, result) {
-//                         if (err) {
-//                             return res.status(500).json(err);
-//                         }
-//                         return res.json(result);
-//                     });
-
-//                 });
-
 
 //             });
-//         });
 
-router.route('/tasks/mpesa/validatec2bpayment')
-    .post(xmlparser({ trim: false, explicitArray: false }), function(req, res) {
-        // the req object contains transaction details from safcom
-        req.setEncoding('utf8');
-        // name the details incoming
+//     });
+
+router.route('/tasks/:id/mpesa/confirmc2bpayment')
+    .get(function(req, res) {
+        taskId = req.params.id;
+
+        // retrieve the task from mongodb
+        Task.findById(taskId, function(err, task) {
+            if (err) return console.log(err);
+
+
+
+            res.render('tasks/mpesadetails', {
+                "task": task
+            });
+
+        });
+
+    })
+    .post(function(req, res) {
+        // name the details as incoming
+        idOfThisTask = req.params.id;
         var incoming = req.body;
-        // stringify the Json request
-        var request = JSON.stringify(incoming);
         console.log(incoming);
 
-        // change the request to a javascript object
-        var reqObject = JSON.parse(request);
-        // set response content type to xml
-        res.set('Content-Type', 'text/xml');
-        // extract the transaction details from object and save each separately as a string
-        var transAmount = reqObject["soapenv:envelope"]["soapenv:body"][0]["c2b:c2bpaymentvalidationrequest"][0]["transamount"][0];
-        var msisdn = reqObject["soapenv:envelope"]["soapenv:body"][0]["c2b:c2bpaymentvalidationrequest"][0]["msisdn"][0];
-        var mpesaFirstName = reqObject["soapenv:envelope"]["soapenv:body"][0]["c2b:c2bpaymentvalidationrequest"][0]["kycinfo"][0]["kycname"][0];
 
-        // console.log(transAmount);
-        // res.send(msisdn);
-
-        res.send('<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:c2b="http://cps.huawei.com/cpsinterface/c2bpayment"><soapenv:Header/><c2b:C2BPaymentValidationResult><ResultCode>0</ResultCode><ResultDesc>Service processing successful</ResultDesc><ThirdPartyTransID>1234560000088888</ThirdPartyTransID></c2b:C2BPaymentValidationResult></soapenv:Body></soapenv:Envelope>');
-
-        // res.redirect('/tasks/mpesa/validatec2bpayment');
-    });
-
-router.route('/tasks/mpesa/confirmc2bpayment')
-    .post(xmlparser({ trim: false, explicitArray: false }), function(req, res) {
-        // the req object contains transaction details from safcom
-        req.setEncoding('utf8');
-        // name the details incoming
-        var incoming = req.body;
-        // console.log(incoming);
-        // stringify the Json request
-        var request = JSON.stringify(incoming);
-        // change the request to a javascript object
-        var reqObject = JSON.parse(request);
-
-        // extract the transaction details from object and save each separately as a string
-        var transAmount = reqObject["soapenv:envelope"]["soapenv:body"][0]["c2b:c2bpaymentvalidationrequest"][0]["transamount"][0];
-        var msisdn = reqObject["soapenv:envelope"]["soapenv:body"][0]["c2b:c2bpaymentvalidationrequest"][0]["msisdn"][0];
-        var accountName = reqObject["soapenv:envelope"]["soapenv:body"][0]["c2b:c2bpaymentvalidationrequest"][0]["invoicenumber"][0];
-        // concatenate the returned phone number that lacks + sign with a + sign
-        msisdn = "+".concat(msisdn);
-        console.log(accountName);
         // Find the task using the phone number returned by safcom and set the amount paid
-        Task.findOneAndUpdate({ "phoneNumber": msisdn, "jobId": accountName }, { $set: { amountPaid: transAmount } }, { new: true }, function(err, task) {
+        Task.findOneAndUpdate({ "jobId": incoming.jobId, "phoneNumber": incoming.phoneNumber }, { $set: { amountPaid: incoming.amountPaid } }, { new: true }, function(err, task) {
 
 
-                    if (err) return console.log(err);
-                    // send sms to customer acknowledging receipt of mpesa payment
-                    // notifyCustomerOfMpesaReceipt(msisdn, transAmount, username, apikey, req, res);
-                    console.log(task.category);
-                    taskCategory = task.category.toLowerCase();
-                    // find technician by category of the task returned by safcom
-                    Technician.find({ "category": taskCategory })
-                        .select('category firstname lastname email  phoneNumber ')
-                        .exec(function(err, technician) {
+        if (err) return console.log(err);
+        // send sms to customer acknowledging receipt of mpesa payment
+        // notifyCustomerOfMpesaReceipt(incoming.phoneNumber, incoming.amountPaid, username, apikey, req, res);
+        console.log(task.category);
+        taskCategory = task.category.toLowerCase();
+        // find technician by category of the task returned by safcom
+        Technician.find({ "category": taskCategory })
+            .select('category firstname lastname email  phoneNumber location')
+            .exec(function(err, technician) {
 
 
-                            if (err) return console.log(err);
-                            // create an empty array technicianPhoneNumbers to store phone numbers of the technicians found
-                            var technicianPhoneNumbers = [];
-                            // loop through the array returned by the query
-                            for (var i = 0; i < technician.length; i++) {
-                                // push each technician's number to the technicianPhoneNumbers array
-                                technicianPhoneNumbers.push(technician[i]["phoneNumber"]);
-                                // change the array to a comma separated string for use with africaistalking apikey
+        if (err) return console.log(err);
+        // create an empty array technicianPhoneNumbers to store phone numbers of the technicians found
+        var technicianPhoneNumbers = [];
+        // loop through the array returned by the query
+        for (var i = 0; i < technician.length; i++) {
+        // push each technician's number to the technicianPhoneNumbers array
+        technicianPhoneNumbers.push(technician[i]["phoneNumber"]);
+        // change the array to a comma separated string for use with africaistalking apikey
 
-                                var technicianPhoneNumbersAsString = technicianPhoneNumbers.join();
-                            }
-                            // send message of task availabililty to technicians on that task's category
-                            notifyTechnicianOfTask(technicianPhoneNumbersAsString, task.quotedPrice, username, apikey, req, res);
-                            console.log(technician);
-                            res.json(technicianPhoneNumbersAsString);
-                        });
+        var technicianPhoneNumbersAsString = technicianPhoneNumbers.join();
+        }
+        // send message of task availabililty to technicians on that task's category
+        // notifyTechnicianOfTask(technicianPhoneNumbersAsString, task.quotedPrice, username, apikey, req, res);
 
-
-
-
-
-
-
-                }
-
-            )
-            // set response content type to xml
-        res.set('Content-Type', 'text/xml');
-        // send response to safcom
+        // redirect to paid tasks
+        res.send(technicianPhoneNumbersAsString);
         // res.send('<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:c2b="http://cps.huawei.com/cpsinterface/c2bpayment"><soapenv:Header/><soapenv:Body> <c2b:C2BPaymentConfirmationResult>C2B Payment Transaction 1234560000007031 result received.</c2b:C2BPaymentConfirmationResult></soapenv:Body></soapenv:Envelope>');
+                    });
+
+
+
+
+
+
+
+            }
+
+        )
+
 
     });
 

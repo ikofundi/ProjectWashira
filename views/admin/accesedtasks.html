@@ -15,11 +15,13 @@
 </head>
 
 <body>
+    <section class="row text-center">
     {% if user.isAdmin %}
     <h1>Hi {{user.username}}</h1>
     <p><a href="/logout">Logout</a></p>
-    <section class="row"></section>
-    <section class="row">
+    </section>
+    <!-- <section class="col-sm-2"></section> -->
+    <section class="col-sm-8">
         <!-- <div class="row col-sm-2"></div> -->
         <div class="container col-sm-12 text-center">
             <h1>Tasks</h1>
@@ -46,15 +48,17 @@
                         <td class="active">{{ task.amountPaid | upcase }}</td>
                         <td class="success">{{ task.firstname | upcase}}</td>
                         <td class="info">{{ task.lastname | upcase}}</td>
-                        <td class="info">{{ task.email | upcase}}</td>
-                        <td class="info">{{ task.location | upcase}}</td>
+                        <td class="active">{{ task.email | upcase}}</td>
+                        <td class="success">{{ task.location | upcase}}</td>
                         <td class="info">{{ task.phoneNumber | upcase}}</td>
-                        <td class="info">{{ task.availability | upcase}}</td>
-                        <td class="info">{{ task.description | upcase}}</td>
-                        <td class="info">{{ task.quotedPrice | upcase}}</td>
+                        <td class="danger">{{ task.availability | upcase}}</td>
+                        <td class="active">{{ task.description | upcase}}</td>
+                        <td class="success">{{ task.quotedPrice | upcase}}</td>
                         <td class="info">{{ task.accesorComments | upcase}}</td>
-                        <td class="info">
-                           
+                        <td class="danger">
+                           <a href="/tasks/{{task._id}}/mpesa/confirmc2bpayment">
+                                <p>Insert paid amount</p>
+                            </a>
                         </td>
                     </tr>
                     {% endfor %}
@@ -63,8 +67,8 @@
             <p><a href="/tasks/admin/unaccesed">View unaccesed tasks</a></p>
             <!-- <div class="row col-sm-2"></div> -->
     </section>
+    <section class=" col-sm-4"></section>
     {% else %}
-    <section class="row"></section>
     <section class="row">
         <div class="row col-sm-2"></div>
         <div class="jumbotron col-sm-10 text-center">
@@ -73,7 +77,7 @@
             <p>If you are neither <a href="/">Go Home</a></p>
             <div class="row col-sm-2"></div>
     </section>
-    <section class="row"></section>
+    <section class="row col-sm-2"></section>
     {%endif%}
     <section class="row"></section>
 </body>

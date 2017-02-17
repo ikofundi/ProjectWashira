@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>{{ task.id }}</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+<body>
+{% if user.isAdmin
+ %}
+	<h1>Hi {{user.username}}</h1>
+	<p><a href="/logout">Logout</a></p>
+	<section class="row"></section>
+	<section class="row">
+		<div class="row col-sm-4"></div>
+		<div class="jumbotron col-sm-4 text-center">
+
+			<form action="/tasks/{{task.id}}/mpesa/confirmc2bpayment" method="post">
+				<label for="">JOB ID</label>
+		        <input type="text" name="jobId" value="{{task.jobId | upcase}}" readonly required validate><br><br>
+				<label for="">FIRST NAME</label>
+		        <input type="text" name="firstname" value="{{task.firstname | upcase}}" readonly required validate><br><br>
+		        <label for="">LAST NAME</label>
+		        <input type="text" name="lastname" value="{{task.lastname | upcase}}" readonly required validate><br><br>
+		        <label for="">EMAIL</label>
+		        <input type="email" name="email" value="{{task.email}}" readonly required validate><br><br>
+		        <label for="">LOCATION</label>
+		        <input type="text" name="location" value="{{task.location | upcase}}" readonly required validate><br><br>
+		        <label for="">PHONE NUMBER</label>
+		        <input type="text" name="phoneNumber" value="{{task.phoneNumber | upcase}}" readonly required validate><br><br>
+		        <label for="">CATEGORY</label>
+		        <input type="text" name="category" value="{{task.category | upcase}}" readonly required validate><br><br>
+		        <label for="">AVAILABILITY</label>
+		        <input  name="availability" value="{{task.availability | upcase}}" required readonly validate><br><br>
+		        <label for="">DESCRIPTION</label>
+		        <input  name="description" value="{{task.description | upcase}}" required readonly validate><br><br>
+		        <label for="">QUOTED PRICE</label>
+		        <input  name="quotedPrice" value="{{task.quotedPrice | upcase}}" required readonly validate><br><br>
+		       <label for="">AMOUNT PAID</label>
+		        <input type="text" name="amountPaid" placeholder="Enter Price" required validate><br><br>
+		        <button type="submit">SUBMIT</button>
+			</form>
+		</div>
+		<div class="row col-sm-4"></div>
+	</section>
+	<section class="row"></section>
+	{% else %}
+	<section class="row"></section>
+	<section class="row">
+		<div class="row col-sm-2"></div>
+		<div class="jumbotron col-sm-10 text-center">
+			<p>If you are an accesor <a href="/accesor/login">Login</a>to Continue</p>
+			<p>If you are admin,please <a href="/logout">Click here</a></p>
+			<p>If you are neither <a href="/">Go Home</a></p>
+		<div class="row col-sm-2"></div>
+	</section>
+	<section class="row"></section>
+</body>
+</html>

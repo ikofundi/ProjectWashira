@@ -9,43 +9,17 @@ $(document).ready(function() {
     //         $element.fadeIn(1000);
     //     }
     // });
-    $("#bookfundi").mouseenter(function() {
-        $(this).css("background-color", "#ebb92f");
+    $(".whyus1").hide();
+    $("#stepdiv1").mouseenter(function() {
+        $(".whyus1").show();
 
     });
-    $("#bookfundi").mouseleave(function() {
-        $(this).css("background-color", "green");
+    $("#stepdiv1").mouseleave(function() {
+        $(".whyus1").hide();
 
     });
-    $("#bookfundi").mouseenter(function() {
-        $("#bookfunditext").css("color", "green");
-
-    });
-    $("#bookfundi").mouseleave(function() {
-        $("#bookfunditext").css("color", "white");
-    });
-    $("#bookfundi").mouseenter(function() {
-        $("#iko").css("color", "green");
-
-    });
-    $("#bookfundi").mouseleave(function() {
-        $("#iko").css("color", "#ebb92f");
-    });
-    $("#navtext").mouseenter(function() {
-        $(this).css("color", "green");
-
-    });
-    $("#navtext").mouseleave(function() {
-        $(this).css("color", "white");
-    });
-    $("#navtext").mouseenter(function() {
-        $(this).css("background-color", "#ebb92f");
-
-    });
-    $("#navtext").mouseleave(function() {
-        $(this).css("background-color", "green");
-    });
-
+   
+   
     jQuery(function() {
         var $els = $('div[id^=quote]'),
             i = 0,

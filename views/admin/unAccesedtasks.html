@@ -47,11 +47,6 @@
                         <td class="info">{{ task.phoneNumber | upcase}}</td>
                         <td class="info">{{ task.availability | upcase}}</td>
                         <td class="info">{{ task.description | upcase}}</td>
-                        <td class="info">
-                            <a href="/tasks/{{task._id}}">
-                                <p>View Task</p>
-                            </a>
-                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>

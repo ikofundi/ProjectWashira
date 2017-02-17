@@ -37,8 +37,8 @@ var mongoose = require('mongoose');
 var uristring =
     process.env.MONGOLAB_URI ||
     process.env.MONGOHQ_URL ||
-    // 'mongodb://localhost/washiradb';
-    'mongodb://heroku_l1ppn7j1:jmvhcquindesu04pje4d7vlf01@ds133388.mlab.com:33388/heroku_l1ppn7j1';
+    'mongodb://localhost/washiradb';
+    // 'mongodb://heroku_l1ppn7j1:jmvhcquindesu04pje4d7vlf01@ds133388.mlab.com:33388/heroku_l1ppn7j1';
 mongoose.connect(uristring, function(err, res) {
     if (err) {
         console.log('Error connecting to:', uristring);
