@@ -7,7 +7,8 @@ var technicianSchema = mongoose.Schema({
     email: String,
     location: String,
     phoneNumber: {type: String, minlength: 13, maxlength: 13},
-    idNumber: {type: String, minlength: 8, maxlength: 8},
+    phoneNumber2: {type: String, minlength: 13, maxlength: 13},
+    idNumber: {type: String, minlength: 8, maxlength: 8}
     
 });
 

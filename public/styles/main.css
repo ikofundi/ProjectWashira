@@ -25,7 +25,33 @@
 	/*right: 50px;*/
 	font-weight: bold;
 }
+.whyus1{
+	/*background-color: grey;*/
+	
+	min-height: 15px;
 
+}
+.whyus2{
+	/*background-color: grey;*/
+	
+	min-height: 15px;
+
+}
+.whyus3{
+	/*background-color: grey;*/
+	
+	min-height: 15px;
+
+}
+.whyus4{
+	/*background-color: grey;*/
+	
+	min-height: 15px;
+
+}
+.whyustext{
+	color: #ebb92f;
+}
 #carousel{
 	background-attachment: fixed;
 }
@@ -225,4 +251,12 @@ blockquote{
 }
 #socialholder{
 	/*margin-left: 32px;*/
+}
+#hiring{
+	color: white;
+	text-decoration: none;
+
+}
+#copyright{
+	color: white;
 }

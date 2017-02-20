@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>IkoFundi | New Technician</title>
+    <title>IkoFundi | We are hiring</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/bootstrap-3.3.6-dist/css/bootstrap.min.css">
@@ -15,7 +15,7 @@
     <!-- Latest compiled and minified JavaScript -->
     <link rel="stylesheet" href="/bootstrap-3.3.6-dist/js/bootstrap.min.js">
     <!-- css styling -->
-    <link rel="stylesheet" type="text/css" href="/styles/taskform.css" />
+    <link rel="stylesheet" type="text/css" href="/styles/technicianhire.css" />
 </head>
 
 <body>
@@ -52,6 +52,8 @@
                 <ul class="nav navbar-nav navbar-right">
                     <!-- <li></li> -->
                     <li><a href="/"><span id="navtext" class="text-center">Home</span></a></li>
+                    <li><a href="/ourservices"><span id="navtext" class="text-center">Our services</span></a></li>
+                    <li><a href="/aboutus"><span id="navtext">About us</span></a></li>
                 </ul>
             </div>
             <!--/.nav-collapse -->
@@ -59,27 +61,56 @@
     </nav>
     <br>
     <br>
+    <section id="hirepic" class="text-center">
+    </section>
     <br>
-    <br>
-    <br>
-    <br>
-    <section class="row">
-        <p>{{error}}</p>
-        <div class="col-sm-2"></div>
-        <div class="col-sm-8 jumbotron text-center">
-            <form action="/accesor/login" method="post">
-                <label for="">Username</label>
-                <input type="text" name="username" placeholder="Username"><br><br>
-                <label for="">Password</label>
-                <input type="password" name="password" placeholder="Password"><br><br>
-                <button type="submit">Login</button>
-                <br>
-                <br>
-                <p><a href="/accesor/forgot">Forgot Password?</a></p>
+    <section class="row text-center">
+        <h2 id="fundihirehead">Are you a professional fundi?<br></h2>
+        <h3 id="fundihiresubhead">We are looking for you</h3><br>
+        <p id="fundihiretext"><span id="fundihirespan">IKOFUNDI</span> is looking to partner with fundis who can adhere to our high standards of integrity, professionalism and trust. <br>If you believe you can meet this requirements, fill out the form below by telling us about you and we will contact you. <br>Remember to include your phone number in the application.</p><br>
+        <div class="col-sm-3"></div>
+        <div id="hireform" class="jumbotron col-sm-6 text-center">
+            <form class="cf" action="https://formspree.io/ikofundi@gmail.com" method="post" onSubmit="alert('Thank for submiting your application. We will get back to you shortly');">
+                <div class="half left cf">
+                    <label for="input-name">YOUR NAMES</label>
+                    <br>
+                    <input type="text" name="name" id="input-name" placeholder="Name" required>
+                    <br>
+                    <br>
+                    <label for="input-name">YOUR EMAIL</label>
+                    <br>
+                    <input type="email" name="email" id="input-email" placeholder="Email address" required>
+                    <br>
+                    <br>
+                    <label for="input-name">SUBJECT(leave as it is)</label>
+                    <br>
+                    <input type="text" name="Subject" id="input-subject" value="APPLICATION FOR FUNDI" placeholder="Subject" required>
+                    <br>
+                    <br>
+                </div>
+                <div class="half right cf">
+                    <label for="input-name">APPLY HERE</label>
+                    <br>
+                    <textarea name="message" cols="40" rows="5" type="text" id="input-message" placeholder="Message" required></textarea>
+                    <br>
+                    <br>
+                </div>
+                <input type="submit" value="SEND APPLICATION" id="input-submit">
+                <input type="hidden" name="_next" value="/" />
             </form>
         </div>
-        <div class="col-sm-2"></div>
+        <div class="col-sm-3"></div>
+    </section>
+    <section id="space">
     </section>
 </body>
+<script src="/js/jquery.js"></script>
+<script src="/js/style.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous" <section id="space">
+< /section>>
+</script>
+<script src="//cdn.jsdelivr.net/webshim/1.14.5/polyfiller.js"></script>
 
 </html>

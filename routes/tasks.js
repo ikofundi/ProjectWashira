@@ -6,6 +6,7 @@ var soap = require('soap');
 var Task = require('../models/task');
 var Technician = require('../models/technician');
 var sms = require('../controllers/sms');
+var notifyCustomerOfQuotedPrice = require('../controllers/notifyCustomerOfQuotedPrice');
 var notifyCustomerOfMpesaReceipt = require('../controllers/notifyCustomerOfMpesaReceipt');
 var notifyTechnicianOfTask = require('../controllers/notifyTechnicianOfTask');
 var path = require('path');
@@ -82,7 +83,7 @@ router.route('/taskform')
 
 
 
-
+// this route returns all the unacessed tasks to the acessor
 router.route('/tasks/accesor/unaccesed')
     .get(function(req, res) {
         Task.find({ "accesed": false })
@@ -105,6 +106,7 @@ router.route('/tasks/accesor/unaccesed')
 
             });
     })
+// this route returns all the acessed tasks to the acessor
 router.route('/tasks/accesor/accesed')
     .get(function(req, res) {
         Task.find({ "accesed": true })
@@ -127,6 +129,7 @@ router.route('/tasks/accesor/accesed')
 
             });
     })
+    // this route returns all the unacessed tasks to the admin
 router.route('/tasks/admin/unaccesed')
     .get(function(req, res) {
         Task.find({ "accesed": false })
@@ -149,6 +152,7 @@ router.route('/tasks/admin/unaccesed')
 
             });
     })
+    // this route returns all the acessed tasks to the admin
 router.route('/tasks/admin/accesed')
     .get(function(req, res) {
         Task.find({ "accesed": true })
@@ -208,6 +212,8 @@ function updateTask(method, req, res) {
                 res.json(task);
 
             } else {
+                // send sms notifying customer of the quoted price
+                // notifyCustomerOfQuotedPrice(task.phoneNumber, task.firstname, username, apikey, req, res, task.quotedPrice, task.jobId);
                 res.redirect('/tasks/accesor/accesed');
 
             };
@@ -217,25 +223,25 @@ function updateTask(method, req, res) {
 };
 
 
-router.route('/tasks/:id')
-    .get(function(req, res) {
-        taskId = req.params.id;
+// router.route('/tasks/:id')
+//     .get(function(req, res) {
+//         taskId = req.params.id;
 
-        // retrieve the task from mongodb
-        Task.findById(taskId, function(err, task) {
-            if (err) return console.log(err);
+//         // retrieve the task from mongodb
+//         Task.findById(taskId, function(err, task) {
+//             if (err) return console.log(err);
 
-            // res.json(task.accesed);
-            console.log(req.user);
+//             // res.json(task.accesed);
+//             console.log(req.user);
 
-            res.render('accesor/editTask', {
-                "task": task,
-                'user': req.user
-            });
+//             res.render('accesor/editTask', {
+//                 "task": task,
+//                 'user': req.user
+//             });
 
 
-        });
-    });
+//         });
+//     });
 router.route('/tasks/:id/edit')
     .get(function(req, res) {
 
@@ -245,8 +251,8 @@ router.route('/tasks/:id/edit')
         Task.findById(taskId, function(err, task) {
             if (err) return console.log(err);
 
-            // res.json(movie);
-            res.render('tasks/editTask', {
+            
+            res.render('accesor/editTask', {
                 "task": task
             });
 
@@ -349,8 +355,9 @@ router.route('/tasks/:id/mpesa/confirmc2bpayment')
         // notifyCustomerOfMpesaReceipt(incoming.phoneNumber, incoming.amountPaid, username, apikey, req, res);
         console.log(task.category);
         taskCategory = task.category.toLowerCase();
+        tasklocation = task.location.toLowerCase();
         // find technician by category of the task returned by safcom
-        Technician.find({ "category": taskCategory })
+        Technician.find({ "category": taskCategory, "location": tasklocation  })
             .select('category firstname lastname email  phoneNumber location')
             .exec(function(err, technician) {
 

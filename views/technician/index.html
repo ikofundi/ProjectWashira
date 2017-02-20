@@ -28,7 +28,9 @@
             <th>Last Name</th>
             <th>Id Number</th>
             <th>Phone number</th>
+            <th>Alternate phone number</th>
             <th>Email</th>
+            <th>Location</th>
             
             
         </thead>
@@ -40,8 +42,9 @@
                 <td class="info">{{ technician.lastName | upcase}}</td>
                 <td class="info">{{ technician.idNumber | upcase}}</td>
                 <td class="info">{{ technician.phoneNumber | upcase}}</td>
+                <td class="info">{{ technician.phoneNumber2 | upcase}}</td>
                 <td class="info">{{ technician.email | upcase}}</td>
-                
+                <td class="info">{{ technician.location | upcase}}</td>
             </tr>
             {% endfor %}
         </tbody>

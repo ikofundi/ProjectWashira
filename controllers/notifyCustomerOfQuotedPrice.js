@@ -10,10 +10,9 @@ var https = require('https');
 
     // Define the recipient numbers in a comma separated string
     // Numbers should be in international format as shown
-    var to = to;
-    var firstname = firstname;
+    
     // And of course we want our recipients to know what we really do
-    var message = "Hello " + firstname + " the price for your task will be " + quotedPrice + "." + "Please deposit the amount to paybill 567567 account name " + jobId;
+    var message = "Hello " + firstname + " the price for your task, task id number: " + jobId + " is" + quotedPrice + "." + "Please deposit the amount via Mpesa to paybill number 567567. Use account number " + jobId + " and we will send a fundi soon after."
 
     // Build the post string from an object
 
