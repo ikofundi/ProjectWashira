@@ -95,6 +95,9 @@
   text-decoration: none;
 
 }
+#phn{
+	color: green;
+}
 #facebook{
   z-index: 47;
   width: 50px;

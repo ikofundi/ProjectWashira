@@ -5,16 +5,15 @@ $(document).ready(function() {
         $(".break").show();
     });
     
-    $(".back").hide();
+    $(".whyus1").hide();
     $("#stepdiv1").mouseenter(function() {
-       $(this).flip({trigger: 'hover'});
-       $(".back").show();
+       $(".whyus1").show();
 
     });
-    // $("#stepdiv1").mouseleave(function() {
-    //     $(".whyus1").hide();
+    $("#stepdiv1").mouseleave(function() {
+        $(".whyus1").hide();
 
-    // });
+    });
     $(".whyus2").hide();
     $("#stepdiv2").mouseenter(function() {
         $(".whyus2").show();
@@ -57,5 +56,6 @@ $(document).ready(function() {
             })
         }, 5500)
     })
+
 
 });

@@ -4,7 +4,7 @@ var express = require('express');
 var router = express.Router();
 var soap = require('soap');
 var Task = require('../models/task');
-var Technician = require('../models/technician');254
+var Technician = require('../models/technician');
 var sms = require('../controllers/sms');
 var notifyCustomerOfQuotedPrice = require('../controllers/notifyCustomerOfQuotedPrice');
 var notifyCustomerOfMpesaReceipt = require('../controllers/notifyCustomerOfMpesaReceipt');
@@ -16,6 +16,9 @@ var crypto = require('crypto');
 var bodyParser = require("body-parser");
 var parseString = require('xml2js').parseString;
 xmlparser = require('express-xml-bodyparser');
+var smtpTransport = require('nodemailer-smtp-transport');
+var nodemailer = require('nodemailer');
+
 // Declare Africaistalking username and password 
 var username = 'IKOFUNDI';
 var apikey = 'c579e40343543d7348e178a4fc626f644f047dfcc2a1df563ab09e1dd58bbade';
@@ -66,20 +69,43 @@ router.route('/taskform')
         // sms(formData.phoneNumber, formData.firstname, formData.availability, username, apikey, req, res);
         task = new Task(formData);
         task.save(function(err, task) {
-            if (err) {
-                console.log(err);
-            } else {
-                console.log('successfully saved the task');
+                if (err) {
+                    error = err.errors.phoneNumber.message;
+                    res.render('tasks/task-form1', {
+                        "error": error
+                    });
+                } else {
+                    console.log('successfully saved the task');
 
-                function notifyAccesor(task) {
-                    console.log('notified Accesor of ' + task)
-                }
-                notifyAccesor(task);
-                res.redirect('/');
+                    function notifyAccesor(task) {
+                        var transporter = nodemailer.createTransport(smtpTransport({
+                            service: 'gmail',
+                            auth: {
+                                user: 'pnganga05@gmail.com',
+                                pass: 'Sebleeni05'
+                            }
+                        }));
+                        var mailOptions = {
+                            to: 'pnganga05@gmail.com',
+                            from: 'pnganga05@gmail.com',
+                            subject: 'New Task',
+                            text: "A customer has filled a new task. The job id for the task is " + task.jobId 
+
+                        };
+                        transporter.sendMail(mailOptions, function(err) {
+                            if (err)
+                                console.log("not sent: " + err);
+                            else
+                                console.log("successfully sent");
+                        });
+
+                    }
             }
+            notifyAccesor(task); res.redirect('/');
+        })
 
-        });
     });
+
 
 
 
@@ -106,7 +132,7 @@ router.route('/tasks/accesor/unaccesed')
 
             });
     })
-// this route returns all the acessed tasks to the acessor
+    // this route returns all the acessed tasks to the acessor
 router.route('/tasks/accesor/accesed')
     .get(function(req, res) {
         Task.find({ "accesed": true })
@@ -178,7 +204,8 @@ router.route('/tasks/admin/accesed')
 
 function updateTask(method, req, res) {
     taskId = req.params.id;
-    accesorCategory = req.body.category;254
+    accesorCategory = req.body.category;
+    254
     accesorFirstName = req.body.firstname;
     accesorLastName = req.body.lastname;
     accesorEmail = req.body.email;
@@ -251,7 +278,7 @@ router.route('/tasks/:id/edit')
         Task.findById(taskId, function(err, task) {
             if (err) return console.log(err);
 
-            
+
             res.render('accesor/editTask', {
                 "task": task
             });
@@ -350,35 +377,35 @@ router.route('/tasks/:id/mpesa/confirmc2bpayment')
         Task.findOneAndUpdate({ "jobId": incoming.jobId, "phoneNumber": incoming.phoneNumber }, { $set: { amountPaid: incoming.amountPaid } }, { new: true }, function(err, task) {
 
 
-        if (err) return console.log(err);
-        // send sms to customer acknowledging receipt of mpesa payment
-        // notifyCustomerOfMpesaReceipt(incoming.phoneNumber, incoming.amountPaid, username, apikey, req, res);
-        console.log(task.category);
-        taskCategory = task.category.toLowerCase();
-        tasklocation = task.location.toLowerCase();
-        // find technician by category of the task returned by safcom
-        Technician.find({ "category": taskCategory, "location": tasklocation  })
-            .select('category firstname lastname email  phoneNumber location')
-            .exec(function(err, technician) {
+                if (err) return console.log(err);
+                // send sms to customer acknowledging receipt of mpesa payment
+                // notifyCustomerOfMpesaReceipt(incoming.phoneNumber, incoming.amountPaid, username, apikey, req, res);
+                console.log(task.category);
+                taskCategory = task.category.toLowerCase();
+                tasklocation = task.location.toLowerCase();
+                // find technician by category of the task returned by safcom
+                Technician.find({ "category": taskCategory, "location": tasklocation })
+                    .select('category firstname lastname email  phoneNumber location')
+                    .exec(function(err, technician) {
 
 
-        if (err) return console.log(err);
-        // create an empty array technicianPhoneNumbers to store phone numbers of the technicians found
-        var technicianPhoneNumbers = [];
-        // loop through the array returned by the query
-        for (var i = 0; i < technician.length; i++) {
-        // push each technician's number to the technicianPhoneNumbers array
-        technicianPhoneNumbers.push(technician[i]["phoneNumber"]);
-        // change the array to a comma separated string for use with africaistalking apikey
+                        if (err) return console.log(err);
+                        // create an empty array technicianPhoneNumbers to store phone numbers of the technicians found
+                        var technicianPhoneNumbers = [];
+                        // loop through the array returned by the query
+                        for (var i = 0; i < technician.length; i++) {
+                            // push each technician's number to the technicianPhoneNumbers array
+                            technicianPhoneNumbers.push(technician[i]["phoneNumber"]);
+                            // change the array to a comma separated string for use with africaistalking apikey
 
-        var technicianPhoneNumbersAsString = technicianPhoneNumbers.join();
-        }
-        // send message of task availabililty to technicians on that task's category
-        // notifyTechnicianOfTask(technicianPhoneNumbersAsString, task.quotedPrice, username, apikey, req, res);
+                            var technicianPhoneNumbersAsString = technicianPhoneNumbers.join();
+                        }
+                        // send message of task availabililty to technicians on that task's category
+                        // notifyTechnicianOfTask(technicianPhoneNumbersAsString, task.quotedPrice, username, apikey, req, res);
 
-        // redirect to paid tasks
-        res.send(technicianPhoneNumbersAsString);
-        // res.send('<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:c2b="http://cps.huawei.com/cpsinterface/c2bpayment"><soapenv:Header/><soapenv:Body> <c2b:C2BPaymentConfirmationResult>C2B Payment Transaction 1234560000007031 result received.</c2b:C2BPaymentConfirmationResult></soapenv:Body></soapenv:Envelope>');
+                        // redirect to paid tasks
+                        res.send(technicianPhoneNumbersAsString);
+                        // res.send('<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:c2b="http://cps.huawei.com/cpsinterface/c2bpayment"><soapenv:Header/><soapenv:Body> <c2b:C2BPaymentConfirmationResult>C2B Payment Transaction 1234560000007031 result received.</c2b:C2BPaymentConfirmationResult></soapenv:Body></soapenv:Envelope>');
                     });
 
 

@@ -33,12 +33,11 @@ var bodyParser = require('body-parser');;
 // include mongoose
 var mongoose = require('mongoose');
 
-// var mongodbUri = 'mongodb://heroku_qwlmtvmc:k338d2p91jmj9m2l5clrqc0ao1@ds133388.mlab.com:33388/heroku_qwlmtvmc';
 var uristring =
     process.env.MONGOLAB_URI ||
     process.env.MONGOHQ_URL ||
-    // 'mongodb://localhost/washiradb';
-    'mongodb://heroku_l1ppn7j1:jmvhcquindesu04pje4d7vlf01@ds133388.mlab.com:33388/heroku_l1ppn7j1';
+    'mongodb://localhost/washiradb';
+    // 'mongodb://heroku_l1ppn7j1:jmvhcquindesu04pje4d7vlf01@ds133388.mlab.com:33388/heroku_l1ppn7j1';
 mongoose.connect(uristring, function(err, res) {
     if (err) {
         console.log('Error connecting to:', uristring);
@@ -64,7 +63,11 @@ app.use(cookieParser());
 app.use(expressSession({
     secret: 'keyboard cat',
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    cookie: {  
+    
+    maxAge   : 1000*60*60     
+  }   
 
 }));
 app.use(express.static(path.join(__dirname, 'public')));

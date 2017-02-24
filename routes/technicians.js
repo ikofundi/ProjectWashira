@@ -80,24 +80,34 @@ router.route('/technicianhire')
     .post(function(req, res) {
         if(req.body.mobileNumber === req.body.mobileNumber2)
             res.redirect("/technicianhirefail");
+        else
+            var text ="category : " + req.body.category + "\n\n" + "mobileNumber: " +  req.body.mobileNumber + "\n\n" + "mobileNumber2: " + req.body.mobileNumber2 + "\n\n" + "location: " + req.body.location + "\n\n" + "description: " + req.body.aboutMe;
+              
+            
+           //  
+           // description : req.body.description"
+               
+       
+           
         var transporter = nodemailer.createTransport(smtpTransport({
             service: 'gmail',
             auth: {
                 user: 'pnganga05@gmail.com',
-                pass: 'sebleeni05'
+                pass: 'Sebleeni05'
             }
         }));
         var mailOptions = {
             to: 'pnganga05@gmail.com',
             from: 'pnganga05@gmail.com',
             subject: 'APPLICATION FOR FUNDI JOB',
-            text: "Category: " + req.body.category + " \n\n" + "Mobile Number: " + req.body.mobileNumber + "\n\n" + "Mobile Number 2: " + req.body.mobileNumber2 + "\n\n" + "Location: " + req.body.location + "\n\n" + "About me: " + req.body.description + "\n\n"
+            text: text
+           
         };
         transporter.sendMail(mailOptions, function(err) {
             if(err)
                 console.log("not sent: " + err);
             else
-           console.log("sent succesfully");
+           console.log(mailOptions.text);
         });
 
 

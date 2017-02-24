@@ -101,9 +101,9 @@
     <section class="container">
         <div class="col-sm-2"></div>
         <section class="jumbotron text-center col-sm-8">
-        
-                <!-- <p id="phn">The phone number you entered is not valid</p> -->
-              
+        {% if error %}
+                <p id="phn">The phone number you entered is not valid</p>
+                {%  endif %}
 
 
             <form action="/taskform" method="post"  id="taskform">
