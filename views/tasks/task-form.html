@@ -20,7 +20,7 @@
 
 <body>
     <nav class="navbar navbar-default navbar-fixed-top" id="nav">
-        <!-- <img id="logo" src="/images/new.png" alt=""> -->
+        <br>
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -51,8 +51,9 @@
                 </ul> -->
                 <ul class="nav navbar-nav navbar-right">
                     <!-- <li></li> -->
-                    <!--  <li><a href="/taskform"><span id="navtext">Book a fundi</span></a></li> -->
-                    <!-- <li class="active"><a href="./">Fixed top <span class="sr-only">(current)</span></a></li> -->
+                     <li><a href="/"><span id="navtext">Home</span></a></li>
+                     <li><a href="/ourservices"><span id="navtext">Our services</span></a></li>
+                    <li ><a href="/aboutus"><span >About us</span></a></li>
                 </ul>
             </div>
             <!--/.nav-collapse -->
@@ -97,9 +98,10 @@
             <!-- </div> -->
     </section>
     <br>
+    <section class="container">
     <div class="col-sm-2"></div>
     <section class="jumbotron text-center col-sm-8">
-        <form action="/taskform" method="post" onSubmit="alert('Thank for using our services. We will get back to you shortly');" id="taskform">
+        <form action="/taskform" method="post" onSubmit="alert('Thank you for using our services. We will get back to you shortly');" id="taskform">
             <label for="category">
                 <h3>What type of fundi service do you want?</h3></label>
             <br>
@@ -212,7 +214,7 @@
             <label for="description">
                 <h3>Describe your problem</h3></label>
             <br>
-            <textarea class="text-center" name="description" id="taskform" cols="60" rows="5" placeholder="Tell us more about your problem" required></textarea>
+            <textarea class="text-center" name="description" id="taskform" cols="40" rows="5" placeholder="Tell us more about your problem" required></textarea>
             <br>
             <br>
             <br>
@@ -226,8 +228,59 @@
             </div>
             <br>
         </form>
+        
     </section>
     <div class="col-sm-2"></div>
+    </section>
+    <section  id="space">
+             <div class="col-sm-4 text-center">
+            <br>
+            <p><a href="/accesor/login">Acessor</a> or <a href="/admin/login">Admin</a></p>
+        </div>
+        <div class="col-sm-4 text-center">
+            <br>
+            <a href="/technicianhire">
+                <p id="hiring">We are hiring</p>
+            </a>
+            <a href="/faqs">
+                <p id="hiring">Frequently asked questions</p>
+            </a>
+            <br>
+            <br>
+            <br>
+            <p id="copyright">&#169; Copyright | IKOFUNDI</p>
+        </div>
+        <div class="row col-sm-4 text-center" id="socialholder">
+            <br>
+            <div class="row text-center">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4">
+                    <a class="col-sm-4" href="https://www.facebook.com">
+                        <div id="facebook">
+                        </div>
+                    </a>
+                    <a class=" col-sm-4 " href="https://www.twitter.com">
+                        <div id="twitter">
+                        </div>
+                    </a>
+                    <a class="row col-sm-4" href="https://www.instagram.com">
+                        <div id="ig">
+                        </div>
+                    </a>
+                </div>
+                <div class="col-sm-4"></div>
+            </div>
+            <div class="row text-center">
+                <br>
+                <div class="col-sm-3"></div>
+                <div class="col-sm-6">
+                </div>
+                <div class="col-sm-3"></div>
+            </div>
+        </div>
+    </section>
+    
+   
 </body>
 <script src="/js/jquery.js"></script>
 <script src="/js/style.js"></script>

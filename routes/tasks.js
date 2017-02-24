@@ -4,7 +4,7 @@ var express = require('express');
 var router = express.Router();
 var soap = require('soap');
 var Task = require('../models/task');
-var Technician = require('../models/technician');
+var Technician = require('../models/technician');254
 var sms = require('../controllers/sms');
 var notifyCustomerOfQuotedPrice = require('../controllers/notifyCustomerOfQuotedPrice');
 var notifyCustomerOfMpesaReceipt = require('../controllers/notifyCustomerOfMpesaReceipt');
@@ -178,7 +178,7 @@ router.route('/tasks/admin/accesed')
 
 function updateTask(method, req, res) {
     taskId = req.params.id;
-    accesorCategory = req.body.category;
+    accesorCategory = req.body.category;254
     accesorFirstName = req.body.firstname;
     accesorLastName = req.body.lastname;
     accesorEmail = req.body.email;

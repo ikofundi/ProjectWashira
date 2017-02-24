@@ -65,9 +65,9 @@
 
 }
 #logo{
-	top: -10px;
-	left: 30px;
-	position: absolute;
+	top: -20px;
+	left: -20px;
+	position: relative;
 }
 #nav{
 	
@@ -136,7 +136,7 @@ blockquote{
   /*Font*/
   font-family: Georgia, serif;
   font-size: 16px;
-  line-height: 1.2;http://127.0.0.1:8081/ourservices
+  line-height: 1.2;
   color: #666;
   text-align: justify;
   
@@ -259,4 +259,14 @@ blockquote{
 }
 #copyright{
 	color: white;
+}
+#spaceh{
+	min-height: 20px;
+}
+.rotated {
+    -webkit-transform: rotate(45deg);  /* Chrome, Safari 3.1+ */
+    -moz-transform: rotate(45deg);  /* Firefox 3.5-15 */
+    -ms-transform: rotate(45deg);  /* IE 9 */
+    -o-transform: rotate(45deg);  /* Opera 10.50-12.00 */
+    transform: rotate(45deg);  /* Firefox 16+, IE 10+, Opera 12.10+ */
 }

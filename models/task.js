@@ -13,6 +13,7 @@ var taskSchema = mongoose.Schema({
     accesorComments: String,
     jobId: String,
     amountPaid: String,
+    transactionCode: String,
     accesed:  { type: Boolean, default: false }
 });
 

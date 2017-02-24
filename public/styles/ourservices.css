@@ -36,9 +36,9 @@
   font-size: 2em;
   }
 #logo{
-	top: -10px;
-	left: 30px;
-	position: absolute;
+  top: -20px;
+  left: -20px;
+  position: relative;
 }
 #navtext{
   font-size: 1.1em;
@@ -62,7 +62,7 @@
 	color: grey;
 }
 #space{
-	min-height: 50px;
+	min-height: 200px;
 	background-color: green;
 }
 #categoryalign{
@@ -109,4 +109,103 @@ blockquote{
 #howtext{
   /*right: 50px;*/
   font-weight: bold;
+}
+#copyright{
+  color: white;
+}
+#hiring{
+  color: white;
+  text-decoration: none;
+
+}
+#facebook{
+  z-index: 47;
+  width: 50px;
+  height: 50px;
+  /*position: absolute;*/
+  bottom: 81px;
+  left: 50%;
+  margin-left: -142px;
+  background-color: #ebb92f;
+  background-image: url(/images/Faceookb.png);
+  background-repeat: no-repeat;
+  /*background-size: contain;*/
+  background-attachment: scroll;
+  background-clip: border-box;
+  background-origin: padding-box;
+  background-position: 50% 50%;
+  border-bottom-right-radius: 25px;
+  border-bottom-left-radius: 25px;
+  border-bottom-style: solid;
+  border-bottom-width: 0px;
+  border-left-style: solid;
+  border-left-width: 0px;
+  border-right-width: 0px;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  border-top-style: solid;
+  border-top-width: 0px;
+  display: block;
+}
+#twitter{
+  z-index: 47;
+  width: 50px;
+  height: 50px;
+  /*position: absolute;*/
+  bottom: 81px;
+  left: 50%;
+  margin-left: -85px;
+  background-color: #ebb92f;
+  background-image: url(/images/twitterb.png);
+  background-repeat: no-repeat;
+  /*background-size: contain;*/
+  background-attachment: scroll;
+  background-clip: border-box;
+  background-origin: padding-box;
+  background-position: 50% 50%;
+  border-bottom-right-radius: 25px;
+  border-bottom-left-radius: 25px;
+  border-bottom-style: solid;
+  border-bottom-width: 0px;
+  border-left-style: solid;
+  border-left-width: 0px;
+  border-right-width: 0px;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  border-top-style: solid;
+  border-top-width: 0px;
+  display: block;
+
+
+}
+#ig{
+  z-index: 47;
+  width: 50px;
+  height: 50px;
+  /*position: absolute;*/
+  bottom: 81px;
+  left: 50%;
+  margin-left: -28px;
+  background-color: #ebb92f;
+  background-image: url(/images/instagramb.png);
+  background-repeat: no-repeat;
+  /*background-size: contain;*/
+  /*background-attachment: scroll;*/
+  background-clip: border-box;
+  background-origin: padding-box;
+  background-position: 50% 50%;
+  border-bottom-right-radius: 25px;
+  border-bottom-left-radius: 25px;
+  border-bottom-style: solid;
+  border-bottom-width: 0px;
+  border-left-style: solid;
+  border-left-width: 0px;
+  border-right-width: 0px;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  border-top-style: solid;
+  border-top-width: 0px;
+  display: block;
+
+
 }

@@ -1,23 +1,20 @@
 $(document).ready(function() {
-    // var $element = $('#logo');
 
-    // $(window).scroll(function() {
-
-    //     if ($(this).scrollTop() > 0) {
-    //         $element.fadeOut(1000);
-    //     } else {
-    //         $element.fadeIn(1000);
-    //     }
-    // });
-    $(".whyus1").hide();
+    $(".break").hide();
+    $("#how").click(function() {
+        $(".break").show();
+    });
+    
+    $(".back").hide();
     $("#stepdiv1").mouseenter(function() {
-        $(".whyus1").show();
+       $(this).flip({trigger: 'hover'});
+       $(".back").show();
 
     });
-    $("#stepdiv1").mouseleave(function() {
-        $(".whyus1").hide();
+    // $("#stepdiv1").mouseleave(function() {
+    //     $(".whyus1").hide();
 
-    });
+    // });
     $(".whyus2").hide();
     $("#stepdiv2").mouseenter(function() {
         $(".whyus2").show();

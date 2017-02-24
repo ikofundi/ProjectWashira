@@ -3,6 +3,8 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var Technician = require('../models/technician');
 var User = require('../models/user');
+var smtpTransport = require('nodemailer-smtp-transport');
+var nodemailer = require('nodemailer');
 
 router.route('/technicians')
     .get(function(req, res) {
@@ -27,14 +29,14 @@ router.route('/technicians')
     })
     .post(function(req, res) {
         console.log(req.body.category);
-            category = req.body.category.toLowerCase();
-            firstname = req.body.firstname.toLowerCase();
-            lastname = req.body.lastname.toLowerCase();
-            email = req.body.email.toLowerCase();
-            phoneNumber =  req.body.phoneNumber.toLowerCase();
-            phoneNumber2 =  req.body.phoneNumber2.toLowerCase();
-            idNumber = req.body.Idnumber.toLowerCase();
-            location = req.body.location.toLowerCase();
+        category = req.body.category.toLowerCase();
+        firstname = req.body.firstname.toLowerCase();
+        lastname = req.body.lastname.toLowerCase();
+        email = req.body.email.toLowerCase();
+        phoneNumber = req.body.phoneNumber.toLowerCase();
+        phoneNumber2 = req.body.phoneNumber2.toLowerCase();
+        idNumber = req.body.Idnumber.toLowerCase();
+        location = req.body.location.toLowerCase();
 
         formData = {
             category: category,
@@ -52,8 +54,8 @@ router.route('/technicians')
                 console.log(err["errors"]["phoneNumber"]["message"]);
                 error = err["errors"]["phoneNumber"]["message"];
                 res.render('technician/new', {
-                'error': error
-            });
+                    'error': error
+                });
             } else {
                 console.log(technician);
                 console.log('successfully saved the technician');
@@ -67,10 +69,63 @@ router.route('/technicians/new')
     .get(function(req, res) {
         res.render('technician/new');
     });
+// route for handling we are hiring link
 router.route('/technicianhire')
-    .get(function (req, res) {
+    .get(function(req, res) {
+        // create a message for a succesful application
+        var message = "Application sent successfully.You will receive a call from us soon.";
+        // render we are hiring page
         res.render('technician/hire');
     })
+    .post(function(req, res) {
+        if(req.body.mobileNumber === req.body.mobileNumber2)
+            res.redirect("/technicianhirefail");
+        var transporter = nodemailer.createTransport(smtpTransport({
+            service: 'gmail',
+            auth: {
+                user: 'pnganga05@gmail.com',
+                pass: 'sebleeni05'
+            }
+        }));
+        var mailOptions = {
+            to: 'pnganga05@gmail.com',
+            from: 'pnganga05@gmail.com',
+            subject: 'APPLICATION FOR FUNDI JOB',
+            text: "Category: " + req.body.category + " \n\n" + "Mobile Number: " + req.body.mobileNumber + "\n\n" + "Mobile Number 2: " + req.body.mobileNumber2 + "\n\n" + "Location: " + req.body.location + "\n\n" + "About me: " + req.body.description + "\n\n"
+        };
+        transporter.sendMail(mailOptions, function(err) {
+            if(err)
+                console.log("not sent: " + err);
+            else
+           console.log("sent succesfully");
+        });
 
+
+  
+
+
+        // redirect to form with message
+        res.redirect('/technicianhiresuccess'); 
+
+});
+router.route('/technicianhiresuccess')
+    .get(function(req, res) {
+        // create a message for a succesful application
+        var message = "Application sent successfully.You will receive a call from us soon.";
+        // render we are hiring page
+        res.render('technician/hire', {
+            "message": message
+
+        });
+    })
+router.route('/technicianhirefail')
+    .get(function(req, res) {
+        // create a message for a succesful application
+        var messag = "First mobile number should be different from the second.";
+        // render we are hiring page
+        res.render('technician/hire', {
+            "messag": messag
+        });
+    })
 
 module.exports = router;
