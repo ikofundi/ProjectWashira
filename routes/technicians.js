@@ -82,12 +82,7 @@ router.route('/technicianhire')
             res.redirect("/technicianhirefail");
         else
             var text ="category : " + req.body.category + "\n\n" + "mobileNumber: " +  req.body.mobileNumber + "\n\n" + "mobileNumber2: " + req.body.mobileNumber2 + "\n\n" + "location: " + req.body.location + "\n\n" + "description: " + req.body.aboutMe;
-              
-            
-           //  
-           // description : req.body.description"
-               
-       
+ 
            
         var transporter = nodemailer.createTransport(smtpTransport({
             service: 'gmail',

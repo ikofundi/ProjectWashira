@@ -1,0 +1,35 @@
+#contactimg{
+	background-image: url(/images/elec.jpg);
+	min-height: 300px;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+.continput{
+	height: 40px;
+	width: 80%;
+	border-color: #ebb92f;
+	border-width: 2px;
+	border-style: solid;
+}
+.conttextarea{
+	border-color: #ebb92f;
+	border-width: 2px;
+	border-style: solid;
+}
+#talk{
+	color: #ebb92f;
+	font-weight: bolder;
+}
+#sendmsg{
+	background-color: #ebb92f;
+	border-color: #ebb92f;
+	height: 45px;
+	width: 30%; 
+}
+#sendmsgtext{
+	/*color: white;*/
+	font-weight: bold;
+}
+#emailsuccess{
+	color: green;
+}

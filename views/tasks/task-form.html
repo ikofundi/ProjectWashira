@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="/bootstrap-3.3.6-dist/js/bootstrap.min.js">
     <!-- css styling -->
     <link rel="stylesheet" type="text/css" href="/styles/taskform.css" />
+    <link rel="stylesheet" type="text/css" href="/styles/main.css" />
 </head>
 
 <body>
@@ -32,23 +33,7 @@
                 <a class="navbar-brand" id="logo" href="/"><img class="img-responsive" src="/images/logo.png" alt="logo"></a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
-                <!--   <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li class="dropdown-header">Nav header</li>
-                            <li><a href="#">Separated link</a></li>
-                            <li><a href="#">One more separated link</a></li>
-                        </ul>
-                    </li>
-                </ul> -->
+               
                 <ul class="nav navbar-nav navbar-right">
                     <!-- <li></li> -->
                     <li><a href="/"><span id="navtext">Home</span></a></li>
@@ -66,10 +51,7 @@
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
             <!-- Indicators -->
             <ol class="carousel-indicators">
-                <!-- <li data-target="#myCarousel" data-slide-to="0" class="active"></li> -->
-                <!-- <li data-target="#myCarousel" data-slide-to="1"></li> -->
-                <!-- <li data-target="#myCarousel" data-slide-to="2"></li> -->
-                <!-- <li data-target="#myCarousel" data-slide-to="3"></li> -->
+                
             </ol>
             <!-- Wrapper for slides -->
             <div class="carousel-inner" role="listbox">
@@ -79,21 +61,7 @@
                 <div class="item">
                     <img src="/images/fixed.png" alt="" width="460" height="345">
                 </div>
-                <!-- <div class="item">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                >
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                >
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                >
-            </div>
-            <!-- Left and right controls -->
-                <!-- <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-              -->
-                <!--  <span class="sr-only">Next</span>
-            </a> -->
+        
             </div>
             <!-- </div> -->
     </section>
@@ -101,12 +69,9 @@
     <section class="container">
         <div class="col-sm-2"></div>
         <section class="jumbotron text-center col-sm-8">
-        
-                <!-- <p id="phn">The phone number you entered is not valid</p> -->
-              
-
 
             <form action="/taskform" method="post"  id="taskform">
+                 <h5 id="must">Please fill all fields</h5>
                 <label for="category">
                     <h3>What type of fundi service do you want?</h3></label>
                 <br>
@@ -217,7 +182,7 @@
                     <label for="phoneNumber">
                         <h4>MOBILE NUMBER</h4></label>
                     <br>
-                    <input type="text" name="phoneNumber" placeholder="+254700111000 " oninvalid="this.setCustomValidity('all fields must be filled')" oninput="setCustomValidity('')" required validate>
+                    <input type="text" name="phoneNumber" placeholder="Use format(+254700123456)" oninvalid="this.setCustomValidity('all fields must be filled')" oninput="setCustomValidity('')" required validate>
                     <br>
                     <br>
                 </div>
@@ -242,52 +207,60 @@
         </section>
         <div class="col-sm-2"></div>
     </section>
-    <section id="space">
+          <section id="links" class="row">
         <div class="col-sm-4 text-center">
-            <br>
-            <p><a href="/accesor/login">Acessor</a> or <a href="/admin/login">Admin</a></p>
+            <div class="col-sm-1"></div>
+            <div class="col-sm-11">
+                <h3 id="abouthead">About us</h3>
+                <p id="hiring">Ikofundi is a simply designed online platform of trusted and qualified professionals that makes getting professional help quick and easy. We offer a total solution to all your house needs. You don’t have to leave the comfort of your home or office looking for a fundi, we will come to you</p>
+                <a href="/aboutus">
+                    <button id="learn"><span id="learntext">Learn More</span></button>
+                </a>
+            </div>
         </div>
         <div class="col-sm-4 text-center">
             <br>
-            <a href="/technicianhire">
-                <p id="hiring">We are hiring</p>
-            </a>
-            <a href="/faqs">
-                <p id="hiring">Frequently asked questions</p>
-            </a>
-            <br>
-            <br>
-            <br>
-            <p id="copyright">&#169; Copyright | IKOFUNDI</p>
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6 text-center">
+                <a href="/technicianhire">
+                    <p id="hiring">We are hiring</p>
+                </a>
+                <br>
+                <a href="/faqs">
+                    <p id="hiring">Frequently asked questions</p>
+                </a>
+                <br>
+                <a href="/contactus">
+                    <p id="hiring">Contact us</p>
+                </a><br>
+                <a href="/staffportal">
+                    <p id="hiring">STAFF PORTAL</p>
+                </a>
+            </div>
+            <div class="col-sm-3"></div>
         </div>
         <div class="row col-sm-4 text-center" id="socialholder">
             <br>
-            <div class="row text-center">
-                <div class="col-sm-4"></div>
-                <div class="col-sm-4">
-                    <a class="col-sm-4" href="https://www.facebook.com">
-                        <div id="facebook">
-                        </div>
-                    </a>
-                    <a class=" col-sm-4 " href="https://www.twitter.com">
-                        <div id="twitter">
-                        </div>
-                    </a>
-                    <a class="row col-sm-4" href="https://www.instagram.com">
-                        <div id="ig">
-                        </div>
-                    </a>
-                </div>
-                <div class="col-sm-4"></div>
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4">
+                <a class="col-sm-4" href="https://www.facebook.com">
+                    <div id="facebook">
+                    </div>
+                </a>
+                <a class=" col-sm-4 " href="https://www.twitter.com">
+                    <div id="twitter">
+                    </div>
+                </a>
+                <a class="row col-sm-4" href="https://www.instagram.com">
+                    <div id="ig">
+                    </div>
+                </a>
             </div>
-            <div class="row text-center">
-                <br>
-                <div class="col-sm-3"></div>
-                <div class="col-sm-6">
-                </div>
-                <div class="col-sm-3"></div>
-            </div>
+            <div class="col-sm-4"></div>
         </div>
+    </section>
+    <section id="copyright" class="text-center">
+        <p id="hiring">&#169; Copyright | IKOFUNDI</p>
     </section>
 </body>
 <script src="/js/jquery.js"></script>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>IkoFundi | Contact us</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/bootstrap-3.3.6-dist/css/bootstrap.min.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="/bootstrap-3.3.6-dist/css/bootstrap-theme.min.css">
+    <!-- Latest compiled and minified JavaScript -->
+    <link rel="stylesheet" href="/bootstrap-3.3.6-dist/js/bootstrap.min.js">
+    <!-- css styling -->
+    <link rel="stylesheet" type="text/css" href="/styles/contactus.css" />
+    <link rel="stylesheet" type="text/css" href="/styles/main.css" />
+</head>
+
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top" id="nav">
+        <br>
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" id="logo" href="/"><img class="img-responsive" src="/images/logo.png" alt="logo"></a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <!-- <li></li> -->
+                    <li><a href="/"><span id="navtext">Home</span></a></li>
+                    <li><a href="/ourservices"><span id="navtext">Our services</span></a></li>
+                    <li><a href="/taskform"><span >Book fundi</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <br>
+    <br>
+    <br>
+    <br>
+    <section id="contactimg">
+    </section>
+    <section class="row text-center">
+        <h1 id="talk">Talk to us</h1>
+        <form action="/contactus" method="post">
+            <div class="row">
+                <div class="col-sm-6">
+                    <label for="firstName">First name</label>
+                    <br>
+                    <input class="continput" type="text" name="firstName" placeholder="Enter first name" oninvalid="this.setCustomValidity('all fields must be filled')" oninput="setCustomValidity('')" required validate>
+                </div>
+                <div class="col-sm-6">
+                    <label for="lastName">Last name</label>
+                    <br>
+                    <input class="continput" type="text" name="lastName" placeholder="Enter last name" oninvalid="this.setCustomValidity('all fields must be filled')" oninput="setCustomValidity('')" required validate>
+                </div>
+            </div><br>
+            <div class="row">
+                <div class="col-sm-6">
+                    <label for="PhoneNumber">Phone number</label>
+                    <br>
+                    <input class="continput" type="text" name="PhoneNumber" placeholder="use format(+254700123456)" oninvalid="this.setCustomValidity('Enter a valid phone number')" oninput="setCustomValidity('')" required validate>
+                </div>
+                <div class="col-sm-6">
+                    <label for="email">Email</label>
+                    <br>
+                    <input class="continput" type="email" name="email" placeholder=" joe@email.com" oninvalid="this.setCustomValidity('Enter a valid email address')" oninput="setCustomValidity('')" required validate>
+                </div>
+            </div><br>
+            <div class="row">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-6">
+                    <label for="firstName">Message</label>
+                    <br>
+                    <textarea class="conttextarea" name="message" cols="50" rows="5" placeholder="Enter your message" oninvalid="this.setCustomValidity('all fields must be filled')" oninput="setCustomValidity('')" required></textarea>
+                </div>
+                <div class="col-sm-3">
+                </div>
+            </div>
+            <br>
+            <button id="sendmsg" type="submit"><span id="sendmsgtext">Send message</span></button>
+        </form>
+    </section>
+    <br>
+    <section id="links" class="row">
+        <div class="col-sm-4 text-center">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-11">
+                <h3 id="abouthead">About us</h3>
+                <p id="hiring">Ikofundi is a simply designed online platform of trusted and qualified professionals that makes getting professional help quick and easy. We offer a total solution to all your house needs. You don’t have to leave the comfort of your home or office looking for a fundi, we will come to you</p>
+                <a href="/aboutus">
+                    <button id="learn"><span id="learntext">Learn More</span></button>
+                </a>
+            </div>
+        </div>
+        <div class="col-sm-4 text-center">
+            <br>
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6 text-center">
+                <a href="/technicianhire">
+                    <p id="hiring">We are hiring</p>
+                </a>
+                <br>
+                <a href="/faqs">
+                    <p id="hiring">Frequently asked questions</p>
+                </a>
+                <br>
+                <a href="/contactus">
+                    <p id="hiring">Contact us</p>
+                </a>
+                <br>
+                <a href="/staffportal">
+                    <p id="hiring">STAFF PORTAL</p>
+                </a>
+            </div>
+            <div class="col-sm-3"></div>
+        </div>
+        <div class="row col-sm-4 text-center" id="socialholder">
+            <br>
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4">
+                <a class="col-sm-4" href="https://www.facebook.com">
+                    <div id="facebook">
+                    </div>
+                </a>
+                <a class=" col-sm-4 " href="https://www.twitter.com">
+                    <div id="twitter">
+                    </div>
+                </a>
+                <a class="row col-sm-4" href="https://www.instagram.com">
+                    <div id="ig">
+                    </div>
+                </a>
+            </div>
+            <div class="col-sm-4"></div>
+        </div>
+    </section>
+    <section id="copyright" class="text-center">
+        <p id="hiring">&#169; Copyright | IKOFUNDI</p>
+    </section>
+</body>
+<script src="/js/jquery.js"></script>
+<script src="/js/style.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+</html>

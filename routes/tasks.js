@@ -15,7 +15,7 @@ var https = require('https');
 var crypto = require('crypto');
 var bodyParser = require("body-parser");
 var parseString = require('xml2js').parseString;
-xmlparser = require('express-xml-bodyparser');
+var xmlparser = require('express-xml-bodyparser');
 var smtpTransport = require('nodemailer-smtp-transport');
 var nodemailer = require('nodemailer');
 

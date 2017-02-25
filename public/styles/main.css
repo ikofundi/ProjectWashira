@@ -249,6 +249,9 @@ blockquote{
 
 
 }
+#abouthead{
+	color: #ebb92f;
+}
 #socialholder{
 	/*margin-left: 32px;*/
 }
@@ -270,6 +273,14 @@ blockquote{
     -o-transform: rotate(45deg);  /* Opera 10.50-12.00 */
     transform: rotate(45deg);  /* Firefox 16+, IE 10+, Opera 12.10+ */
 }
-#phn{
+#learn{
+	background-color: #ebb92f;
+	border-color: #ebb92f;
+}
+#learntext{
 	color: green;
+	font-weight: bold;
+}
+#copyright{
+	background-color: green;
 }
