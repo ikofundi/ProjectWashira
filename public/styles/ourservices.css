@@ -47,7 +47,7 @@
 }
 #solvetext{
 	font-weight: bolder;
-	font-size: 4.2em;
+	font-size: 4.8em;
 }
 #solve{
 	color: #ebb92f;
@@ -65,10 +65,7 @@
 	min-height: 200px;
 	background-color: green;
 }
-#categoryalign{
-	
-  
-}
+
 #reviews{
 	background-color: #fffde7;
 	min-height: 300px;
