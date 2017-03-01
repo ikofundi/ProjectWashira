@@ -176,7 +176,7 @@ router.route('/accesor/reset/:token')
 router.route('/logout')
     .get(function(req, res) {
         req.logout();
-        res.redirect('/');
+        res.redirect('/staffportal');
     });
 
 module.exports = router;

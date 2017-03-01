@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>IkoFundi | Our services form</title>
+    <title>IkoFundi | book fundi form</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/bootstrap-3.3.6-dist/css/bootstrap.min.css">
@@ -102,7 +102,7 @@
                 <label for="location">
                     <h3>Where is your location?</h3></label>
                 <br>
-                <select name="location" class="text-center">
+                <select name="location" class="text-center" required aria-required=”true”>
                     <option>
                         <h2>CLICK HERE TO CHOOSE A LOCATION</h2></option>
                     <option value="arboretum">
@@ -148,10 +148,10 @@
                 <label for="availability">
                     <h3>At what time are you available?</h3></label>
                 <br>
-                <input id="date" type="date" name="availability" placeholder="1-1-17" oninvalid="this.setCustomValidity('all fields must be filled')" oninput="setCustomValidity('')" required validate>
+                <input id="date" type="date" name="availability" placeholder="1-1-17" oninvalid="this.setCustomValidity('all fields must be filled')" oninput="setCustomValidity('')" required aria-required=”true” validate>
                 <br>
                 <br>
-                <input class=t ype="time" name="availability" placeholder="13:00" oninvalid="this.setCustomValidity('all fields must be filled')" oninput="setCustomValidity('')" required validate>
+                <input class=t ype="time" name="availability" placeholder="13:00" oninvalid="this.setCustomValidity('all fields must be filled')" oninput="setCustomValidity('')" required aria-required=”true” validate>
                 <br>
                 <br>
                 <br>
@@ -164,13 +164,13 @@
                             <label for="firstname">
                                 <h4>FIRST NAME</h4></label>
                             <br>
-                            <input type="text" name="firstname" placeholder="John" oninvalid="this.setCustomValidity('all fields must be filled')" oninput="setCustomValidity('')" required validate>
+                            <input type="text" name="firstname" placeholder="John" oninvalid="this.setCustomValidity('all fields must be filled')" oninput="setCustomValidity('')" required aria-required=”true” validate>
                         </div>
                         <div class="col-sm-6">
                             <label for="lastname">
                                 <h4>LAST NAME</h4></label>
                             <br>
-                            <input type="text" name="lastname" placeholder="Doe" oninvalid="this.setCustomValidity('all fields must be filled')" oninput="setCustomValidity('')" required validate>
+                            <input type="text" name="lastname" placeholder="Doe" oninvalid="this.setCustomValidity('all fields must be filled')" oninput="setCustomValidity('')" required aria-required=”true” validate>
                         </div>
                     </div>
                     <br>
@@ -182,7 +182,8 @@
                     <label for="phoneNumber">
                         <h4>MOBILE NUMBER</h4></label>
                     <br>
-                    <input type="text" name="phoneNumber" placeholder="Use format(+254700123456)" oninvalid="this.setCustomValidity('all fields must be filled')" oninput="setCustomValidity('')" required validate>
+                    <input type="text" size="13" pattern="(\+254)7([0-3|7])(\d){7}" title=" e.g +254700000000"  placeholder="+254700000000" name="phoneNumber" required  validate>
+                    <!--     -->
                     <br>
                     <br>
                 </div>
@@ -190,7 +191,7 @@
                 <label for="description">
                     <h3>Describe your problem</h3></label>
                 <br>
-                <textarea name="description" cols="40" rows="5" placeholder="Tell us more about your problem" oninvalid="this.setCustomValidity('all fields must be filled')" oninput="setCustomValidity('')" required ></textarea>
+                <textarea name="description" cols="40" rows="5" placeholder="Tell us more about your problem" oninvalid="this.setCustomValidity('all fields must be filled')" oninput="setCustomValidity('')" required aria-required=”true” ></textarea>
                 <br>
                 <br>
                 <br>

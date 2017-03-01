@@ -192,3 +192,21 @@
 
 
 }
+#filledimg{
+  background-image: url(/images/ndfu.jpg);
+  min-height: 290px;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+#hellouser{
+  color: grey;
+  font-weight: bold;
+}
+#user{
+  color: #ebb92f;
+  font-weight: bolder;
+  text-transform: uppercase;
+}
+#bookingid{
+  color: #ebb92f;
+}

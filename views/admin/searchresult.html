@@ -22,13 +22,15 @@
     <section class="row">
         <div class="row col-sm-2"></div>
         <div class="container col-sm-10 text-center">
-            <h1>Unaccesed tasks</h1>
+        
+            <h1>Matched task</h1>
             <form class="search" method="post" action="/tasks/search">
                 <input type="text" placeholder="Search" name="q"/>
                 <input type="submit" value="Search" />
             </form>
             <table class="table text-center">
                 <thead>
+                    <th>Insert amount</th>
                     <th>Job Id</th>
                     <th>Category</th>
                     <th>Firstname</th>
@@ -42,6 +44,9 @@
                 <tbody>
                     {% for task in tasks %}
                     <tr>
+                        <td class="info"><a href="/tasks/{{task._id}}/mpesa/confirmc2bpayment">
+                                <p>Insert paid amount</p>
+                            </a></td>
                         <td class="info">{{ task.jobId | upcase}}</td>
                         <td class="active">{{ task.category | upcase }}</td>
                         <td class="success">{{ task.firstname | upcase}}</td>
@@ -51,11 +56,12 @@
                         <td class="info">{{ task.phoneNumber | upcase}}</td>
                         <td class="info">{{ task.availability | upcase}}</td>
                         <td class="info">{{ task.description | upcase}}</td>
+
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
-            <p><a href="/tasks/admin/accesed">View accesed tasks</a></p>
+            
             <div class="row col-sm-2"></div>
     </section>
     {% else %}

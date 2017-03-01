@@ -116,6 +116,28 @@ router.route('/accesor/:id/delete')
         deleteAccesor('GET', req, res);
     });
 
+// router for paod tasks
+router.route('/paidtasks')
+       .get(function(req, res) {
+        Task.find({ "amountPaid": "300"})
+            .select('category firstname lastname transactionCode amountPaid email location phoneNumber description availability quotedPrice accesorComments jobId accesed')
+            .exec(function(err, tasks) {
 
+
+                if (err) return console.log(err);
+
+
+                // res.json(tasks);
+                console.log(req.user);
+
+                res.render('admin/paidtasks', {
+                    "tasks": tasks,
+                    'user': req.user
+                });
+
+
+
+            });
+    })
 
 module.exports = router;

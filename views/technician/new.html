@@ -2,7 +2,7 @@
 <html>
 
 <head>
-   <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>IkoFundi | New Technician</title>
@@ -16,10 +16,12 @@
     <link rel="stylesheet" href="/bootstrap-3.3.6-dist/js/bootstrap.min.js">
     <!-- css styling -->
     <link rel="stylesheet" type="text/css" href="/styles/taskform.css" />
+    <link rel="stylesheet" type="text/css" href="/styles/main.css" />
+    <link rel="stylesheet" type="text/css" href="/styles/technicianhire.css" />
 </head>
 
 <body>
-   <nav class="navbar navbar-default navbar-fixed-top" id="nav">
+    <nav class="navbar navbar-default navbar-fixed-top" id="nav">
         <!-- <img id="logo" src="/images/new.png" alt=""> -->
         <div class="container">
             <div class="navbar-header">
@@ -57,7 +59,13 @@
             </div>
             <!--/.nav-collapse -->
         </div>
-    </nav><br><br><br><br><br><br>
+    </nav>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
     <section class="row">
         <p>{{error}}</p>
         <div class="row col-sm-4"></div>
@@ -65,14 +73,25 @@
             <form action="/technicians" method="post">
                 <label for="category">Category</label>
                 <select name="category">
+                    <option>
+                        <h2>CLICK HERE TO CHOOSE A CATEGORY</h2></option>
+                    <option value="computers">
+                        <h2>computers</h2></option>
                     <option value="plumbing">plumbing</option>
                     <option value="Applliances & electricals">applliances & electricals</option>
                     <option value="Painting">painting</option>
                     <option value="Capentry">capentry</option>
-                    <option value="Cleaning & maid services">cleaning & maid services</option>
+                    <option value="Carpet cleaning">carpet cleaning</option>
                     <option value="Landscaping">landscaping</option>
                     <option value="Remodels & additions">remodels & additions</option>
                     <option value="Windows & doors">windows & doors</option>
+                    <option value="Mobile phone repair">mobile phone repair</option>
+                    <option value="Tv mounting">TV mounting</option>
+                    <option value="Cable installation">Cable Installation</option>
+                    <option value="Moving & relocation services">moving & relocation services</option>
+                    <option value="Catering & party services">Catering & party services</option>
+                    <option value="Fumigation">fumigation</option>
+                    <option value="Others">Others</option>
                 </select>
                 <br>
                 <br>
@@ -85,66 +104,65 @@
                 <br>
                 <br>
                 <label for="Idnumber">Id Number</label>
-                <input type="text" name="Idnumber" placeholder="enter Id number" required validate>
+                <input type="text" name="Idnumber" size="8" title="enter 8 digits" placeholder="enter Id number" required validate>
                 <br>
                 <br>
                 <label for="phoneNumber">Phone Number</label>
-                <input type="text" name="phoneNumber" placeholder="enter Phone number" value="+254" required validate>
+                <input type="text" name="phoneNumber" size="13" pattern="(\+254)7([0-3|7])(\d){7}" title=" e.g +254700000000" placeholder="+254700000000" required validate>
                 <br>
                 <br>
                 <label for="phoneNumber">Phonenumber2</label>
-                <input type="text" name="phoneNumber2" placeholder="enter Phone number" value="+254" required validate>
+                <input type="text" name="phoneNumber2" size="13" pattern="(\+254)7([0-3|7])(\d){7}" title=" e.g +254700000000" placeholder="+254700000000" required validate>
                 <br>
                 <br>
-                <label for="email">Email</label>
-                <input type="text" name="email" placeholder="enter Email" required validate>
+                <label for="email">Email(optional)</label>
+                <input type="text" name="email" placeholder="enter Email" validate>
                 <br>
                 <br>
                 <label for="location">
-                Location</label>
-            <br>
-            <select name="location" class="text-center">
-                <option>
-                    <h2>CLICK HERE TO CHOOSE A LOCATION</h2></option>
-                <option value="arboretum">
-                    <h2>Arboretum</h2></option>
-                <option value="buruburu">Buruburu</option>
-                <option value="cbd">Cbd</option>
-                <option value="chiromo">Chiromo</option>
-                <option value="donholm">Donholm</option>
-                <option value="embakasi">Embakasi</option>
-                <option value="forest road">Forest road</option>
-                <option value="gachie">Gachie</option>
-                <option value="general mathenge">General Mathenge</option>
-                <option value="gigiri">Gigiri</option>
-                <option value="hurlingham">Hurlingham</option>
-                <option value="imara daima">Imara Daima</option>
-                <option value="karen">Karen</option>
-                <option value="kasarani">Kasarani</option>
-                <option value="kiambu">Kiambu</option>
-                <option value="kileleshwa">Kileleshwa</option>
-                <option value="kilimani">Kilimani</option>
-                <option value="kinoo">Kinoo</option>  
-                <option value="kitisuru">Kitisuru</option>
-                <option value="langata">Langata</option>
-                <option value="lavington">Lavington</option>
-                <option value="lower kabete">Lower Kabete</option>
-                <option value="mlolongo">Mlolongo</option>
-                <option value="mombasa rd">Mombasa Rd</option>
-                <option value="muthangari">Muthangari</option>
-                <option value="ngong rd">Ngong Rd</option>
-                <option value="parklands">Parklands</option>
-                <option value="riverside">Riverside</option>
-                <option value="rongai">Rongai</option>
-                <option value="ruaka">Ruaka</option>
-                <option value="runda">Runda</option>
-                <option value="south b">South B</option>
-                <option value="south c">South C</option>
-                <option value="upperhill">Upperhill</option>
-                <option value="westland">Westland</option>
-
-            </select>
-            <br>
+                    Location</label>
+                <br>
+                <select name="location" class="text-center">
+                    <option>
+                        <h2>CLICK HERE TO CHOOSE A LOCATION</h2></option>
+                    <option value="arboretum">
+                        <h2>Arboretum</h2></option>
+                    <option value="buruburu">Buruburu</option>
+                    <option value="cbd">Cbd</option>
+                    <option value="chiromo">Chiromo</option>
+                    <option value="donholm">Donholm</option>
+                    <option value="embakasi">Embakasi</option>
+                    <option value="forest road">Forest road</option>
+                    <option value="gachie">Gachie</option>
+                    <option value="general mathenge">General Mathenge</option>
+                    <option value="gigiri">Gigiri</option>
+                    <option value="hurlingham">Hurlingham</option>
+                    <option value="imara daima">Imara Daima</option>
+                    <option value="karen">Karen</option>
+                    <option value="kasarani">Kasarani</option>
+                    <option value="kiambu">Kiambu</option>
+                    <option value="kileleshwa">Kileleshwa</option>
+                    <option value="kilimani">Kilimani</option>
+                    <option value="kinoo">Kinoo</option>
+                    <option value="kitisuru">Kitisuru</option>
+                    <option value="langata">Langata</option>
+                    <option value="lavington">Lavington</option>
+                    <option value="lower kabete">Lower Kabete</option>
+                    <option value="mlolongo">Mlolongo</option>
+                    <option value="mombasa rd">Mombasa Rd</option>
+                    <option value="muthangari">Muthangari</option>
+                    <option value="ngong rd">Ngong Rd</option>
+                    <option value="parklands">Parklands</option>
+                    <option value="riverside">Riverside</option>
+                    <option value="rongai">Rongai</option>
+                    <option value="ruaka">Ruaka</option>
+                    <option value="runda">Runda</option>
+                    <option value="south b">South B</option>
+                    <option value="south c">South C</option>
+                    <option value="upperhill">Upperhill</option>
+                    <option value="westland">Westland</option>
+                </select>
+                <br>
                 <br>
                 <button type="submit">Add Technician</button>
             </form>

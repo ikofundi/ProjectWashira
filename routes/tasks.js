@@ -65,19 +65,21 @@ router.route('/taskform')
         }
 
         // console.log(formData);
-        // send sms acknowledging getting task
-        // sms(formData.phoneNumber, formData.firstname, formData.availability, username, apikey, req, res);
+
         task = new Task(formData);
         task.save(function(err, task) {
-                if (err) {
-                    error = err.errors.phoneNumber.message;
-                    res.render('tasks/task-form1', {
-                        "error": error
-                    });
-                } else {
-                    console.log('successfully saved the task');
+            if (err) {
+                error = err.errors.phoneNumber.message;
+                res.render('tasks/task-form1', {
+                    "error": error
+                });
+            } else {
+                console.log('successfully saved the task');
 
-                    function notifyAccesor(task) {
+                function notifyAccesor(task) {
+                    if (!task) {
+                        res.redirect('/tasks/taskform');
+                    } else
                         var transporter = nodemailer.createTransport(smtpTransport({
                             service: 'gmail',
                             auth: {
@@ -85,29 +87,65 @@ router.route('/taskform')
                                 pass: 'Sebleeni05'
                             }
                         }));
-                        var mailOptions = {
-                            to: 'pnganga05@gmail.com',
-                            from: 'pnganga05@gmail.com',
-                            subject: 'New Task',
-                            text: "A customer has filled a new task. The job id for the task is " + task.jobId 
+                    var mailOptions = {
+                        to: 'pnganga05@gmail.com',
+                        from: 'pnganga05@gmail.com',
+                        subject: 'New Task',
+                        text: "A customer has filled a new task. The job id for the task is " + task.jobId
 
-                        };
-                        transporter.sendMail(mailOptions, function(err) {
-                            if (err)
-                                console.log("not sent: " + err);
-                            else
-                                console.log("successfully sent");
-                        });
+                    };
+                    transporter.sendMail(mailOptions, function(err) {
+                        if (err)
+                            console.log("not sent: " + err);
+                        else
+                            console.log("successfully sent");
+                    });
 
-                    }
+                }
+                     function notifyAdmin(task) {
+                    if (!task) {
+                        res.redirect('/tasks/taskform');
+                    } else
+                        var transporter = nodemailer.createTransport(smtpTransport({
+                            service: 'gmail',
+                            auth: {
+                                user: 'pnganga05@gmail.com',
+                                pass: 'Sebleeni05'
+                            }
+                        }));
+                    var mailOptions = {
+                        to: 'pnganga05@gmail.com',
+                        from: 'pnganga05@gmail.com',
+                        subject: 'New Task',
+                        text: "A customer has filled a new task. The job id for the task is " + task.jobId
+
+                    };
+                    transporter.sendMail(mailOptions, function(err) {
+                        if (err)
+                            console.log("not sent: " + err);
+                        else
+                            console.log("successfully sent");
+                    });
+
+                }
             }
-            notifyAccesor(task); res.redirect('/');
+            notifyAccesor(task);
+            // send sms acknowledging getting task
+            sms(task.phoneNumber, task.firstname, task.jobId, username, apikey, req, res);
+            
+            // res.redirect('tasks/taskfilled');
+            res.render('tasks/taskfilled', {
+                "task": task
+            });
         })
 
     });
-
-
-
+     
+     // this route renders a html page with the next steps the customer should take after filling form
+// router.route('/tasks/taskfilled')
+//     .get(function (req, res) {
+//         res.render('tasks/taskfilled');
+//     })
 
 // this route returns all the unacessed tasks to the acessor
 router.route('/tasks/accesor/unaccesed')
@@ -178,6 +216,18 @@ router.route('/tasks/admin/unaccesed')
 
             });
     })
+    // route for searching and returning a task by job id
+    router.route('/tasks/search')
+        .post(function (req, res) {
+            Task.find({ "jobId": req.body.q })
+                .select('category firstname lastname amountPaid email location phoneNumber description availability quotedPrice accesorComments jobId accesed')
+                .exec(function(err, tasks){
+                    res.render('admin/searchresult', {
+                        "tasks": tasks
+                    });
+                });
+        })
+
     // this route returns all the acessed tasks to the admin
 router.route('/tasks/admin/accesed')
     .get(function(req, res) {
@@ -205,7 +255,7 @@ router.route('/tasks/admin/accesed')
 function updateTask(method, req, res) {
     taskId = req.params.id;
     accesorCategory = req.body.category;
-    254
+    
     accesorFirstName = req.body.firstname;
     accesorLastName = req.body.lastname;
     accesorEmail = req.body.email;
@@ -250,25 +300,7 @@ function updateTask(method, req, res) {
 };
 
 
-// router.route('/tasks/:id')
-//     .get(function(req, res) {
-//         taskId = req.params.id;
 
-//         // retrieve the task from mongodb
-//         Task.findById(taskId, function(err, task) {
-//             if (err) return console.log(err);
-
-//             // res.json(task.accesed);
-//             console.log(req.user);
-
-//             res.render('accesor/editTask', {
-//                 "task": task,
-//                 'user': req.user
-//             });
-
-
-//         });
-//     });
 router.route('/tasks/:id/edit')
     .get(function(req, res) {
 
@@ -311,44 +343,6 @@ router.route('/tasks/:id/delete')
         deleteTask('GET', req, res);
     });
 
-
-// router.route('/tasks/mpesa/validatec2bpayment')
-//     .post(xmlparser({ trim: false, explicitArray: false }), function(req, res) {
-//         // the req object contains transaction details from safcom
-//         req.setEncoding('utf8');
-//         // name the details incoming
-//         var incoming = req.body;
-//         // stringify the Json request
-//         var request = JSON.stringify(incoming);
-//         console.log(incoming);
-
-//         // change the request to a javascript object
-//         var reqObject = JSON.parse(request);
-//         // set response header content type to xml
-//         res.set('Content-Type', 'text/xml');
-//         // extract the transaction details from object and save each separately as a string
-//         var transAmount = reqObject["soapenv:envelope"]["soapenv:body"][0]["c2b:c2bpaymentvalidationrequest"][0]["transamount"][0];
-//         var msisdn = reqObject["soapenv:envelope"]["soapenv:body"][0]["c2b:c2bpaymentvalidationrequest"][0]["msisdn"][0];
-//         var mpesaFirstName = reqObject["soapenv:envelope"]["soapenv:body"][0]["c2b:c2bpaymentvalidationrequest"][0]["kycinfo"][0]["kycname"][0];
-//         msisdn = "+".concat(msisdn);
-//         // find task using the req body phone number
-//         Task.find({ "phoneNumber": msisdn })
-//             .select('category firstname lastname amountPaid email location phoneNumber description availability quotedPrice accesorComments jobId accesed')
-//             .exec(function(err, tasks) {
-
-
-//                 if (err) return console.log(err);
-//                 console.log(tasks.length);
-//                 if (tasks.length != 0) {
-//                     res.send('<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:c2b="http://cps.huawei.com/cpsinterface/c2bpayment"><soapenv:Header/><c2b:C2BPaymentValidationResult><ResultCode>0</ResultCode><ResultDesc>Service processing successful</ResultDesc><ThirdPartyTransID>1234560000088888</ThirdPartyTransID></c2b:C2BPaymentValidationResult></soapenv:Body></soapenv:Envelope>');
-//                 } else {
-//                     res.send('<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:c2b="http://cps.huawei.com/cpsinterface/c2bpayment"><soapenv:Header/><c2b:C2BPaymentValidationResult><ResultCode>1</ResultCode><ResultDesc>Service processing unsuccessful</ResultDesc><ThirdPartyTransID>1234560000088888</ThirdPartyTransID></c2b:C2BPaymentValidationResult></soapenv:Body></soapenv:Envelope>');
-//                 }
-
-//             });
-
-//     });
-
 router.route('/tasks/:id/mpesa/confirmc2bpayment')
     .get(function(req, res) {
         taskId = req.params.id;
@@ -371,6 +365,8 @@ router.route('/tasks/:id/mpesa/confirmc2bpayment')
         idOfThisTask = req.params.id;
         var incoming = req.body;
         console.log(incoming);
+
+       
 
 
         // Find the task using the phone number returned by safcom and set the amount paid
@@ -401,15 +397,14 @@ router.route('/tasks/:id/mpesa/confirmc2bpayment')
                             var technicianPhoneNumbersAsString = technicianPhoneNumbers.join();
                         }
                         // send message of task availabililty to technicians on that task's category
-                        // notifyTechnicianOfTask(technicianPhoneNumbersAsString, task.quotedPrice, username, apikey, req, res);
+                        notifyTechnicianOfTask(technicianPhoneNumbersAsString, task.quotedPrice, username, apikey, req, res);
 
                         // redirect to paid tasks
-                        res.send(technicianPhoneNumbersAsString);
-                        // res.send('<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:c2b="http://cps.huawei.com/cpsinterface/c2bpayment"><soapenv:Header/><soapenv:Body> <c2b:C2BPaymentConfirmationResult>C2B Payment Transaction 1234560000007031 result received.</c2b:C2BPaymentConfirmationResult></soapenv:Body></soapenv:Envelope>');
+                        res.redirect('/paidtasks')
                     });
 
 
-
+// to receive the fundis answer see this https://account.africastalking.com/sms/inboxcallback
 
 
 
@@ -420,5 +415,12 @@ router.route('/tasks/:id/mpesa/confirmc2bpayment')
 
 
     });
+// This is a route with the logic of how fundis pick a task
+router.route('/tasks/pickfundi')
+    .post(function (req, res) {
+        console.log(req.body);
+    })
+
+
 
 module.exports = router;

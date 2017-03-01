@@ -11,14 +11,13 @@ var https = require('https');
 
 
 
-module.exports = function acknowledgeGettingTask(to, firstname, availability, username, apikey, req, res) {
+module.exports = function acknowledgeGettingTask(to, firstname, jobId, username, apikey, req, res) {
 
     // Define the recipient numbers in a comma separated string
     // Numbers should be in international format as shown
-    var to = to;
-    var firstname = firstname;
+   
     // And of course we want our recipients to know what we really do
-    var message = "Thank you " + firstname + " for requesting Homefix services. We will send an acessor at the time you have specified " + availability;
+    var message = "Thank you " + firstname + " for requesting Ikofundi services.The job id for your booking is " + jobId + "." + "Please pay kshs 300 facilitation fee to MPESA paybill No 997879, account no " + jobId + "." + "We will send a fundi soon after.";  
 
     // Build the post string from an object
 

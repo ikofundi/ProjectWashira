@@ -22,13 +22,17 @@
     <section class="row">
         <div class="row col-sm-2"></div>
         <div class="container col-sm-10 text-center">
-            <h1>Unaccesed tasks</h1>
+        
+            <h1>Matched task</h1>
             <form class="search" method="post" action="/tasks/search">
                 <input type="text" placeholder="Search" name="q"/>
                 <input type="submit" value="Search" />
             </form>
             <table class="table text-center">
                 <thead>
+
+                    <th>Amount paid</th>
+                    <th>MPESA code</th>
                     <th>Job Id</th>
                     <th>Category</th>
                     <th>Firstname</th>
@@ -42,7 +46,10 @@
                 <tbody>
                     {% for task in tasks %}
                     <tr>
-                        <td class="info">{{ task.jobId | upcase}}</td>
+                        <td class="info">{{task.amountPaid}}</td>
+                        <td class="info">{{task.transactionCode}}</td>
+                        <td class="info">{{ task.jobId}}</td>
+                        <td class="info">{{task.amountPaid}}</td>
                         <td class="active">{{ task.category | upcase }}</td>
                         <td class="success">{{ task.firstname | upcase}}</td>
                         <td class="info">{{ task.lastname | upcase}}</td>
@@ -51,11 +58,12 @@
                         <td class="info">{{ task.phoneNumber | upcase}}</td>
                         <td class="info">{{ task.availability | upcase}}</td>
                         <td class="info">{{ task.description | upcase}}</td>
+
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
-            <p><a href="/tasks/admin/accesed">View accesed tasks</a></p>
+            
             <div class="row col-sm-2"></div>
     </section>
     {% else %}

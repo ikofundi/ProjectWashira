@@ -16,15 +16,19 @@
 
 <body>
     <section class="row text-center">
-    {% if user.isAdmin %}
-    <h1>Hi {{user.username}}</h1>
-    <p><a href="/logout">Logout</a></p>
+        {% if user.isAdmin %}
+        <h1>Hi {{user.username}}</h1>
+        <p><a href="/logout">Logout</a></p>
     </section>
     <!-- <section class="col-sm-2"></section> -->
     <section class="col-sm-8">
         <!-- <div class="row col-sm-2"></div> -->
         <div class="container col-sm-12 text-center">
-            <h1>Tasks</h1>
+            <h1>Assessed Tasks</h1>
+            <form class="search" method="post" action="/tasks/search">
+                <input type="text" placeholder="Search" name="q" />
+                <input type="submit" value="Search" />
+            </form>
             <table class="table text-center">
                 <thead>
                     <th>Job Id</th>
@@ -56,9 +60,7 @@
                         <td class="success">{{ task.quotedPrice | upcase}}</td>
                         <td class="info">{{ task.accesorComments | upcase}}</td>
                         <td class="danger">
-                           <a href="/tasks/{{task._id}}/mpesa/confirmc2bpayment">
-                                <p>Insert paid amount</p>
-                            </a>
+                            
                         </td>
                     </tr>
                     {% endfor %}

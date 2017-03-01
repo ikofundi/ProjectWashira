@@ -51,7 +51,7 @@ router.route('/technicians')
         var technician = new Technician(formData);
         technician.save(function(err, technician) {
             if (err) {
-                console.log(err["errors"]["phoneNumber"]["message"]);
+                console.log(err);
                 error = err["errors"]["phoneNumber"]["message"];
                 res.render('technician/new', {
                     'error': error

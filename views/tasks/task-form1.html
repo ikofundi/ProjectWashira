@@ -184,7 +184,7 @@
                     <label for="phoneNumber">
                         <h4>MOBILE NUMBER</h4></label>
                     <br>
-                    <input type="text" name="phoneNumber" placeholder="Use format(+254700123456)" oninvalid="this.setCustomValidity('all fields must be filled')" oninput="setCustomValidity('')" required validate>
+                   <input type="text" size="13" pattern="(\+254)7([0-3|7])(\d){7}" title=" e.g +254700000000"  placeholder="+254700000000" name="phoneNumber" required  validate>
                     <br>
                     <br>
                 </div>
