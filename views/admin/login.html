@@ -33,7 +33,6 @@
                 <a class="navbar-brand" id="logo" href="/"><img class="img-responsive" src="/images/logo.png" alt="logo"></a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
-               
                 <ul class="nav navbar-nav navbar-right">
                     <!-- <li></li> -->
                     <li><a href="/"><span id="navtext">Home</span></a></li>
@@ -44,15 +43,29 @@
             <!--/.nav-collapse -->
         </div>
     </nav>
-
-	<p>{{error}}</p>
-    <form action="/admin/login" method="post">
-        <label for="">Username</label>
-        <input type="text" name="username"  placeholder="Username">
-        <label for="">Password</label>
-        <input type="password" name="password"  placeholder="Password">
-        <button type="submit">Login</button>
-    </form>
+    <br>
+    <br>
+    <br><br><br>
+    <section class="row">
+        <div class="row">
+            <div class="col-sm-3"></div>
+            <div class=" jumbotron text-center col-sm-6">
+                <p>{{error}}</p>
+                <form action="/admin/login" method="post">
+                    <label for="">Username</label>
+                    <br>
+                    <input type="text" name="username" placeholder="Username">
+                    <br><br><br>
+                    <label for="">Password</label>
+                    <br>
+                    <input type="password" name="password" placeholder="Password"><br>
+                    <br><br>
+                    <button type="submit">Login</button>
+                </form>
+            </div>
+            <div class="col-sm-3"></div>
+        </div>
+    </section>
 </body>
 
 </html>
