@@ -14,7 +14,10 @@ var taskSchema = mongoose.Schema({
     jobId: String,
     amountPaid: String,
     transactionCode: String,
-    accesed:  { type: Boolean, default: false }
+    accesed:  { type: Boolean, default: false },
+    ongoing: { type: Boolean, default: true},
+    sentToFundi: { type: Boolean, default: false},
+    sentToAssesor: {type: Boolean, default: false}
 });
 
 // compile model

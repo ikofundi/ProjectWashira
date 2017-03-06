@@ -34,7 +34,7 @@
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <!-- <li></li> -->
-                    
+                    <li><a href="/tasks/search"><span id="navtext">Back</span></a></li>
                     <li><a href="/logout"><span id="navtext">logout</span></a></li>
                 </ul>
             </div>
@@ -86,7 +86,7 @@
                 <br>
                 <br>
                 <label for="">DESCRIPTION</label>
-                <input name="description" value="{{task.description | upcase}}" required readonly validate>
+                <textarea name="description" value="{{task.description | upcase}}" required readonly validate>{{task.description}}</textarea>
                 <br>
                 <br>
                 <label for="">MPESA TRANSACTION CODE</label>
@@ -97,6 +97,10 @@
                 <input type="text" name="amountPaid" placeholder="Enter Price" required validate>
                 <br>
                 <br>
+                <select name="sendTo" id="">
+                	<option value="fundi">send to fundi</option>
+                	<option value="assesor">send to assesor</option>
+                </select>
                 <button type="submit">SUBMIT</button>
             </form>
         </div>

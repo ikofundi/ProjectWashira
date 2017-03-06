@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>IkoFundi | Unassesed tasks</title>
+    <title>IkoFundi | Sent to fundi</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/bootstrap-3.3.6-dist/css/bootstrap.min.css">
@@ -35,8 +35,8 @@
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <!-- <li></li> -->
-                    <li><a href="/admin/dashboard"><span id="navtext">Go back</span></a></li>
-                    <li><a href="/tasks/admin/accesed"><span id="navtext">View assesed tasks</span></a></li>
+                    <li><a href="/tasks/admin/ongoing"><span id="navtext">Go back</span></a></li>
+                    <li><a href="/tasks/admin/senttoassesor"><span id="navtext">Tasks sent to assesor</span></a></li>
                     <li><a href="/logout"><span >logout</span></a></li>
                 </ul>
             </div>
@@ -51,12 +51,6 @@
     <section class="row text-center">
         {% if user.isAdmin %}
         <h1>Hi {{user.username}}</h1>
-        <br>
-        
-        <form class="search" method="post" action="/tasks/search">
-            <input type="text" placeholder="Search by job id" name="q" />
-            <input type="submit" value="Search" />
-        </form>
         <br>
         <div class="container-fluid text-center">
             <table class="table text-center">
@@ -87,7 +81,6 @@
                     {% endfor %}
                 </tbody>
             </table>
-           
     </section>
     {% else %}
     <section class="row"></section>
