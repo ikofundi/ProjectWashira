@@ -17,7 +17,9 @@ var taskSchema = mongoose.Schema({
     accesed:  { type: Boolean, default: false },
     ongoing: { type: Boolean, default: true},
     sentToFundi: { type: Boolean, default: false},
-    sentToAssesor: {type: Boolean, default: false}
+    sentToAssesor: {type: Boolean, default: false},
+    pickedByFundi: {type: Boolean, default: false},
+    fundiThatPickedThis: String
 });
 
 // compile model

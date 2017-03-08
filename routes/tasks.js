@@ -9,6 +9,7 @@ var sms = require('../controllers/sms');
 var notifyCustomerOfQuotedPrice = require('../controllers/notifyCustomerOfQuotedPrice');
 var notifyCustomerOfMpesaReceipt = require('../controllers/notifyCustomerOfMpesaReceipt');
 var notifyTechnicianOfTask = require('../controllers/notifyTechnicianOfTask');
+var notifyTechnicianOfSuccessfulJobPick = require('../controllers/notifyTechnicianOfSuccessfulJobPick');
 var path = require('path');
 var querystring = require('querystring');
 var https = require('https');
@@ -143,11 +144,18 @@ router.route('/taskform')
 
     });
 
-// this route renders a html page with the next steps the customer should take after filling form
-// router.route('/tasks/taskfilled')
-//     .get(function (req, res) {
-//         res.render('tasks/taskfilled');
-//     })
+router.route('/tasks/done')
+    .get(function(req, res) {
+        Task.find({ "ongoing": false })
+            .select('category firstname lastname email location phoneNumber description availability quotedPrice accesorComments jobId accesed ongoing fundiThatPickedThis sentToAssesor')
+            .exec(function(err, tasks) {
+                if (err) return console.log(err);
+                res.render('admin/completetasks', {
+                    "tasks": tasks,
+                    'user': req.user
+                });
+            });
+    })
 
 // this route returns all the unacessed tasks to the acessor
 router.route('/tasks/accesor/unaccesed')
@@ -155,21 +163,11 @@ router.route('/tasks/accesor/unaccesed')
         Task.find({ "accesed": false })
             .select('category firstname lastname email location phoneNumber description availability quotedPrice accesorComments jobId accesed')
             .exec(function(err, tasks) {
-
-
                 if (err) return console.log(err);
-
-
-                // res.json(tasks);
-                console.log(req.user);
-
                 res.render('accesor/unAccesedtasks', {
                     "tasks": tasks,
                     'user': req.user
                 });
-
-
-
             });
     })
     // this route returns all the acessed tasks to the acessor
@@ -198,24 +196,14 @@ router.route('/tasks/accesor/accesed')
     // this route returns all the unacessed tasks to the admin
 router.route('/tasks/admin/ongoing')
     .get(function(req, res) {
-        Task.find({ "ongoing": true })
+        Task.find({ "ongoing": true, })
             .select('category firstname lastname email location phoneNumber  description availability jobId quotedPrice accesorComments amountPaid')
             .exec(function(err, tasks) {
-
-
                 if (err) return console.log(err);
-
-
-                // res.json(tasks);
-                console.log(req.user);
-
                 res.render('admin/ongoingtasks', {
                     "tasks": tasks,
                     'user': req.user
                 });
-
-
-
             });
     })
 
@@ -223,9 +211,11 @@ router.route('/tasks/admin/ongoing')
 router.route('/tasks/search')
 
 .post(function(req, res) {
+    console.log(req.body.q);
     Task.find({ "jobId": req.body.q })
         .select('category firstname lastname amountPaid email location phoneNumber description availability quotedPrice accesorComments jobId accesed')
         .exec(function(err, tasks) {
+            if (err) return console.log(err);
             res.render('admin/searchresult', {
                 "tasks": tasks
             });
@@ -265,11 +255,25 @@ router.route('/tasks/admin/senttoassesor')
 
                 if (err) return console.log(err);
 
-
-                // res.json(tasks);
-                console.log(req.user);
-
                 res.render('admin/senttoassesor', {
+                    "tasks": tasks,
+                    'user': req.user
+                });
+
+
+
+            });
+    })
+router.route('/tasks/admin/pickedbyfundi')
+    .get(function(req, res) {
+        Task.find({ "pickedByFundi": true, "ongoing": true })
+            .select('category firstname lastname amountPaid email location phoneNumber description availability quotedPrice accesorComments jobId accesed pickedByFundi fundiThatPickedThis')
+            .exec(function(err, tasks) {
+
+
+                if (err) return console.log(err);
+
+                res.render('admin/pickedbyfundi', {
                     "tasks": tasks,
                     'user': req.user
                 });
@@ -438,7 +442,7 @@ router.route('/tasks/:id/mpesa/confirmc2bpayment')
                     taskCategory = task.category.toLowerCase();
                     tasklocation = task.location.toLowerCase();
                     // find technician by category of the task returned by safcom
-                    Technician.find({ "category": taskCategory, "location": tasklocation })
+                    Technician.find({ "category": taskCategory || "all"})
                         .select('category firstname lastname email  phoneNumber location')
                         .exec(function(err, technician) {
 
@@ -459,7 +463,7 @@ router.route('/tasks/:id/mpesa/confirmc2bpayment')
                                 var technicianPhoneNumbersAsString = technicianPhoneNumbers.join();
                             }
                             // send message of task availabililty to technicians on that task's category
-                            // notifyTechnicianOfTask(technicianPhoneNumbersAsString, task.quotedPrice, username, apikey, req, res);
+                            // notifyTechnicianOfTask(technicianPhoneNumbersAsString, task.jobId, username, apikey, req, res);
 
                             // redirect to paid tasks
                             console.log("sent to fundi");
@@ -476,25 +480,63 @@ router.route('/tasks/:id/mpesa/confirmc2bpayment')
 router.route('/tasks/receivesms')
     .post(function(req, res) {
 
-        // var technicianPhoneNumber = req.body.from;
-        // var text = req.body.text;
-        var text = 'Fundi yes 635735';
+        var fromPhoneNumber = req.body.from;
+        var text = req.body.text;
+        // var text = 'Fundi yesy 136264';
         // console.log(req.body);
-        var taskId = text.substring(10, 16);
-        text = text.substring(6, 9);
+        var taskId = text.substring(10, 17).toLowerCase().trim();
+        console.log(taskId.length);
+        text = text.substring(6, 10).toLowerCase().trim();
         console.log(text);
         console.log(taskId);
 
-        if (text === "yes") {
-            Task
+        if (text === "yes " && taskId.length === 6) {
+            Task.find({ "jobId": taskId })
+                .select('category firstname lastname amountPaid email location phoneNumber description availability quotedPrice accesorComments jobId ongoing sentToFundi sentToAssesor pickedByFundi')
+                .exec(function(err, tasks) {
+                    if (err) return console.log(err);
+                    var task = tasks[0];
+                    if (task.pickedByFundi === false) {
+                        task.pickedByFundi = true;
+                        task.fundiThatPickedThis = fromPhoneNumber;
+
+                        task.save(function(err, task) {
+                            if (err) return console.log(err);
+
+                            console.log(task);
+                            // send sms to fundi giving him customer phonenumber
+                            notifyTechnicianOfSuccessfulJobPick(fromPhoneNumber, taskId, task.phoneNumber, username, apikey, req, res);
+                        })
+                    } else if (tasks[0].pickedByFundi === true) {
+                        console.log("job already picked");
+                        res.end();
+                    }
+                })
+        } else if (text === "done" && taskId.length === 6) {
+            Task.find({ "jobId": taskId, "phoneNumber": fromPhoneNumber })
+                .select('category firstname lastname amountPaid email location phoneNumber description availability quotedPrice accesorComments jobId ongoing sentToFundi sentToAssesor pickedByFundi')
+                .exec(function(err, tasks) {
+                    if (err) return console.log(err);
+
+                    var task = tasks[0];
+                    if (task.ongoing === true) {
+
+                        task.ongoing = false;
+
+                        task.save(function(err, task) {
+                            if (err) return console.log(err);
+
+                            console.log(task);
+                            // send sms to fundi giving him customer phonenumber
+                        })
+                    }
+                })
+        } else {
+            res.end();
         }
-
-
-
-
-        // res.send(text);
-
     })
+
+
 
 
 
