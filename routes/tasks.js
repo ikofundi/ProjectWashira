@@ -401,9 +401,9 @@ router.route('/tasks/:id/mpesa/confirmc2bpayment')
 // to receive the fundis answer see this https://account.africastalking.com/sms/inboxcallback
 router.route('/tasks/receivesms')
     .post(function(req, res) {
-        var fromPhoneNumber = "+254707293292";
-        var text1 = "fundi yes#800617";
-        var text2 = "fundi done#800617";
+        var fromPhoneNumber = req.body.from;
+        var text= req.body.text;
+        // var text2 = "fundi done#800617";
         var fromName; 
          Technician.find({ "phoneNumber": fromPhoneNumber })
             .select('category firstName lastName email phoneNumber phoneNumber2 location idNumber')
@@ -412,8 +412,8 @@ router.route('/tasks/receivesms')
                 var techy = technician[0];
                 fromName = techy.firstName + " " + techy.lastName;
             })
-        var taskId = text1.substring(10, 17).toLowerCase().trim();
-        var text = text1.substring(6, 10).toLowerCase().trim();
+        var taskId = text.substring(10, 17).toLowerCase().trim();
+        var text = text.substring(6, 10).toLowerCase().trim();
         console.log(taskId);
         console.log(text);
         if (text === "yes#" && taskId.length === 6) {
