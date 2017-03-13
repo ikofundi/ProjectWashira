@@ -1,3 +1,4 @@
+require('newrelic');
 var express = require('express');
 var cons = require('consolidate');
 var app = express();
