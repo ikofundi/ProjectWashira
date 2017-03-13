@@ -6,14 +6,14 @@ var https = require('https');
 "use strict";
 
 
- module.exports = function notifyTechnicianOfTask(to, jobId, username, apikey, req, res) {
+ module.exports = function notifyTechnicianOfTask(to, jobId, category,location,availability, username, apikey, req, res) {
 
     // Define the recipient numbers in a comma separated string
     // Numbers should be in international format as shown
    var to = to;
    
     // And of course we want our recipients to know what we really do
-    var message = " This is to notify you of availability of a job in your category. The job id is " + jobId + ". Reply with fundi YES " + jobId + " to pick the job and get more details.";
+    var message = "Available " + category + " job in " + location +" on" +  availability + ". If available and capable, sms fundi(space)yes#" + jobId + " to 20880 to be awarded the job";
 
     // Build the post string from an object
 

@@ -6,14 +6,14 @@ var https = require('https');
 "use strict";
 
 
- module.exports = function notifyTechnicianOfSuccessfulJobPick(to, jobId, customerNo, username, apikey, req, res) {
+ module.exports = function notifyTechnicianOfSuccessfulJobPick(to, jobId, customerNo, customerLocation, customerAvailability, username, apikey, req, res) {
 
     // Define the recipient numbers in a comma separated string
     // Numbers should be in international format as shown
    var to = to;
    
     // And of course we want our recipients to know what we really do
-    var message = " You have been awarded job No: " + jobId + ". The customers number is" + customerNo + ". Call the customer immediately.";
+    var message = "Awarded job ID " +  jobId + " in " +  customerLocation + customerAvailability + ". Promptly call your customer at " + customerNo + " to implement the job. Grow your Reputation & Business";
 
     // Build the post string from an object
 

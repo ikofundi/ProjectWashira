@@ -5,19 +5,15 @@ var https = require('https');
 
 "use strict";
 
-// // Your login credentials
-// var username = 'homefixer';
-// var apikey   = 'c430018837f7fa144d1c0b5ea21a21dbd8340bcc7dd0a9a23898afba9f3f6b23';
 
-
-
-module.exports = function acknowledgeGettingTask(to, firstname, jobId, username, apikey, req, res) {
+ module.exports = function notifyCustomerOfJobCompletion(to, jobId, username, apikey, req, res) {
 
     // Define the recipient numbers in a comma separated string
     // Numbers should be in international format as shown
+   var to = to;
    
     // And of course we want our recipients to know what we really do
-    var message = "Thank you for using IKO FUNDI, Please pay a small facilitation fee of Ksh350 MPESA PAYBILL 123456 ACCOUNT " + jobId + " to be matched with your service provider";  
+    var message = "Thank you for using IKO FUNDI, we aim to always improve. Please share any concerns with us at www.ikofundi.com and any compliments with your friends and family"
 
     // Build the post string from an object
 
@@ -67,4 +63,3 @@ module.exports = function acknowledgeGettingTask(to, firstname, jobId, username,
 
     post_req.end();
 }
-

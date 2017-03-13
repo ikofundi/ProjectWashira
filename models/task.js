@@ -19,7 +19,9 @@ var taskSchema = mongoose.Schema({
     sentToFundi: { type: Boolean, default: false},
     sentToAssesor: {type: Boolean, default: false},
     pickedByFundi: {type: Boolean, default: false},
-    fundiThatPickedThis: String
+    fundiThatPickedTaskNumber: String,
+    fundiThatPickedTaskName: String
+
 });
 
 // compile model

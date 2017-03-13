@@ -6,14 +6,12 @@ var https = require('https');
 "use strict";
 
 
- module.exports = function notifyCustomerOfMpesaReceipt(to, transAmount, username, apikey, req, res) {
+ module.exports = function notifyCustomerOfMpesaReceipt(to, jobId, username, apikey, req, res) {
 
     // Define the recipient numbers in a comma separated string
     // Numbers should be in international format as shown
-   var to = to;
-   var amount = transAmount;
     // And of course we want our recipients to know what we really do
-    var message = " We have received your mpesa payment of  " + amount + "." + "Expect a call from our fundi at any moment.";
+    var message = "Thank you. Your service provider will call you shortly. After job is complete, rate your provider by texting “FUNDI(space) DONE  #" + jobId + "#1-5(e.g 3) to 20880";
 
     // Build the post string from an object
 

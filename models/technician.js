@@ -8,7 +8,10 @@ var technicianSchema = mongoose.Schema({
     location: String,
     phoneNumber: {type: String, minlength: 13, maxlength: 13},
     phoneNumber2: {type: String, minlength: 13, maxlength: 13},
-    idNumber: {type: String, minlength: 8, maxlength: 8}
+    idNumber: {type: String, minlength: 8, maxlength: 8},
+    allCategory: { type: Boolean, default: false },
+    allLocation: { type: Boolean, default: false },
+    jobsPicked: {type: Number, default: 0}
     
 });
 

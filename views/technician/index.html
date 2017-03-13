@@ -64,7 +64,7 @@
             <tbody>
                 {% for technician in technicians %}
                 <tr>
-                    <td class="active"><a href="/technicians/{{technician._id}}">{{ technician.category | upcase }}</a></td>
+                    <td class="active">{{ technician.category | upcase }}</a></td>
                     <td class="success">{{ technician.firstName | upcase}}</td>
                     <td class="info">{{ technician.lastName | upcase}}</td>
                     <td class="info">{{ technician.idNumber | upcase}}</td>

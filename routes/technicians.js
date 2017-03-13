@@ -28,7 +28,7 @@ router.route('/technicians')
             });
     })
     .post(function(req, res) {
-        console.log(req.body.category);
+        console.log(req.body);
         category = req.body.category.toLowerCase();
         firstname = req.body.firstname.toLowerCase();
         lastname = req.body.lastname.toLowerCase();
@@ -37,6 +37,15 @@ router.route('/technicians')
         phoneNumber2 = req.body.phoneNumber2.toLowerCase();
         idNumber = req.body.Idnumber.toLowerCase();
         location = req.body.location.toLowerCase();
+        var allCategory;
+        var allLocation;
+        if (req.body.allCategory === "on") 
+            allCategory = true;
+        if (req.body.allLocation === "on"){
+            allLocation = true;
+        
+        } 
+            
 
         formData = {
             category: category,
@@ -46,7 +55,9 @@ router.route('/technicians')
             phoneNumber: phoneNumber,
             phoneNumber2: phoneNumber2,
             idNumber: idNumber,
-            location: location
+            location: location,
+            allLocation: allLocation,
+            allCategory: allCategory
         }
         var technician = new Technician(formData);
         technician.save(function(err, technician) {
