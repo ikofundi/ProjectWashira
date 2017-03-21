@@ -10,6 +10,8 @@ var notifyCustomerOfMpesaReceipt = require('../controllers/notifyCustomerOfMpesa
 var notifyTechnicianOfTask = require('../controllers/notifyTechnicianOfTask');
 var notifyTechnicianOfSuccessfulJobPick = require('../controllers/notifyTechnicianOfSuccessfulJobPick');
 var notifyCustomerOfJobCompletion = require('../controllers/notifyCustomerOfJobCompletion');
+var pick = require('../controllers/pick');
+var done = require('../controllers/done');
 var path = require('path');
 var querystring = require('querystring');
 var https = require('https');
@@ -120,7 +122,7 @@ router.route('/taskform')
             notifyAdminOfNewTask(task);
             notifyAccesorOfNewTask(task);
             // send sms acknowledging getting task
-            // sms(task.phoneNumber, task.firstname, task.jobId, username, apikey, req, res);
+            sms(task.phoneNumber, task.firstname, task.jobId, username, apikey, req, res);
             res.render('tasks/taskfilled', {
                 "task": task
             });
@@ -129,7 +131,7 @@ router.route('/taskform')
 router.route('/tasks/done')
     .get(function(req, res) {
         Task.find({ "ongoing": false })
-            .select('category firstname lastname email location phoneNumber description availability quotedPrice accesorComments jobId accesed ongoing fundiThatPickedThis sentToAssesor')
+            .select('category firstname lastname email location phoneNumber description availability quotedPrice accesorComments jobId accesed ongoing fundiThatPickedTaskNumber sentToAssesor')
             .exec(function(err, tasks) {
                 if (err) return console.log(err);
                 res.render('admin/completetasks', {
@@ -195,7 +197,7 @@ router.route('/tasks/search')
     // this route returns all the tasks that have been sent to fundis
 router.route('/tasks/admin/senttofundi')
     .get(function(req, res) {
-        Task.find({ "sentToFundi": true, "ongoing": true })
+        Task.find({ "sentToFundi": true, "ongoing": true, "jobAlreadyPicked": false })
             .select('category firstname lastname amountPaid email location phoneNumber description availability quotedPrice accesorComments jobId accesed')
             .exec(function(err, tasks) {
                 if (err) return console.log(err);
@@ -222,8 +224,8 @@ router.route('/tasks/admin/senttoassesor')
     })
 router.route('/tasks/admin/pickedbyfundi')
     .get(function(req, res) {
-        Task.find({ "pickedByFundi": true, "ongoing": true })
-            .select('category firstname lastname amountPaid email location phoneNumber description availability quotedPrice accesorComments jobId accesed pickedByFundi fundiThatPickedThis')
+        Task.find({ "pickedByFundi": true, "ongoing": true, "jobAlreadyPicked": true })
+            .select('category firstname lastname amountPaid email location phoneNumber description availability quotedPrice accesorComments jobId accesed pickedByFundi fundiThatPickedTaskNumber fundiThatPickedTaskName')
             .exec(function(err, tasks) {
                 if (err) return console.log(err);
                 res.render('admin/pickedbyfundi', {
@@ -357,40 +359,43 @@ router.route('/tasks/:id/mpesa/confirmc2bpayment')
                     taskCategory = task.category.toLowerCase();
                     taskLocation = task.location.toLowerCase();
                     // find technician by category of the task returned by safcom
-                    Technician.find({ $or: [{ "category": taskCategory }, { "allCategory": true }] }, { $or: [{ "location": taskLocation }, { "allLocation": true }] })
-                        .select('category firstname lastname email  phoneNumber location jobsPicked')
+                    Technician.find({$and:[{"benched": false},{ $or: [{ "category": taskCategory }, { "allCategory": true }] }, { $or: [{ "location": taskLocation }, { "allLocation": true }] }]})
+                        .select('category firstname lastname email  phoneNumber location jobsPicked benched')
                         .exec(function(err, technician) {
                             if (err) return console.log(err);
-                            jobsPickedCounter = technician.jobsPicked;
-                            // make sure the jobsPicked by technician is less than 3
-                            if (technician.jobsPicked <3) {
+                            console.log(technician);
+                            // jobsPickedCounter = technician.jobsPicked;
+                            // // make sure the jobsPicked by technician is less than 3
+                            // if (technician.jobsPickedCounter < 3) {
                             // create an empty array technicianPhoneNumbers to store phone numbers of the technicians found
                             var technicianPhoneNumbers = [];
                             // loop through the array returned by the query
                             for (var i = 0; i < technician.length; i++) {
                                 // push each technician's number to the technicianPhoneNumbers array
                                 technicianPhoneNumbers.push(technician[i]["phoneNumber"]);
-
-                                if (technicianPhoneNumbers.length > 3)
-                                // reshuffle the array randomly
-                                // truncate the array to 3
-                                    technicianPhoneNumbers.length = 3;
-                                for (var i = 0; i < technicianPhoneNumbers.length; i++) {
-                                    Task.findOneAndUpdate({ "phonenumber": technicianPhoneNumbers[i] }, { $set: { jobsPicked: jobsPickedCounter + 1 } }, { new: true }, function(err, task) {
-                                        console.log(task);
-                                    })
-                                }
-                                // change the array to a comma separated string for use with africaistalking apikey
-                                var technicianPhoneNumbersAsString = technicianPhoneNumbers.join();
-
                             }
+                            console.log(technicianPhoneNumbers);
+                            if (technicianPhoneNumbers.length > 3)
+                            // reshuffle the array randomly
+                            // truncate the array to 3
+                                technicianPhoneNumbers.length = 3;
+                            // for (var i = 0; i < technicianPhoneNumbers.length-1; i++) {
+                            //     Task.findOneAndUpdate({ "phonenumber": technicianPhoneNumbers[i] }, { $set: {} }, { new: true }, function(err, task) {
+                            //         console.log(task);
+                            //     })
+                            // }
+                            // change the array to a comma separated string for use with africaistalking apikey
+                            var technicianPhoneNumbersAsString = technicianPhoneNumbers.join();
+
+
                             // send message of task availabililty to technicians on that task's category
                             notifyTechnicianOfTask(technicianPhoneNumbersAsString, task.jobId, task.category, task.location, task.availability, username, apikey, req, res);
                             // redirect to paid tasks 
                             console.log(technicianPhoneNumbersAsString);
                             console.log("sent to fundi");
                             res.redirect('/tasks/admin/senttofundi')
-                        }});
+
+                        });
                 })
             } else
                 sendToAssesor(req, res, incoming);
@@ -401,106 +406,23 @@ router.route('/tasks/:id/mpesa/confirmc2bpayment')
 // to receive the fundis answer see this https://account.africastalking.com/sms/inboxcallback
 router.route('/tasks/receivesms')
     .post(function(req, res) {
-        var fromPhoneNumber = req.body.from;
-        var text= req.body.text;
-        // var text2 = "fundi done#800617";
-        var fromName; 
-         Technician.find({ "phoneNumber": fromPhoneNumber })
-            .select('category firstName lastName email phoneNumber phoneNumber2 location idNumber')
-            .exec(function(err, technician) {
-                if (err) return console.log(err);
-                var techy = technician[0];
-                fromName = techy.firstName + " " + techy.lastName;
-            })
-        var taskId = text.substring(10, 17).toLowerCase().trim();
-        var text = text.substring(6, 10).toLowerCase().trim();
-        console.log(taskId);
-        console.log(text);
-        if (text === "yes#" && taskId.length === 6) {
-            Task.find({ "jobId": taskId })
-                .select('category firstname lastname amountPaid email location phoneNumber description availability quotedPrice accesorComments jobId ongoing sentToFundi sentToAssesor pickedByFundi')
-                .exec(function(err, tasks) {
-                    if (err) return console.log(err);
-                    var task = tasks[0];
-                    if (task.pickedByFundi === false) {
-                        task.pickedByFundi = true;
-                        task.fundiThatPickedTaskNumber = fromPhoneNumber;
-                        task.save(function(err, task) {
-                            if (err) return console.log(err);
-                            console.log(task);
-                            // send sms to fundi giving him customer phonenumber 
-                            console.log(fromName);
-                            notifyTechnicianOfSuccessfulJobPick(fromPhoneNumber, taskId, task.phoneNumber, task.Location, task.Availability, username, apikey, req, res);
-                            // send email to admin after fundi picks job
-                            function notifyAdminJobPickedByFundi(task) {
-                                var transporter = nodemailer.createTransport(smtpTransport({
-                                    service: 'gmail',
-                                    auth: {
-                                        user: 'ikofundi1@gmail.com',
-                                        pass: 'june2013'
-                                    }
-                                }));
-                                var mailOptions = {
-                                    to: 'ikofundiinfo@gmail.com',
-                                    from: 'ikofundi1@gmail.com',
-                                    subject: 'New Task',
-                                    text: "Job NO: " + task.jobId + " has been picked by " + fromName + "phone number " + fromPhoneNumber
-                                };
-                                transporter.sendMail(mailOptions, function(err) {
-                                    if (err)
-                                        console.log("not sent: " + err);
-                                    else
-                                        console.log("successfully sent");
-                                });
-                            }
-                            notifyAdminJobPickedByFundi(task);
-                        })
-                    } else if (tasks[0].pickedByFundi === true) {
-                        console.log("job already picked");
-                        res.end();
-                    }
-                })
-        } else if (text === "done" && taskId.length === 6) {
-            Task.find({ "jobId": taskId, "phoneNumber": fromPhoneNumber })
-                .select('category firstname lastname amountPaid email location phoneNumber description availability quotedPrice accesorComments jobId ongoing sentToFundi sentToAssesor pickedByFundi')
-                .exec(function(err, tasks) {
-                    if (err) return console.log(err);
-                    var task = tasks[0];
-                    if (task.ongoing === true) {
-                        task.ongoing = false;
-                        task.save(function(err, task) {
-                            if (err) return console.log(err);
-                            console.log(task);
-                            // send sms to  customer telling them task is closed
-                            notifyCustomerOfJobCompletion(task.phoneNumber, task.jobId, username, apikey, req, res);
-                            // send email to admin informing him of complete task
-                            function notifyAdminOfTaskCompletion(task) {
-                                var transporter = nodemailer.createTransport(smtpTransport({
-                                    service: 'gmail',
-                                    auth: {
-                                        user: 'ikofundi1@gmail.com',
-                                        pass: 'june2013'
-                                    }
-                                }));
-                                var mailOptions = {
-                                    to: 'ikofundiinfo@gmail.com',
-                                    from: 'ikofundi1@gmail.com',
-                                    subject: 'New Task',
-                                    text: "Job No: " + task.jobId + "has been completed and the customer is satisfied"
-                                };
-                                transporter.sendMail(mailOptions, function(err) {
-                                    if (err)
-                                        console.log("not sent: " + err);
-                                    else
-                                        console.log("successfully sent");
-                                });
-                            }
-                            notifyAdminOfTaskCompletion(task);
-                        })
-                    } else {
-                        res.end();
-                    }
-                })
+        console.log(req.body);
+        var from = req.body.from;
+        var text = req.body.text;
+        var jobIdSent;
+        if (text.length === 16) {
+            jobIdSent = text.substring(10, 16);
+            pick(jobIdSent, from, res, req);
+        } else if (text.length === 19) {
+            jobIdSent = text.substring(11, 17);
+            var fundiRating = Number(text.substring(18, 19));
+            done(jobIdSent, from, fundiRating, res, req);
+        }else if (text.length === 21) {
+            jobIdSent = text.substring(11, 17);
+            var fundiRating = Number(text.substring(18, 21));
+            done(jobIdSent, from, fundiRating, res, req);
+        } else {
+            res.end();
         }
     })
 module.exports = router;

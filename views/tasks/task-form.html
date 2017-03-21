@@ -33,7 +33,6 @@
                 <a class="navbar-brand" id="logo" href="/"><img class="img-responsive" src="/images/logo.png" alt="logo"></a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
-               
                 <ul class="nav navbar-nav navbar-right">
                     <!-- <li></li> -->
                     <li><a href="/"><span id="navtext">Home</span></a></li>
@@ -51,7 +50,6 @@
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
             <!-- Indicators -->
             <ol class="carousel-indicators">
-                
             </ol>
             <!-- Wrapper for slides -->
             <div class="carousel-inner" role="listbox">
@@ -61,17 +59,15 @@
                 <div class="item">
                     <img src="/images/fixed.png" alt="" width="460" height="345">
                 </div>
-        
             </div>
-            </div>
+        </div>
     </section>
     <br>
     <section class="container">
         <div class="col-sm-2"></div>
-        <section class="jumbotron text-center col-sm-8">
-
-            <form action="/taskform" method="post"  id="taskform">
-                 <h5 id="must">Please fill all fields</h5>
+        <section class="jumbotron text-center col-sm-8" id="formdiv">
+            <form action="/taskform" method="post" id="taskform">
+                <h5 id="must">Please fill all fields</h5>
                 <label for="category">
                     <h3>What type of fundi service do you want?</h3></label>
                 <br>
@@ -182,7 +178,7 @@
                     <label for="phoneNumber">
                         <h4>MOBILE NUMBER</h4></label>
                     <br>
-                    <input type="text" size="13" pattern="(\+254)7([0-3|7])(\d){7}" title=" e.g +254700000000"  placeholder="+254700000000" name="phoneNumber" required  validate>
+                    <input type="text" size="13" pattern="(\+254)7([0-3|7])(\d){7}" title=" e.g +254700000000" placeholder="+254700000000" name="phoneNumber" required validate>
                     <!--     -->
                     <br>
                     <br>
@@ -191,7 +187,7 @@
                 <label for="description">
                     <h3>Describe your problem</h3></label>
                 <br>
-                <textarea name="description" cols="40" rows="5" placeholder="Tell us more about your problem" oninvalid="this.setCustomValidity('all fields must be filled')" oninput="setCustomValidity('')" required aria-required=”true” ></textarea>
+                <textarea name="description" cols="40" rows="5" placeholder="Tell us more about your problem" oninvalid="this.setCustomValidity('all fields must be filled')" oninput="setCustomValidity('')" required aria-required=”true”></textarea>
                 <br>
                 <br>
                 <br>
@@ -208,15 +204,12 @@
         </section>
         <div class="col-sm-2"></div>
     </section>
-          <section id="links" class="row">
+  <section id="links" class="row">
         <div class="col-sm-4 text-center">
             <div class="col-sm-1"></div>
             <div class="col-sm-11">
                 <h3 id="abouthead">About us</h3>
                 <p id="hiring">Ikofundi is a simply designed online platform of trusted and qualified professionals that makes getting professional help quick and easy. We offer a total solution to all your house needs. You don’t have to leave the comfort of your home or office looking for a fundi, we will come to you</p>
-                <a href="/aboutus">
-                    <button id="learn"><span id="learntext">Learn More</span></button>
-                </a>
             </div>
         </div>
         <div class="col-sm-4 text-center">
@@ -233,7 +226,8 @@
                 <br>
                 <a href="/contactus">
                     <p id="hiring">Contact us</p>
-                </a><br>
+                </a>
+                <br>
                 <a href="/staffportal">
                     <p id="hiring">STAFF PORTAL</p>
                 </a>
@@ -241,23 +235,38 @@
             <div class="col-sm-3"></div>
         </div>
         <div class="row col-sm-4 text-center" id="socialholder">
-            <br>
-            <div class="col-sm-4"></div>
-            <div class="col-sm-4">
-                <a class="col-sm-4" href="https://www.facebook.com">
-                    <div id="facebook">
-                    </div>
-                </a>
-                <a class=" col-sm-4 " href="https://www.twitter.com">
-                    <div id="twitter">
-                    </div>
-                </a>
-                <a class="row col-sm-4" href="https://www.instagram.com">
-                    <div id="ig">
-                    </div>
-                </a>
+            <div class="row">
+                <br>
+                <div class="col-sm-3">
+                    <br>
+                    <img src="/images/badge1.png" alt="badge">
+                </div>
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <br>
+                    <img src="/images/badge2.png" alt="badge">
+                </div>
+                <div class="col-sm-3"></div>
             </div>
-            <div class="col-sm-4"></div>
+            <br>
+            <div class="row">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-6">
+                    <a class="col-sm-4" target="_blank" href="https://www.facebook.com/ikofundi">
+                        <div id="facebook">
+                        </div>
+                    </a>
+                    <a class=" col-sm-4 " href="https://www.twitter.com">
+                        <div id="twitter">
+                        </div>
+                    </a>
+                    <a class="row col-sm-4" href="https://www.instagram.com/ikofundi254" target="_blank">
+                        <div id="ig">
+                        </div>
+                    </a>
+                </div>
+                <div class="col-sm-3"></div>
+            </div>
         </div>
     </section>
     <section id="copyright" class="text-center">
@@ -285,6 +294,5 @@ $.webshims.formcfg = {
     }
 };
 </script>
-
 
 </html>

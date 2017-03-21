@@ -80,8 +80,16 @@
 	font-weight: bold;
 	font-style: italic;
 }
+#formdiv{
+
+}
+#Ikofundistaff{
+  font-weight: bolder;
+  color: #ebb92f;
+}
 #taskform{
 	border-radius: 25px;
+
 }
 #space{
 	min-height: 200px;

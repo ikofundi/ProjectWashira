@@ -20,6 +20,7 @@
 </head>
 
 <body>
+{% if user.isAdmin %}
     <nav class="navbar navbar-default navbar-fixed-top" id="nav">
         <br>
         <div class="container">
@@ -36,7 +37,8 @@
                 <ul class="nav navbar-nav navbar-right">
                     <!-- <li></li> -->
                     <li><a href="/admin/dashboard"><span id="navtext">go back</span></a></li>
-                    <li><a href="/technicians/new"><span id="navtext">Add technnician</span></a></li>
+                    <li><a href="/technicians/new"><span id="navtext">Add technician</span></a></li>
+                    <li><a href="/technicians/benched"><span id="navtext">Suspended technicians</span></a></li>
                     <li><a href="/logout"><span >log out</span></a></li>
                 </ul>
             </div>
@@ -52,6 +54,9 @@
         <h1 class="text-center">Technicians</h1>
         <table class="table">
             <thead>
+                
+                <th>ongoing jobs</th>
+                <th>Rating</th>
                 <th>Category</th>
                 <th>First Name</th>
                 <th>Last Name</th>
@@ -64,6 +69,8 @@
             <tbody>
                 {% for technician in technicians %}
                 <tr>
+                    <td class="success">{{ technician.ongoingJobs | upcase}}</td>
+                    <td class="success">{{ technician.rating | upcase}}</td>
                     <td class="active">{{ technician.category | upcase }}</a></td>
                     <td class="success">{{ technician.firstName | upcase}}</td>
                     <td class="info">{{ technician.lastName | upcase}}</td>
@@ -77,6 +84,18 @@
             </tbody>
         </table>
     </section>
+    {% else %}
+    <section class="row"></section>
+    <section class="row">
+        <div class="row col-sm-2"></div>
+        <div class="jumbotron col-sm-10 text-center">
+            <p>If you are an accesor <a href="/accesor/login">Login</a>to Continue</p>
+            <p>If you are admin,please <a href="/logout">Click here</a></p>
+            <p>If you are neither <a href="/">Go Home</a></p>
+            <div class="row col-sm-2"></div>
+    </section>
+    <section class="row"></section>
+    {%endif%}
 </body>
 
 </html>

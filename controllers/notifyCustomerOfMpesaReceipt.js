@@ -6,8 +6,7 @@ var https = require('https');
 "use strict";
 
 
- module.exports = function notifyCustomerOfMpesaReceipt(to, jobId, username, apikey, req, res) {
-
+module.exports = function notifyCustomerOfMpesaReceipt(to, jobId, username, apikey, req, res) {
     // Define the recipient numbers in a comma separated string
     // Numbers should be in international format as shown
     // And of course we want our recipients to know what we really do

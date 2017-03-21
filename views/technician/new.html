@@ -21,6 +21,7 @@
 </head>
 
 <body>
+{% if user.isAdmin %}
     <nav class="navbar navbar-default navbar-fixed-top" id="nav">
         <!-- <img id="logo" src="/images/new.png" alt=""> -->
         <div class="container">
@@ -110,11 +111,11 @@
                 <br>
                 <br>
                 <label for="phoneNumber">Phone Number</label>
-                <input type="text" name="phoneNumber" size="13" pattern="(\+254)7([0-3|7])(\d){7}" title=" e.g +254700000000" placeholder="+254700000000" required validate>
+                <input type="text" name="phoneNumber" size="13" pattern="(\+254)7([0-9|9])(\d){7}" title=" e.g +254700000000" placeholder="+254700000000" required validate>
                 <br>
                 <br>
                 <label for="phoneNumber">Phonenumber2</label>
-                <input type="text" name="phoneNumber2" size="13" pattern="(\+254)7([0-3|7])(\d){7}" title=" e.g +254700000000" placeholder="+254700000000" required validate>
+                <input type="text" name="phoneNumber2" size="13" pattern="(\+254)7([0-9|9])(\d){7}" title=" e.g +254700000000" placeholder="+254700000000" required validate>
                 <br>
                 <br>
                 <label for="email">Email(optional)</label>
@@ -173,6 +174,18 @@
         </div>
         <div class="row col-sm-4"></div>
     </section>
+    {% else %}
+    <section class="row"></section>
+    <section class="row">
+        <div class="row col-sm-2"></div>
+        <div class="jumbotron col-sm-10 text-center">
+            <p>If you are an accesor <a href="/accesor/login">Login</a>to Continue</p>
+            <p>If you are admin,please <a href="/logout">Click here</a></p>
+            <p>If you are neither <a href="/">Go Home</a></p>
+            <div class="row col-sm-2"></div>
+    </section>
+    <section class="row"></section>
+    {%endif%}
 </body>
 
 </html>

@@ -11,7 +11,14 @@ var technicianSchema = mongoose.Schema({
     idNumber: {type: String, minlength: 8, maxlength: 8},
     allCategory: { type: Boolean, default: false },
     allLocation: { type: Boolean, default: false },
-    jobsPicked: {type: Number, default: 0}
+    benched: { type: Boolean, default: false },
+    jobsPicked: {type: Number, default: 0},
+    ongoingJobs: {type: Number, default: 0},
+    timeJobPicked: {type: Number, default: 0},
+    jobsCompleted: {type: Number, default: 0},
+    customerRating: {type: Number, default: 0},
+    rating: {type: Number, default: 0 }
+
     
 });
 

@@ -20,7 +20,8 @@ var taskSchema = mongoose.Schema({
     sentToAssesor: {type: Boolean, default: false},
     pickedByFundi: {type: Boolean, default: false},
     fundiThatPickedTaskNumber: String,
-    fundiThatPickedTaskName: String
+    fundiThatPickedTaskName: String,
+    jobAlreadyPicked: {type: Boolean, default: false}
 
 });
 
