@@ -77,8 +77,8 @@
                 <label for="category">
                     <h3>What type of fundi service do you want?</h3></label>
                 <br>
-                <select name="category">
-                    <option>
+                <select name="category" oninvalid="this.setCustomValidity('You must choose a category')" oninput="setCustomValidity('')" required aria-required=”true” required validate>
+                    <option value="" disabled="disabled" selected="selected" style="display:none">
                         <h2>CLICK HERE TO CHOOSE A CATEGORY</h2></option>
                     <option value="computers">
                         <h2>computers</h2></option>
@@ -94,8 +94,8 @@
                     <option value="Tv mounting">TV mounting</option>
                     <option value="Cable installation">Cable Installation</option>
                     <option value="Moving & relocation services">moving & relocation services</option>
-                    <option value="mechanic">Mechanic</option>
                     <option value="Catering & party services">Catering & party services</option>
+                    <option value="mechanic">Mechanic</option>
                     <option value="Fumigation">fumigation</option>
                     <option value="Others">Others</option>
                 </select>
@@ -105,9 +105,9 @@
                 <label for="location">
                     <h3>Where is your location?</h3></label>
                 <br>
-                <select name="location" class="text-center">
-                    <option>
-                        <h2>CLICK HERE TO CHOOSE A LOCATION</h2></option>
+               <select name="location" class="text-center" oninvalid="this.setCustomValidity('You must choose a location')" oninput="setCustomValidity('')" required aria-required=”true” required validate>
+                    <option value="0" disabled="disabled" selected="selected" style="display:none">
+                        <h2 >CLICK HERE TO CHOOSE A LOCATION</h2></option>
                     <option value="arboretum">
                         <h2>Arboretum</h2></option>
                     <option value="buruburu">Buruburu</option>

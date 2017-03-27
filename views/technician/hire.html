@@ -21,7 +21,7 @@
 
 <body>
     <nav class="navbar navbar-default navbar-fixed-top" id="nav">
-       <br>
+        <br>
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -33,7 +33,6 @@
                 <a class="navbar-brand" id="logo" href="/"><img class="img-responsive" src="/images/logo.png" alt="logo"></a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
-                
                 <ul class="nav navbar-nav navbar-right">
                     <!-- <li></li> -->
                     <li><a href="/"><span id="navtext" class="text-center">Home</span></a></li>
@@ -48,30 +47,26 @@
     <br>
     <section id="hirepic" class="text-center">
     </section>
-    <br>
-    {% if messag %}
-                <h3 id="message2" class="text-center">{{messag}}</h3>
-
-                    
-            {% endif %}
+    <br> {% if messag %}
+    <h3 id="message2" class="text-center">{{messag}}</h3> {% endif %}
     <section class="row text-center">
         <h2 id="fundihirehead">Are you a professional fundi?<br></h2>
         <h3 id="fundihiresubhead">We are looking for you</h3>
         <br>
-        <p id="fundihiretext"><span id="fundihirespan">IKOFUNDI</span> is looking to partner with technicians in different fields who can adhere to our high standards of integrity, <br> professionalism and trust.
+        <p id="fundihiretext"><span id="fundihirespan">IKOFUNDI</span> is looking to partner with technicians in different fields who can adhere to our high standards of integrity,
+            <br> professionalism and trust.
             <br>If you believe you can meet this requirements, fill out the form below by telling us about you and we will contact you.
             <br>Remember to include your phone number in the application.</p>
         <br>
         <div class="col-sm-3"></div>
         <div id="hireform" class="jumbotron col-sm-6 text-center">
-            
             <form action="/technicianhire" method="post">
                 <label for="category">
                     What category are you applying for?
                 </label>
                 <br>
-                <select name="category" class=" text-center" required validate>
-                <option>
+                <select name="category" oninvalid="this.setCustomValidity('You must choose a category')" oninput="setCustomValidity('')" required aria-required=”true” required validate>
+                    <option value="" disabled="disabled" selected="selected" style="display:none">
                         <h2>CLICK HERE TO CHOOSE A CATEGORY</h2></option>
                     <option value="computers">
                         <h2>computers</h2></option>
@@ -91,76 +86,77 @@
                     <option value="mechanic">Mechanic</option>
                     <option value="Fumigation">fumigation</option>
                     <option value="Others">Others</option>
-            </select>
+                </select>
                 <br>
-                <br>
-                {% if messag %}
-                <h3 id="message2" class="text-center">{{messag}}</h3>
-
-                    
-            {% endif %}
+                <br> {% if messag %}
+                <h3 id="message2" class="text-center">{{messag}}</h3> {% endif %}
                 <label for="mobileNumber">
                     Mobile Number
                 </label>
                 <br>
-                 <input type="text" size="13" pattern="(\+254)7([0-3|7])(\d){7}" title=" e.g +254700000000" placeholder="+254700000000" name="mobileNumber" required validate>
+                <input type="text" size="13" pattern="(\+254)7([0-3|7])(\d){7}" title=" e.g +254700000000" placeholder="+254700000000" name="mobileNumber" required validate>
                 <br>
                 <br>
                 <label for="mobileNumber">
                     Second Mobile Number(optional)
                 </label>
                 <br>
-                 <input type="text" size="13" pattern="(\+254)7([0-3|7])(\d){7}" title=" e.g +254700000000" placeholder="+254700000000" name="mobileNumber2" required validate>
+                <input type="text" size="13" pattern="(\+254)7([0-3|7])(\d){7}" title=" e.g +254700000000" placeholder="+254700000000" name="mobileNumber2" required validate>
                 <br>
                 <br>
                 <label for="location">
                     Where are you based?
-                </label><br>
-                     <select name="location" class="text-center">
-                <option>
-                    <h2>CLICK HERE TO CHOOSE A LOCATION</h2></option>
-                <option value="arboretum">
-                    <h2>Arboretum</h2></option>
-                <option value="buruburu">Buruburu</option>
-                <option value="cbd">Cbd</option>
-                <option value="chiromo">Chiromo</option>
-                <option value="donholm">Donholm</option>
-                <option value="embakasi">Embakasi</option>
-                <option value="forest road">Forest road</option>
-                <option value="gachie">Gachie</option>
-                <option value="gigiri">Gigiri</option>
-                <option value="hurlingham">Hurlingham</option>
-                <option value="imara daima">Imara Daima</option>
-                <option value="karen">Karen</option>
-                <option value="kasarani">Kasarani</option>
-                <option value="kiambu">Kiambu</option>
-                <option value="kileleshwa">Kileleshwa</option>
-                <option value="kilimani">Kilimani</option>
-                <option value="kinoo">Kinoo</option>  
-                <option value="kitisuru">Kitisuru</option>
-                <option value="langata">Langata</option>
-                <option value="lavington">Lavington</option>
-                <option value="lower kabete">L Kabete</option>
-                <option value="mlolongo">Mlolongo</option>
-                <option value="mombasa rd">Mombasa Rd</option>
-                <option value="muthangari">Muthangari</option>
-                <option value="ngong rd">Ngong Rd</option>
-                <option value="parklands">Parklands</option>
-                <option value="riverside">Riverside</option>
-                <option value="rongai">Rongai</option>
-                <option value="ruaka">Ruaka</option>
-                <option value="runda">Runda</option>
-                <option value="south b">South B</option>
-                <option value="south c">South C</option>
-                <option value="upperhill">Upperhill</option>
-                <option value="westland">Westland</option>
-            </select><br><br>
+                </label>
+                <br>
+                <select name="location" class="text-center" oninvalid="this.setCustomValidity('You must choose a location')" oninput="setCustomValidity('')" required aria-required=”true” required validate>
+                    <option value="0" disabled="disabled" selected="selected" style="display:none">
+                        <h2>CLICK HERE TO CHOOSE A LOCATION</h2></option>
+                    <option value="arboretum">
+                        <h2>Arboretum</h2></option>
+                    <option value="buruburu">Buruburu</option>
+                    <option value="cbd">Cbd</option>
+                    <option value="chiromo">Chiromo</option>
+                    <option value="donholm">Donholm</option>
+                    <option value="embakasi">Embakasi</option>
+                    <option value="forest road">Forest road</option>
+                    <option value="gachie">Gachie</option>
+                    <option value="gigiri">Gigiri</option>
+                    <option value="hurlingham">Hurlingham</option>
+                    <option value="imara daima">Imara Daima</option>
+                    <option value="karen">Karen</option>
+                    <option value="kasarani">Kasarani</option>
+                    <option value="kiambu">Kiambu</option>
+                    <option value="kileleshwa">Kileleshwa</option>
+                    <option value="kilimani">Kilimani</option>
+                    <option value="kinoo">Kinoo</option>
+                    <option value="kitisuru">Kitisuru</option>
+                    <option value="langata">Langata</option>
+                    <option value="lavington">Lavington</option>
+                    <option value="lower kabete">L Kabete</option>
+                    <option value="mlolongo">Mlolongo</option>
+                    <option value="mombasa rd">Mombasa Rd</option>
+                    <option value="muthangari">Muthangari</option>
+                    <option value="ngong rd">Ngong Rd</option>
+                    <option value="parklands">Parklands</option>
+                    <option value="riverside">Riverside</option>
+                    <option value="rongai">Rongai</option>
+                    <option value="ruaka">Ruaka</option>
+                    <option value="runda">Runda</option>
+                    <option value="south b">South B</option>
+                    <option value="south c">South C</option>
+                    <option value="upperhill">Upperhill</option>
+                    <option value="westland">Westland</option>
+                </select>
+                <br>
+                <br>
                 <label for="aboutMe">
                     Tell us about you
-                </label><br>
-                <textarea  name="aboutMe" cols="40" rows="5" validate required></textarea><br><br>
+                </label>
+                <br>
+                <textarea name="aboutMe" cols="40" rows="5" validate required></textarea>
+                <br>
+                <br>
                 <button type="submit">Submit application</button>
-
             </form>
         </div>
         <div class="col-sm-3"></div>
@@ -190,7 +186,8 @@
                 <br>
                 <a href="/contactus">
                     <p id="hiring">Contact us</p>
-                </a><br>
+                </a>
+                <br>
                 <a href="/staffportal">
                     <p id="hiring">STAFF PORTAL</p>
                 </a>
