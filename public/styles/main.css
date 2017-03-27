@@ -115,12 +115,17 @@
 	box-sizing: border-box; 
 	line-height: 80px;
 }
-
 #bookfunditext{
 	color: white;
 	font-weight: bold;
 	vertical-align: super;
 	font-size: 2em;
+	}
+#bookfunditext2{
+	color: white;
+	font-weight: bold;
+	vertical-align: super;
+	/*font-size: 2em;*/
 	}
 #reviews{
 	background-color: #fffde7;

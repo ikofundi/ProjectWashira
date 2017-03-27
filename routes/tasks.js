@@ -21,6 +21,7 @@ var parseString = require('xml2js').parseString;
 var xmlparser = require('express-xml-bodyparser');
 var smtpTransport = require('nodemailer-smtp-transport');
 var nodemailer = require('nodemailer');
+
 // Declare Africaistalking username and password 
 var username = 'IKOFUNDI';
 var apikey = 'c579e40343543d7348e178a4fc626f644f047dfcc2a1df563ab09e1dd58bbade';
@@ -47,6 +48,9 @@ router.route('/taskform')
         category = req.body.category.toLowerCase();
         availability = req.body.availability;
         description = req.body.description.toLowerCase();
+        status = "ongoing";
+        
+
         formData = {
                 firstname: firstname,
                 lastname: lastname,
@@ -56,6 +60,7 @@ router.route('/taskform')
                 category: category,
                 availability: availability,
                 description: description,
+                status: status,
                 jobId: jobId
             }
             // console.log(formData);
@@ -68,7 +73,7 @@ router.route('/taskform')
                 });
             } else {
                 console.log('successfully saved the task');
-
+                console.log(task);
                 function notifyAccesorOfNewTask(task) {
                     if (!task) {
                         res.redirect('/tasks/taskform');
@@ -186,7 +191,7 @@ router.route('/tasks/search')
     .post(function(req, res) {
         console.log(req.body.q);
         Task.find({ "jobId": req.body.q })
-            .select('category firstname lastname amountPaid email location phoneNumber description availability quotedPrice accesorComments jobId accesed')
+            .select('category firstname lastname amountPaid email location phoneNumber description availability quotedPrice accesorComments jobId accesed status')
             .exec(function(err, tasks) {
                 if (err) return console.log(err);
                 res.render('admin/searchresult', {
@@ -340,7 +345,7 @@ router.route('/tasks/:id/mpesa/confirmc2bpayment')
 
         function sendToAssesor(req, res, incoming) {
             if (incoming.sendTo === "assesor") {
-                Task.findOneAndUpdate({ "jobId": incoming.jobId, "phoneNumber": incoming.phoneNumber }, { $set: { amountPaid: incoming.amountPaid, sentToAssesor: true, sentToFundi: false } }, { new: true }, function(err, task) {
+                Task.findOneAndUpdate({ "jobId": incoming.jobId, "phoneNumber": incoming.phoneNumber }, { $set: { amountPaid: incoming.amountPaid, sentToAssesor: true, sentToFundi: false, status: "senttoassesor" } }, { new: true }, function(err, task) {
                     if (err) return console.log(err);
                     console.log("sent to assesor");
                     res.redirect('/tasks/admin/sentToAssesor');
@@ -352,14 +357,14 @@ router.route('/tasks/:id/mpesa/confirmc2bpayment')
         function sendToFundi(req, res, incoming) {
             if (incoming.sendTo === "fundi") {
                 // Find the task using the phone number returned by safcom and set the amount paid
-                Task.findOneAndUpdate({ "jobId": incoming.jobId, "phoneNumber": incoming.phoneNumber }, { $set: { amountPaid: incoming.amountPaid, sentToFundi: true, sentToAssesor: false } }, { new: true }, function(err, task) {
+                Task.findOneAndUpdate({ "jobId": incoming.jobId, "phoneNumber": incoming.phoneNumber }, { $set: { amountPaid: incoming.amountPaid, sentToFundi: true, sentToAssesor: false, status: "sentTofundi" } }, { new: true }, function(err, task) {
                     if (err) return console.log(err);
                     // send sms to customer acknowledging receipt of mpesa payment
                     notifyCustomerOfMpesaReceipt(incoming.phoneNumber, incoming.jobId, username, apikey, req, res);
                     taskCategory = task.category.toLowerCase();
                     taskLocation = task.location.toLowerCase();
                     // find technician by category of the task returned by safcom
-                    Technician.find({$and:[{"benched": false},{ $or: [{ "category": taskCategory }, { "allCategory": true }] }, { $or: [{ "location": taskLocation }, { "allLocation": true }] }]})
+                    Technician.find({ $and: [{ "benched": false }, { $or: [{ "category": taskCategory }, { "allCategory": true }] }, { $or: [{ "location": taskLocation }, { "allLocation": true }] }] })
                         .select('category firstname lastname email  phoneNumber location jobsPicked benched')
                         .exec(function(err, technician) {
                             if (err) return console.log(err);
@@ -413,12 +418,24 @@ router.route('/tasks/receivesms')
         if (text.length === 16) {
             jobIdSent = text.substring(10, 16);
             pick(jobIdSent, from, res, req);
+        } else if (text.length === 17 || text.length === 18) {
+            jobIdSent = text.substring(11, 17);
+            var fundiRating = 4;
+            console.log(jobIdSent);
+            done(jobIdSent, from, fundiRating, res, req);
         } else if (text.length === 19) {
             jobIdSent = text.substring(11, 17);
             var fundiRating = Number(text.substring(18, 19));
+            console.log(jobIdSent);
             done(jobIdSent, from, fundiRating, res, req);
-        }else if (text.length === 21) {
+        } else if (text.length === 20) {
             jobIdSent = text.substring(11, 17);
+            console.log(jobIdSent);
+            var fundiRating = Number(text.substring(18, 21));
+            done(jobIdSent, from, fundiRating, res, req);
+        } else if (text.length === 21) {
+            jobIdSent = text.substring(11, 17);
+            console.log(jobIdSent);
             var fundiRating = Number(text.substring(18, 21));
             done(jobIdSent, from, fundiRating, res, req);
         } else {

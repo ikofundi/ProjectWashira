@@ -21,7 +21,10 @@ var taskSchema = mongoose.Schema({
     pickedByFundi: {type: Boolean, default: false},
     fundiThatPickedTaskNumber: String,
     fundiThatPickedTaskName: String,
-    jobAlreadyPicked: {type: Boolean, default: false}
+    jobAlreadyPicked: {type: Boolean, default: false},
+    status: String,
+    datePicked: { type: String, default: Date.now() },
+    realDatePicked: { type: Date, default: new Date }
 
 });
 

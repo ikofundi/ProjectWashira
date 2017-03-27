@@ -49,6 +49,7 @@ module.exports = function pick(jobIdSent, from, res, req) {
                                     .select('category firstname lastname amountPaid email location phoneNumber description availability quotedPrice accesorComments jobId ongoing sentToFundi sentToAssesor pickedByFundi fundiThatPickedTaskNumber fundiThatPickedTaskName ')
                                     .exec(function(err, tasks) {
                                         task = tasks[0];
+                                        task.status = "pickedByFundi";
                                         task.pickedByFundi = true;
                                         task.fundiThatPickedTaskNumber = from;
                                         task.fundiThatPickedTaskName = techy.firstName + " " + techy.lastName;

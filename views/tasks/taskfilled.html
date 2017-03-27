@@ -51,12 +51,15 @@
             <h1 id="hellouser">Hello <span id="user">{{task.firstname}}</span>, Your booking has been received</h1>
             <div class="col-sm-2"></div>
             <div class="col-sm-8">
-                <h4>Your booking has been given job id: <span id="bookingid">{{task.jobId}}</span>. <br><br> Pay a facilitation fee of kshs 350 to MPESA paybill <span id="bookingid">567656</span> account number <span id="bookingid">{{task.jobId}}</span> and we will send a fundi.</h4>
+                <h4>Your booking has been given job id: <span id="bookingid">{{task.jobId}}</span>. <br><br> Pay a facilitation fee of kshs 350 to MPESA paybill <span id="bookingid">705831</span> account number <span id="bookingid">{{task.jobId}}</span> and we will send a fundi.</h4>
+                <br>
+                <a href="/taskform">
+                    <button type="button" id="bookfundi" class=" text-center">
+                        <h4 id="bookfunditext2" >Book another job</h4></button>
+                </a>
             </div>
             <div class="col-sm-2"></div>
         </section>
-        <br>
-        <br>
         <br>
         <br>
         <section id="links" class="row">
@@ -138,5 +141,20 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script src="//cdn.jsdelivr.net/webshim/1.14.5/polyfiller.js"></script>
+<script type="text/javascript">
+window.addEventListener("beforeunload", function (event) {
+  event.cancelable = false;
+  return event.cancelable;
+});
+</script>
+<script type="text/javascript">
+function disableF5(e) {
+    if ((e.which || e.keyCode) == 116 || (e.which || e.keyCode) == 82) e.preventDefault();
+};
+
+$(document).ready(function() {
+    $(document).on("keydown", disableF5);
+});
+</script>
 
 </html>

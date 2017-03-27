@@ -66,6 +66,7 @@
                     <th class="text-center">Enter paid amount</th>
                     <th class="text-center">Job Id</th>
                     <th class="text-center">Category</th>
+                    <th class="text-center">Status</th>
                     <th class="text-center">Firstname</th>
                     <th class="text-center">Lastname</th>
                     <th class="text-center">Email</th>
@@ -80,6 +81,7 @@
                         <td class="info"><a href="/tasks/{{task.id}}/mpesa/confirmc2bpayment">Enter paid amount</a></td>
                         <td class="info">{{ task.jobId | upcase}}</td>
                         <td class="active">{{ task.category | upcase }}</td>
+                         <td class="active">{{ task.status | upcase }}</td>
                         <td class="success">{{ task.firstname | upcase}}</td>
                         <td class="info">{{ task.lastname | upcase}}</td>
                         <td class="info">{{ task.email | upcase}}</td>

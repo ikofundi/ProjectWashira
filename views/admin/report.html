@@ -48,22 +48,25 @@
     <br>
     <br>
     <br>
-    <section class="row text-center">
-        {% if user.isAdmin %}
-        <h1>Hi {{user.username}}</h1><br>
-        <h2>What would you like to do?</h2><br>
-        <div class=" text-center thumbnail col-sm-3">
-            <p><a href="/tasks/admin/ongoing">View tasks</a></p>
-        </div>
-        <div class="text-center col-sm-3 thumbnail">
-            <p><a href="/Accesors">Manage Assesors</a></p>
-        </div>
-        <div class="text-center col-sm-3 thumbnail">
-            <p><a href="/technicians">Manage Technicians</a></p>
-        </div>
-         <div class="text-center col-sm-3 thumbnail">
-            <p><a href="/admin/report">Download Report</a></p>
-        </div>
+    <h2 class="text-center">Choose the dates for your report below</h2> {% if user.isAdmin %}
+    <h1>Hi {{user.username}}</h1>
+    <br>
+    <section>
+        <form action="/csvreport" method="post">
+            <div class=" text-center thumbnail col-sm-4">
+                <label for="from">From</label>
+                <input type="text" placeholder="2017-03-23" name="from">
+            </div>
+            <div class="text-center col-sm-4 thumbnail">
+                <label for="to">To</label>
+                <input type="text" placeholder="2017-03-23" name="to">
+                <br>
+            </div>
+            <div class="text-center col-sm-4 thumbnail">
+                <input type="submit" value="Download">
+                <br>
+            </div>
+        </form>
     </section>
     {% else %}
     <section class="row"></section>
