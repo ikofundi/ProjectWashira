@@ -69,7 +69,7 @@ router.route('/contactus')
             if (err)
                 console.log("not sent: " + err);
             else
-                var respondWithEmail = function(email) {
+                 function respondWithEmail(email) {
                     var transporter = nodemailer.createTransport(smtpTransport({
                         service: 'gmail',
                         auth: {
@@ -80,7 +80,7 @@ router.route('/contactus')
                     var mailOptions = {
                         to: email,
                         from: 'ikofundi1@gmail.com',
-                        subject: req.body.subject,
+                        subject: 'Message Received',
                         text: "Thank you for contacting Iko Fundi. Your message has been received and we are attending to it. You can also give us a call at +254790 517 775"
 
                     };
