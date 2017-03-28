@@ -158,6 +158,7 @@ router.route('/csvreport')
                 console.log(req.body.from);
                 tasks.forEach(function (task) {
                     if (Number(task.datePicked) > new Date(req.body.from).getTime() && Number(task.datePicked) < (new Date(req.body.to).getTime() + 86400000) ){
+                        
                         report.push(task);
                 }
             })

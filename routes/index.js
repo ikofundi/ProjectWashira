@@ -54,12 +54,12 @@ router.route('/contactus')
         var transporter = nodemailer.createTransport(smtpTransport({
             service: 'gmail',
             auth: {
-                user: 'pnganga05@gmail.com',
-                pass: 'Sebleeni05'
+                user: 'ikofundi1@gmail.com',
+                pass: 'june2013'
             }
         }));
         var mailOptions = {
-            to: 'pnganga05@gmail.com',
+            to: 'ikofundiinfo@gmail.com',
             from: req.body.email,
             subject: req.body.subject,
             text: req.body.message + "\n\n" + "Phone number: " + req.body.phoneNumber

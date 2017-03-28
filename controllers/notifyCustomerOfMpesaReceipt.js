@@ -10,7 +10,7 @@ module.exports = function notifyCustomerOfMpesaReceipt(to, jobId, username, apik
     // Define the recipient numbers in a comma separated string
     // Numbers should be in international format as shown
     // And of course we want our recipients to know what we really do
-    var message = "Thank you. Your service provider will call you shortly. After job is complete, rate your provider by texting “FUNDI(space)DONE#" + jobId + "#1-5(e.g 3) to 20880";
+    var message = "Payment received. Your service provider will call you shortly. After job is done please rate him/her (free sms) by texting: fundi(space)done#" + jobId + "#1-5 to 20880";
 
     // Build the post string from an object
 

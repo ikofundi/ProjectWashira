@@ -191,12 +191,21 @@ router.route('/tasks/search')
     .post(function(req, res) {
         console.log(req.body.q);
         Task.find({ "jobId": req.body.q })
-            .select('category firstname lastname amountPaid email location phoneNumber description availability quotedPrice accesorComments jobId accesed status')
+            .select('category firstname lastname amountPaid email location phoneNumber description availability quotedPrice accesorComments jobId accesed status transactionCode')
             .exec(function(err, tasks) {
                 if (err) return console.log(err);
-                res.render('admin/searchresult', {
+                console.log(tasks[0].transactionCode);
+                if (tasks[0].amountPaid === undefined) {
+                      res.render('admin/searchresult', {
                     "tasks": tasks
                 });
+                } else{
+                    console.log('already paid');
+                     res.render('admin/searchresult2', {
+                    "tasks": tasks
+                });
+                }
+              
             });
     })
     // this route returns all the tasks that have been sent to fundis
@@ -326,6 +335,18 @@ router.route('/tasks/:id/delete')
     .get(function(req, res) {
         deleteTask('GET', req, res);
     });
+router.route('/tasks/:id/mpesa/confirmc2bpayment2')
+    .get(function(req, res) {
+        taskId = req.params.id;
+        // retrieve the task from mongodb
+        Task.findById(taskId, function(err, task) {
+            if (err) return console.log(err);
+            console.log(task);
+            res.render('tasks/mpesadetails2', {
+                "task": task
+            });
+        });
+    })
 router.route('/tasks/:id/mpesa/confirmc2bpayment')
     .get(function(req, res) {
         taskId = req.params.id;
@@ -357,7 +378,7 @@ router.route('/tasks/:id/mpesa/confirmc2bpayment')
         function sendToFundi(req, res, incoming) {
             if (incoming.sendTo === "fundi") {
                 // Find the task using the phone number returned by safcom and set the amount paid
-                Task.findOneAndUpdate({ "jobId": incoming.jobId, "phoneNumber": incoming.phoneNumber }, { $set: { amountPaid: incoming.amountPaid, sentToFundi: true, sentToAssesor: false, status: "sentTofundi" } }, { new: true }, function(err, task) {
+                Task.findOneAndUpdate({ "jobId": incoming.jobId, "phoneNumber": incoming.phoneNumber }, { $set: { amountPaid: incoming.amountPaid, transactionCode: incoming.transactionCode, sentToFundi: true, sentToAssesor: false, status: "sentTofundi" } }, { new: true }, function(err, task) {
                     if (err) return console.log(err);
                     // send sms to customer acknowledging receipt of mpesa payment
                     notifyCustomerOfMpesaReceipt(incoming.phoneNumber, incoming.jobId, username, apikey, req, res);

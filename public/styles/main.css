@@ -81,6 +81,9 @@
 	text-align: center;
 
 }
+#number{
+	color: green;
+}
 #commentor{
 	text-align: right;
 }
