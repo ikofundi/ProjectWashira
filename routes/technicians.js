@@ -124,7 +124,7 @@ router.route('/technicianhire')
         if(req.body.mobileNumber === req.body.mobileNumber2)
             res.redirect("/technicianhirefail");
         else
-            var text ="category : " + req.body.category + "\n\n" + "mobileNumber: " +  req.body.mobileNumber + "\n\n" + "mobileNumber2: " + req.body.mobileNumber2 + "\n\n" + "location: " + req.body.location + "\n\n" + "description: " + req.body.aboutMe;
+            var text ="Name : " + req.body.name + "\n\n" + "category : " + req.body.category + "\n\n" + "mobileNumber: " +  req.body.mobileNumber + "\n\n" + "mobileNumber2: " + req.body.mobileNumber2 + "\n\n" + "location: " + req.body.location + "\n\n" + "description: " + req.body.aboutMe;
  
            
         var transporter = nodemailer.createTransport(smtpTransport({
@@ -146,7 +146,7 @@ router.route('/technicianhire')
                 console.log("not sent: " + err);
             else
            console.log(mailOptions.text);
-           
+
         });
 
 
