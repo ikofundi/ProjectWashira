@@ -60,6 +60,9 @@
         <br>
         <div class="col-sm-3"></div>
         <div id="hireform" class="jumbotron col-sm-6 text-center">
+            {% if message %}
+                <h3 id="message2" class="text-center">{{message}}</h3> {% endif %}
+                <br>
             <form action="/technicianhire" method="post" onsubmit="alert("Your apllication has been received")">
                 <label for="name">
                     What is your name?
@@ -92,8 +95,7 @@
                     <option value="Others">Others</option>
                 </select>
                 <br>
-                <br> {% if message %}
-                <h3 id="message2" class="text-center">{{message}}</h3> {% endif %}
+                <br> 
                 <label for="mobileNumber">
                     Mobile Number
                 </label>
