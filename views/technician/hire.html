@@ -64,11 +64,11 @@
 
             <form action="/technicianhire" method="post" onsubmit="alert("Your apllication has been received")">
                 <label for="name">
-                    What is your name?
+                    Name
                 </label><br>
                 <input type="text"  placeholder="Your name" name="name" required validate><br><br>
                 <label for="category">
-                    What job categories are you qualified in?(select all that apply by holding down Crtl)
+                    What job categories are you qualified in? <br>(select all that apply by holding down Crtl)
                 </label>
                 <br>
                 <select multiple name="category" oninvalid="this.setCustomValidity('You must choose a category')" oninput="setCustomValidity('')" required aria-required=”true” required validate>
