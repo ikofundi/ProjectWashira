@@ -60,9 +60,9 @@ router.route('/contactus')
         }));
         var mailOptions = {
             to: 'ikofundiinfo@gmail.com',
-            from: req.body.email,
+            from: 'ikofundi1@gmail.com',
             subject: req.body.subject,
-            text: req.body.message + "\n\n" + "Phone number: " + req.body.phoneNumber
+            text: req.body.message + "\n\n" + "Phone number: " + req.body.phoneNumber + "email: " + req.body.email
 
         };
         transporter.sendMail(mailOptions, function(err) {
