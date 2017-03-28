@@ -21,7 +21,7 @@
 </head>
 
 <body>
-{% if user.isAdmin %}
+    {% if user.isAdmin %}
     <nav class="navbar navbar-default navbar-fixed-top" id="nav">
         <!-- <img id="logo" src="/images/new.png" alt=""> -->
         <div class="container">
@@ -73,8 +73,8 @@
         <div class="jumbotron col-sm-4 text-center">
             <form action="/technicians" method="post">
                 <label for="category">Category</label>
-                <select name="category">
-                   <option>
+                <select name="category" oninvalid="this.setCustomValidity('You must choose a category')" oninput="setCustomValidity('')" required aria-required=”true” required validate>
+                    <option value="" disabled="disabled" selected="selected" style="display:none">
                         <h2>CLICK HERE TO CHOOSE A CATEGORY</h2></option>
                     <option value="computers">
                         <h2>computers</h2></option>
@@ -92,6 +92,8 @@
                     <option value="Moving & relocation services">moving & relocation services</option>
                     <option value="Catering & party services">Catering & party services</option>
                     <option value="mechanic">Mechanic</option>
+                    <option value="Electrician">Electrician</option>
+                    <option value="Welding">Mechanic</option>
                     <option value="Fumigation">fumigation</option>
                     <option value="Others">Others</option>
                 </select>
@@ -166,7 +168,7 @@
                     <option value="upperhill">Upperhill</option>
                     <option value="westland">Westland</option>
                 </select>
-                 <label for="alllocation">All</label>
+                <label for="alllocation">All</label>
                 <input type="checkbox" name="allLocation">
                 <br>
                 <br>

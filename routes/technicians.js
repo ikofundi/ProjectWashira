@@ -6,6 +6,7 @@ var Task = require('../models/task');
 var User = require('../models/user');
 var smtpTransport = require('nodemailer-smtp-transport');
 var nodemailer = require('nodemailer');
+var notifyTechnicianOfSuspension = require('../controllers/notifyTechnicianOfSuspension');
 
 router.route('/technicians')
     .get(function(req, res) {
@@ -103,6 +104,7 @@ router.route('/technicians/:id/benched')
         technician.benched = false;
         technician.save(function(err, technician) {
             if (err) return console.log(err);
+            notifyTechnicianOfSuspension(technician.phoneNumber, technician.rating, username, apikey, req, res);
           console.log("techy unbenched");  
           res.redirect('/technicians/benched');
     })
@@ -176,5 +178,34 @@ router.route('/technicianhirefail')
             "messag": messag
         });
     })
+router.route('/technician/:id/view')
+    .get(function(req, res) {
+        console.log(req.params.id);
+        technicianId = req.params.id;
+        Technician.findById(technicianId, function (err, technician) {
+             res.render('technician/view', {
+                "technician": technician
+            });
+        })
+    })
+function deleteTechnician(method, req, res) {
+    technicianId = req.params.id
+    Technician.remove({
+        _id: technicianId
+    }, function(err) {
+        if (err) return console.log(err);
+        if (method === 'GET') {
+            res.redirect('/technicians');
+            
+        } else {
+            res.send("Technician was deleted");
+        }
 
+    });
+};
+
+router.route('/technician/:id/delete')
+    .get(function(req, res) {
+        deleteTechnician('GET', req, res);
+    })
 module.exports = router;

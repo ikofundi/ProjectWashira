@@ -10,7 +10,7 @@ module.exports = function notifyTechnicianOfSuspension(to, rating, username, api
     // Define the recipient numbers in a comma separated string
     // Numbers should be in international format as shown
     // And of course we want our recipients to know what we really do
-    var message = "You have been temporarily suspended from ikofundi due to your last rating of " + rating + ". Please call us for clarification"
+    var message = "You have been temporarily suspended from IKOFUNDI due to your last rating of " + rating + " Please call us on 0790 517 775 for clarification"
 
     // Build the post string from an object
 
