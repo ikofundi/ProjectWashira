@@ -378,7 +378,7 @@ router.route('/tasks/:id/mpesa/confirmc2bpayment')
         function sendToFundi(req, res, incoming) {
             if (incoming.sendTo === "fundi") {
                 // Find the task using the phone number returned by safcom and set the amount paid
-                Task.findOneAndUpdate({ "jobId": incoming.jobId, "phoneNumber": incoming.phoneNumber }, { $set: { amountPaid: incoming.amountPaid, transactionCode: incoming.transactionCode, sentToFundi: true, sentToAssesor: false, status: "sentTofundi" } }, { new: true }, function(err, task) {
+                Task.findOneAndUpdate({ "jobId": incoming.jobId, "phoneNumber": incoming.phoneNumber }, { $set: { amountPaid: incoming.amountPaid, transactionCode: incoming.transactionCode, sentToFundi: true, sentToAssesor: false, status: "sentTofundi", pickedByFundi: false  } }, { new: true }, function(err, task) {
                     if (err) return console.log(err);
                     // send sms to customer acknowledging receipt of mpesa payment
                     notifyCustomerOfMpesaReceipt(incoming.phoneNumber, incoming.jobId, username, apikey, req, res);
@@ -415,6 +415,7 @@ router.route('/tasks/:id/mpesa/confirmc2bpayment')
 
 
                             // send message of task availabililty to technicians on that task's category
+                            console.log(task);
                             notifyTechnicianOfTask(technicianPhoneNumbersAsString, task.jobId, task.category, task.location, task.availability, username, apikey, req, res);
                             // redirect to paid tasks 
                             console.log(technicianPhoneNumbersAsString);
