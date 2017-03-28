@@ -38,6 +38,9 @@
 #hireform{
 	background-color: #fffde7;
 }
+#hold{
+  color: grey;
+}
 #space{
 	min-height: 200px;
 	background-color: green;

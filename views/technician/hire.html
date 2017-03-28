@@ -68,7 +68,8 @@
                 </label><br>
                 <input type="text"  placeholder="Your name" name="name" required validate><br><br>
                 <label for="category">
-                    What job categories are you qualified in? <br>(select all that apply by holding down Crtl)
+                    What job categories are you qualified in? <br>
+                    <span id="hold">(select all that apply by holding down Ctrl)</span>
                 </label>
                 <br>
                 <select multiple name="category" oninvalid="this.setCustomValidity('You must choose a category')" oninput="setCustomValidity('')" required aria-required=”true” required validate>
