@@ -130,13 +130,13 @@ router.route('/technicianhire')
         var transporter = nodemailer.createTransport(smtpTransport({
             service: 'gmail',
             auth: {
-                user: 'pnganga05@gmail.com',
-                pass: 'Sebleeni05'
+                user: 'ikofundi1@gmail.com',
+                pass: 'june2013'
             }
         }));
         var mailOptions = {
-            to: 'pnganga05@gmail.com',
-            from: 'pnganga05@gmail.com',
+            to: 'ikofundiinfo@gmail.com',
+            from: 'ikofundi1@gmail.com',
             subject: 'APPLICATION FOR FUNDI JOB',
             text: text
            
@@ -146,6 +146,7 @@ router.route('/technicianhire')
                 console.log("not sent: " + err);
             else
            console.log(mailOptions.text);
+           
         });
 
 
