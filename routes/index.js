@@ -69,7 +69,31 @@ router.route('/contactus')
             if (err)
                 console.log("not sent: " + err);
             else
-               res.redirect('/contactussuccess');
+                var respondWithEmail = function(email) {
+                    var transporter = nodemailer.createTransport(smtpTransport({
+                        service: 'gmail',
+                        auth: {
+                            user: 'ikofundi1@gmail.com',
+                            pass: 'june2013'
+                        }
+                    }));
+                    var mailOptions = {
+                        to: email,
+                        from: 'ikofundi1@gmail.com',
+                        subject: req.body.subject,
+                        text: "Thank you for contacting Iko Fundi. Your message has been received and we are attending to it. You can also give us a call at +254790 517 775"
+
+                    };
+                    transporter.sendMail(mailOptions, function(err) {
+                        if (err)
+                            console.log("not sent: " + err);
+                        else
+                            
+                        res.redirect('/contactussuccess');
+                    });
+                }
+
+            respondWithEmail(req.body.email);
         });
     })
 router.route('/contactussuccess')
