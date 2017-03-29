@@ -167,13 +167,13 @@ blockquote{
 	background-color: green;
 }
 #facebook{
-	z-index: 47;
+	/*z-index: 47;*/
 	width: 50px;
 	height: 50px;
 	/*position: absolute;*/
-	bottom: 81px;
-	left: 50%;
-	margin-left: -142px;
+	/*bottom: 81px;*/
+	/*left: 50%;*/
+	/*margin-left: -142px;*/
 	background-color: #ebb92f;
 	background-image: url(/images/Faceookb.png);
 	background-repeat: no-repeat;
@@ -193,16 +193,16 @@ blockquote{
 	border-top-right-radius: 25px;
 	border-top-style: solid;
 	border-top-width: 0px;
-	display: block;
+	/*display: block;*/
 }
 #twitter{
-	z-index: 47;
+	/*z-index: 47;*/
 	width: 50px;
 	height: 50px;
 	/*position: absolute;*/
 	bottom: 81px;
-	left: 50%;
-	margin-left: -85px;
+	/*left: 50%;*/
+	/*margin-left: -85px;*/
 	background-color: #ebb92f;
 	background-image: url(/images/twitterb.png);
 	background-repeat: no-repeat;
@@ -222,18 +222,18 @@ blockquote{
 	border-top-right-radius: 25px;
 	border-top-style: solid;
 	border-top-width: 0px;
-	display: block;
+	/*display: block;*/
 
 
 }
 #ig{
-	z-index: 47;
+	/*z-index: 47;*/
 	width: 50px;
 	height: 50px;
 	/*position: absolute;*/
 	bottom: 81px;
-	left: 50%;
-	margin-left: -28px;
+	/*left: 50%;*/
+	/*margin-left: -28px;*/
 	background-color: #ebb92f;
 	background-image: url(/images/instagramb.png);
 	background-repeat: no-repeat;
@@ -253,7 +253,7 @@ blockquote{
 	border-top-right-radius: 25px;
 	border-top-style: solid;
 	border-top-width: 0px;
-	display: block;
+	/*display: block;*/
 
 
 }
