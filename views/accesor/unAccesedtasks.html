@@ -54,6 +54,7 @@
                     <!-- <li></li> -->
                     <li><a href="/logout"><span id="navtext" class="text-center">Logout</span></a></li>
                     <li><a href="/tasks/accesor/accesed"><span id="navtext" class="text-center">Acessed tasks</span></a></li>
+                    <li><a href="/tasks/accesor/paidHalf"><span id="navtext" class="text-center">Tasks Paid Half</span></a></li>
                 </ul>
             </div>
             <!--/.nav-collapse -->
@@ -68,6 +69,8 @@
                 <thead class="text-center">
                     <th class="text-center">Edit task</th>
                     <th class="text-center">Job Id</th>
+                    <th class="text-center">Amount Paid</th>
+                    <th class="text-center">Transaction Code</th>
                     <th class="text-center">Category</th>
                     <th class="text-center">Firstname</th>
                     <th class="text-center">Lastname</th>
@@ -86,6 +89,8 @@
                             </a>
                         </td>
                         <td class="info">{{ task.jobId | upcase}}</td>
+                         <td class="info">{{ task.amountPaid | upcase}}</td>
+                        <td class="info">{{ task.transactionCode | upcase}}</td>
                         <td class="active">{{ task.category | upcase }}</td>
                         <td class="success">{{ task.firstname | upcase}}</td>
                         <td class="danger">{{ task.lastname | upcase}}</td>

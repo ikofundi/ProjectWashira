@@ -7,6 +7,7 @@ var Technician = require('../models/technician');
 var sms = require('../controllers/sms');
 var notifyCustomerOfQuotedPrice = require('../controllers/notifyCustomerOfQuotedPrice');
 var notifyCustomerOfMpesaReceipt = require('../controllers/notifyCustomerOfMpesaReceipt');
+var notifyCustomerOfMpesa50Receipt = require('../controllers/notifyCustomerOfMpesa50Receipt');
 var notifyTechnicianOfTask = require('../controllers/notifyTechnicianOfTask');
 var notifyTechnicianOfSuccessfulJobPick = require('../controllers/notifyTechnicianOfSuccessfulJobPick');
 var notifyCustomerOfJobCompletion = require('../controllers/notifyCustomerOfJobCompletion');
@@ -49,7 +50,7 @@ router.route('/taskform')
         availability = req.body.availability;
         description = req.body.description.toLowerCase();
         status = "ongoing";
-        
+
 
         formData = {
                 firstname: firstname,
@@ -74,6 +75,7 @@ router.route('/taskform')
             } else {
                 console.log('successfully saved the task');
                 console.log(task);
+
                 function notifyAccesorOfNewTask(task) {
                     if (!task) {
                         res.redirect('/tasks/taskform');
@@ -137,7 +139,8 @@ router.route('/tasks/done')
     .get(function(req, res) {
         Task.find({ "ongoing": false })
             .select('category firstname lastname email location phoneNumber description availability quotedPrice accesorComments jobId accesed ongoing fundiThatPickedTaskNumber sentToAssesor')
-            .exec(function(err, tasks) {
+            .exec(function(err, task) {
+                var tasks = task;
                 if (err) return console.log(err);
                 res.render('admin/completetasks', {
                     "tasks": tasks,
@@ -148,8 +151,8 @@ router.route('/tasks/done')
     // this route returns all the unacessed tasks to the acessor
 router.route('/tasks/accesor/unaccesed')
     .get(function(req, res) {
-        Task.find({ "accesed": false })
-            .select('category firstname lastname email location phoneNumber description availability quotedPrice accesorComments jobId accesed')
+        Task.find({ "accesed": false, "sentToAssesor": true })
+            .select('category firstname lastname email location phoneNumber description availability quotedPrice accesorComments jobId accesed status amountPaid transactionCode')
             .exec(function(err, tasks) {
                 if (err) return console.log(err);
                 res.render('accesor/unAccesedtasks', {
@@ -161,7 +164,7 @@ router.route('/tasks/accesor/unaccesed')
     // this route returns all the acessed tasks to the acessor
 router.route('/tasks/accesor/accesed')
     .get(function(req, res) {
-        Task.find({ "accesed": true })
+        Task.find({ "accesed": true, "ongoing": true, "paidFull": false, "paidHalf": false, "sentToAssesor": true })
             .select('category firstname lastname email location phoneNumber description availability quotedPrice accesorComments jobId accesed')
             .exec(function(err, tasks) {
                 if (err) return console.log(err);
@@ -196,16 +199,16 @@ router.route('/tasks/search')
                 if (err) return console.log(err);
                 console.log(tasks[0].transactionCode);
                 if (tasks[0].amountPaid === undefined) {
-                      res.render('admin/searchresult', {
-                    "tasks": tasks
-                });
-                } else{
+                    res.render('admin/searchresult', {
+                        "tasks": tasks
+                    });
+                } else {
                     console.log('already paid');
-                     res.render('admin/searchresult2', {
-                    "tasks": tasks
-                });
+                    res.render('admin/searchresult2', {
+                        "tasks": tasks
+                    });
                 }
-              
+
             });
     })
     // this route returns all the tasks that have been sent to fundis
@@ -276,13 +279,15 @@ function updateTask(method, req, res) {
         task.quotedPrice = accesorQuotedPrice;
         task.accesorComments = accesorComments;
         task.accesed = true;
+
         task.save(function(err, task) {
             if (err) return console.log(err);
             if (method === 'PUT') {
                 res.json(task);
             } else {
+                console.log(task);
                 // send sms notifying customer of the quoted price
-                // notifyCustomerOfQuotedPrice(task.phoneNumber, task.firstname, username, apikey, req, res, task.quotedPrice, task.jobId);
+                notifyCustomerOfQuotedPrice(task.phoneNumber, task.category, task.jobId, task.quotedPrice, username, apikey, req, res);
                 res.redirect('/tasks/accesor/accesed');
             };
         });
@@ -315,6 +320,172 @@ router.route('/tasks/:id/adminviewtask')
     })
     .post(function(req, res) {
         updateTask('POST', req, res);
+    });
+
+function updateTask2(method, req, res) {
+    taskId = req.params.id;
+    accesorCategory = req.body.category;
+    accesorFirstName = req.body.firstname;
+    accesorLastName = req.body.lastname;
+    accesorEmail = req.body.email;
+    accesorLocation = req.body.location;
+    accesorPhoneNumber = req.body.phoneNumber;
+    accesorDescription = req.body.description;
+    accesorAvailability = req.body.availability;
+    accesorQuotedPrice = req.body.quotedPrice;
+    quotedPricePaidCode = req.body.quotedPricePaidCode;
+    quotedPricePaid = req.body.quotedPricePaid;
+    // retrieve the task from Mongodb
+    Task.findById(taskId, function(err, task) {
+        if (err) return console.log("this is the error " + err);
+
+        task.category = accesorCategory;
+        task.firstname = accesorFirstName;
+        task.lastname = accesorLastName;
+        task.email = accesorEmail;
+        task.location = accesorLocation;
+        task.phoneNumber = accesorPhoneNumber;
+        task.description = accesorDescription;
+        task.availability = accesorAvailability;
+        task.quotedPrice = accesorQuotedPrice;
+        task.quotedPricePaid = quotedPricePaid;
+        task.quotedPricePaidCode = quotedPricePaidCode;
+        task.paidHalf = true;
+        task.save(function(err, task) {
+            if (err) return console.log(err);
+            if (method === 'PUT') {
+                res.json(task);
+            } else {
+                // send sms notifying customer of the quoted price
+                notifyCustomerOfMpesa50Receipt(task.phoneNumber, task.quotedPricePaid, username, apikey, req, res);
+                res.redirect('/tasks/accesor/paidHalf');
+            };
+        });
+    });
+};
+router.route('/tasks/accesor/paidHalf')
+    .get(function(req, res) {
+        Task.find({ "paidHalf": true, "ongoing": true })
+            .select('category firstname lastname email location phoneNumber description availability quotedPrice accesorComments jobId quotedPricePaid quotedPricePaidCode')
+            .exec(function(err, tasks) {
+                if (err) return console.log(err);
+                // res.json(tasks);
+                console.log(req.user);
+                res.render('accesor/paidhalf', {
+                    "tasks": tasks,
+                    'user': req.user
+                });
+            });
+    })
+router.route('/tasks/:id/assesorviewtask')
+    .get(function(req, res) {
+        taskId = req.params.id;
+        // retrieve the task from mongodb
+        Task.findById(taskId, function(err, task) {
+            if (err) return console.log(err);
+            res.render('tasks/assesortaskdetail', {
+                "task": task
+            });
+        });
+    })
+    .post(function(req, res) {
+        updateTask2('POST', req, res);
+    });
+router.route('/tasks/accesor/completetasks')
+    .get(function(req, res) {
+        Task.find({ "paidFull": true })
+            .select('category firstname lastname email location phoneNumber description availability quotedPrice accesorComments jobId quotedPricePaid quotedPricePaidCode')
+            .exec(function(err, tasks) {
+                if (err) return console.log(err);
+                // res.json(tasks);
+                console.log(req.user);
+                res.render('accesor/paidfull', {
+                    "tasks": tasks,
+                    'user': req.user
+                });
+            });
+    })
+
+function updateTask3(method, req, res) {
+    console.log(req.body);
+    taskId = req.params.id;
+    accesorCategory = req.body.category;
+    accesorFirstName = req.body.firstname;
+    accesorLastName = req.body.lastname;
+    accesorEmail = req.body.email;
+    accesorLocation = req.body.location;
+    accesorPhoneNumber = req.body.phoneNumber;
+    accesorDescription = req.body.description;
+    accesorAvailability = req.body.availability;
+    accesorQuotedPrice = req.body.quotedPrice;
+    quotedPricePaidCode = req.body.quotedPricePaidCode;
+    quotedPricePaid = req.body.quotedPricePaid;
+    balancePaid = req.body.balancePaid;
+    if (req.body.balanceMpesaCode === '') {
+        req.body.balanceMpesaCode = "none";
+    }
+    balanceMpesaCode = req.body.balanceMpesaCode;
+    // retrieve the task from Mongodb
+    Task.findById(taskId, function(err, task) {
+        if (err) return console.log("this is the error " + err);
+
+        task.category = accesorCategory;
+        task.firstname = accesorFirstName;
+        task.lastname = accesorLastName;
+        task.email = accesorEmail;
+        task.location = accesorLocation;
+        task.phoneNumber = accesorPhoneNumber;
+        task.description = accesorDescription;
+        task.availability = accesorAvailability;
+        task.quotedPrice = accesorQuotedPrice;
+        if (balancePaid === "0") {
+            var newQuotedPrice = Number(task.quotedPricePaid) + Number(quotedPricePaid);
+            task.quotedPricePaid = String(newQuotedPrice);
+        } else {
+            task.quotedPricePaid = quotedPricePaid;
+        }
+
+        task.quotedPricePaidCode = quotedPricePaidCode;
+        task.balancePaid = balancePaid;
+        task.balanceMpesaCode = balanceMpesaCode;
+        task.save(function(err, task) {
+            if (err) return console.log(err);
+            if (method === 'PUT') {
+                res.json(task);
+            } else {
+                if (Number(task.quotedPrice) === Number(task.balancePaid) + Number(task.quotedPricePaid)) {
+                    task.paidHalf = false;
+                    task.paidFull = true;
+                    task.ongoing = false;
+                    task.save(function(err, task) {
+                        notifyCustomerOfJobCompletion(task.phoneNumber, task.jobId, username, apikey, req, res);
+                        res.redirect('/tasks/accesor/completetasks');
+                        console.log(task);
+                    })
+                } else {
+                    // send sms notifying customer of the quoted price
+                    // notifyCustomerOfMpesa50Receipt(task.phoneNumber,task.quotedPricePaid, username, apikey, req, res);
+                    console.log("not fully paid " + task);
+                    res.redirect('/tasks/accesor/paidHalf');
+                }
+ 
+            };
+        });
+    });
+};
+router.route('/tasks/:id/assesorviewtask2')
+    .get(function(req, res) {
+        taskId = req.params.id;
+        // retrieve the task from mongodb
+        Task.findById(taskId, function(err, task) {
+            if (err) return console.log(err);
+            res.render('tasks/assesortaskdetailtwo', {
+                "task": task
+            });
+        });
+    })
+    .post(function(req, res) {
+        updateTask3('POST', req, res);
     });
 
 function deleteTask(method, req, res) {
@@ -366,7 +537,7 @@ router.route('/tasks/:id/mpesa/confirmc2bpayment')
 
         function sendToAssesor(req, res, incoming) {
             if (incoming.sendTo === "assesor") {
-                Task.findOneAndUpdate({ "jobId": incoming.jobId, "phoneNumber": incoming.phoneNumber }, { $set: { amountPaid: incoming.amountPaid, sentToAssesor: true, sentToFundi: false, status: "senttoassesor" } }, { new: true }, function(err, task) {
+                Task.findOneAndUpdate({ "jobId": incoming.jobId, "phoneNumber": incoming.phoneNumber }, { $set: { amountPaid: incoming.amountPaid, sentToAssesor: true, sentToFundi: false, transactionCode: incoming.transactionCode, status: "senttoassesor" } }, { new: true }, function(err, task) {
                     if (err) return console.log(err);
                     console.log("sent to assesor");
                     res.redirect('/tasks/admin/sentToAssesor');
@@ -378,7 +549,7 @@ router.route('/tasks/:id/mpesa/confirmc2bpayment')
         function sendToFundi(req, res, incoming) {
             if (incoming.sendTo === "fundi") {
                 // Find the task using the phone number returned by safcom and set the amount paid
-                Task.findOneAndUpdate({ "jobId": incoming.jobId, "phoneNumber": incoming.phoneNumber }, { $set: { amountPaid: incoming.amountPaid, transactionCode: incoming.transactionCode, sentToFundi: true, sentToAssesor: false, status: "sentTofundi", pickedByFundi: false  } }, { new: true }, function(err, task) {
+                Task.findOneAndUpdate({ "jobId": incoming.jobId, "phoneNumber": incoming.phoneNumber }, { $set: { amountPaid: incoming.amountPaid, transactionCode: incoming.transactionCode, sentToFundi: true, sentToAssesor: false, status: "sentTofundi", pickedByFundi: false } }, { new: true }, function(err, task) {
                     if (err) return console.log(err);
                     // send sms to customer acknowledging receipt of mpesa payment
                     notifyCustomerOfMpesaReceipt(incoming.phoneNumber, incoming.jobId, username, apikey, req, res);
@@ -464,4 +635,5 @@ router.route('/tasks/receivesms')
             res.end();
         }
     })
+
 module.exports = router;

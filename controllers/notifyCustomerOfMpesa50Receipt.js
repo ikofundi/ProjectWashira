@@ -6,15 +6,11 @@ var https = require('https');
 "use strict";
 
 
-module.exports = function notifyCustomerOfQuotedPrice(to, category, jobId, quotedPrice, username, apikey, req, res) {
-
+module.exports = function notifyCustomerOfMpesa50Receipt(to, quotedPricePaid, username, apikey, req, res) {
     // Define the recipient numbers in a comma separated string
     // Numbers should be in international format as shown
-    var quote = Number(quotedPrice).toLocaleString('en-US');
-
     // And of course we want our recipients to know what we really do
-    var message = "The price for your IKOFUNDI " + category + " job is Kshs " + quote + " Please pay 50% via Mpesa Paybill 705831, account " + jobId + " for the job to begin.Thank you"
-
+    var message = "Thank you for your payment of Kshs " + Number(quotedPricePaid).toLocaleString('en-US') + " to IKOFUNDI. We will begin your job shortly." 
 
     // Build the post string from an object
 
