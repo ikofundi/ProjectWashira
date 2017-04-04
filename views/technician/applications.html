@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>IkoFundi | All technicians</title>
+    <title>IkoFundi |technicians applications</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/bootstrap-3.3.6-dist/css/bootstrap.min.css">
@@ -36,10 +36,8 @@
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <!-- <li></li> -->
-                    <li><a href="/admin/dashboard"><span id="navtext">go back</span></a></li>
-                    <li><a href="/technicians/new"><span id="navtext">Add technician</span></a></li>
+                    <li><a href="/admin/dashboard"><span id="navtext">go back</span></a></li>  
                     <li><a href="/technicians/benched"><span id="navtext">Suspended technicians</span></a></li>
-                    <li><a href="/technicians/applications"><span id="navtext">technician applications</span></a></li>
                     <li><a href="/logout"><span >log out</span></a></li>
                 </ul>
             </div>
@@ -52,35 +50,29 @@
     <br>
     <br>
     <section class="row text-center">
-        <h1 class="text-center">Technicians</h1>
+        <h1 class="text-center">Technician Applications</h1>
         <table class="table">
             <thead>
                 <th></th>
-                <th>ongoing jobs</th>
-                <th>Rating</th>
                 <th>Category</th>
                 <th>First Name</th>
                 <th>Last Name</th>
-                <th>Id Number</th>
                 <th>Phone number</th>
                 <th>Alternate phone number</th>
-                <th>Email</th>
                 <th>Location</th>
+                <th>About Me</th>
             </thead>
             <tbody>
                 {% for technician in technicians %}
                 <tr>
-                    <td class="info"><a href="/technician/{{technician.id}}/view">View Technician</a></td>
-                    <td class="success">{{ technician.ongoingJobs | upcase}}</td>
-                    <td class="success">{{ technician.rating | upcase}}</td>
+                    <td class="info"><a href="/technician/{{technician.id}}/applicant">View Applicant</a></td>
                     <td class="active">{{ technician.category | upcase }}</a></td>
                     <td class="success">{{ technician.firstName | upcase}}</td>
                     <td class="info">{{ technician.lastName | upcase}}</td>
-                    <td class="info">{{ technician.idNumber | upcase}}</td>
                     <td class="info">{{ technician.phoneNumber | upcase}}</td>
                     <td class="info">{{ technician.phoneNumber2 | upcase}}</td>
-                    <td class="info">{{ technician.email | upcase}}</td>
                     <td class="info">{{ technician.location | upcase}}</td>
+                    <td class="info">{{ technician.aboutMe | upcase}}</td>
                 </tr>
                 {% endfor %}
             </tbody>

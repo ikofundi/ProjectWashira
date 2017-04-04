@@ -140,6 +140,7 @@ router.route('/tasks/done')
         Task.find({ "ongoing": false })
             .select('category firstname lastname email location phoneNumber description availability quotedPrice accesorComments jobId accesed ongoing fundiThatPickedTaskNumber sentToAssesor')
             .exec(function(err, task) {
+                tasks = tasks.reverse();
                 var tasks = task;
                 if (err) return console.log(err);
                 res.render('admin/completetasks', {
@@ -154,6 +155,7 @@ router.route('/tasks/accesor/unaccesed')
         Task.find({ "accesed": false, "sentToAssesor": true })
             .select('category firstname lastname email location phoneNumber description availability quotedPrice accesorComments jobId accesed status amountPaid transactionCode')
             .exec(function(err, tasks) {
+                tasks = tasks.reverse();
                 if (err) return console.log(err);
                 res.render('accesor/unAccesedtasks', {
                     "tasks": tasks,
@@ -167,6 +169,7 @@ router.route('/tasks/accesor/accesed')
         Task.find({ "accesed": true, "ongoing": true, "paidFull": false, "paidHalf": false, "sentToAssesor": true })
             .select('category firstname lastname email location phoneNumber description availability quotedPrice accesorComments jobId accesed')
             .exec(function(err, tasks) {
+                tasks = tasks.reverse();
                 if (err) return console.log(err);
                 // res.json(tasks);
                 console.log(req.user);
@@ -182,6 +185,7 @@ router.route('/tasks/admin/ongoing')
         Task.find({ "ongoing": true, "sentToFundi": false, "sentToAssesor": false })
             .select('category firstname lastname email location phoneNumber  description availability jobId quotedPrice accesorComments amountPaid')
             .exec(function(err, tasks) {
+                tasks = tasks.reverse();
                 if (err) return console.log(err);
                 res.render('admin/ongoingtasks', {
                     "tasks": tasks,
@@ -217,6 +221,7 @@ router.route('/tasks/admin/senttofundi')
         Task.find({ "sentToFundi": true, "ongoing": true, "jobAlreadyPicked": false })
             .select('category firstname lastname amountPaid email location phoneNumber description availability quotedPrice accesorComments jobId accesed')
             .exec(function(err, tasks) {
+                tasks = tasks.reverse();
                 if (err) return console.log(err);
                 // res.json(tasks);
                 console.log(req.user);
@@ -232,6 +237,7 @@ router.route('/tasks/admin/senttoassesor')
         Task.find({ "sentToAssesor": true, "ongoing": true })
             .select('category firstname lastname amountPaid email location phoneNumber description availability quotedPrice accesorComments jobId accesed')
             .exec(function(err, tasks) {
+                tasks = tasks.reverse();
                 if (err) return console.log(err);
                 res.render('admin/senttoassesor', {
                     "tasks": tasks,
@@ -244,6 +250,7 @@ router.route('/tasks/admin/pickedbyfundi')
         Task.find({ "pickedByFundi": true, "ongoing": true, "jobAlreadyPicked": true })
             .select('category firstname lastname amountPaid email location phoneNumber description availability quotedPrice accesorComments jobId accesed pickedByFundi fundiThatPickedTaskNumber fundiThatPickedTaskName')
             .exec(function(err, tasks) {
+                tasks = tasks.reverse();
                 if (err) return console.log(err);
                 res.render('admin/pickedbyfundi', {
                     "tasks": tasks,
@@ -368,6 +375,7 @@ router.route('/tasks/accesor/paidHalf')
         Task.find({ "paidHalf": true, "ongoing": true })
             .select('category firstname lastname email location phoneNumber description availability quotedPrice accesorComments jobId quotedPricePaid quotedPricePaidCode')
             .exec(function(err, tasks) {
+                tasks = tasks.reverse();
                 if (err) return console.log(err);
                 // res.json(tasks);
                 console.log(req.user);
@@ -396,6 +404,7 @@ router.route('/tasks/accesor/completetasks')
         Task.find({ "paidFull": true })
             .select('category firstname lastname email location phoneNumber description availability quotedPrice accesorComments jobId quotedPricePaid quotedPricePaidCode')
             .exec(function(err, tasks) {
+                tasks = tasks.reverse();
                 if (err) return console.log(err);
                 // res.json(tasks);
                 console.log(req.user);

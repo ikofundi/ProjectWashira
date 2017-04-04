@@ -62,17 +62,22 @@
         <div class="col-sm-3"></div>
         <div id="hireform" class="jumbotron col-sm-6 text-center">
             <form action="/technicianhire" method="post" onsubmit="alert(" Your apllication has been received ")">
-                <label for="name">
-                    Name
+                <label for="firstName">
+                   First Name
                 </label>
                 <br>
-                <input type="text" placeholder="Your name" name="name" required validate>
+                <input type="text" placeholder="First name" name="firstName" required validate>
+                <br>
+                <br>
+                <label for="lastName">
+                   Last Name
+                </label>
+                <br>
+                <input type="text" placeholder="Last name" name="lastName" required validate>
                 <br>
                 <br>
                 <label for="category">
-                    What job categories are you qualified in?
-                    <br>
-                    <span id="hold">(select all that apply by holding down Ctrl)</span>
+                    What job category are you qualified in?
                 </label>
                 <br>
                 <select name="category" oninvalid="this.setCustomValidity('You must choose a category')" oninput="setCustomValidity('')" required aria-required=”true” required validate>
@@ -109,7 +114,7 @@
                 <input type="text" size="13" pattern="(\+254)7([0-3|7])(\d){7}" title=" e.g +254700000000" placeholder="+254700000000" name="mobileNumber" required validate>
                 <br>
                 <br>
-                <label for="mobileNumber">
+                <label for="mobileNumber2">
                     Second Mobile Number(optional)
                 </label>
                 <br>

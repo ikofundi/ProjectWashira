@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>IkoFundi | mpesa details </title>
+    <title>IkoFundi | Applicant Details</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/bootstrap-3.3.6-dist/css/bootstrap.min.css">
@@ -15,12 +15,15 @@
     <!-- Latest compiled and minified JavaScript -->
     <link rel="stylesheet" href="/bootstrap-3.3.6-dist/js/bootstrap.min.js">
     <!-- css styling -->
+    <link rel="stylesheet" type="text/css" href="/styles/taskform.css" />
     <link rel="stylesheet" type="text/css" href="/styles/main.css" />
+    <link rel="stylesheet" type="text/css" href="/styles/technicianhire.css" />
 </head>
 
 <body>
+    {% if user.isAdmin %}
     <nav class="navbar navbar-default navbar-fixed-top" id="nav">
-        <br>
+        <!-- <img id="logo" src="/images/new.png" alt=""> -->
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -33,78 +36,76 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <!-- <li></li> -->                
-                    <li><a href="/logout"><span id="navtext">logout</span></a></li>
+                    <!-- <li></li> -->
+                    <li><a href="/logout"><span id="navtext" class="text-center">Log out</span></a></li>
+                    <li><a href="/technicians"><span id="navtext">Technicians</span></a></li>
                 </ul>
             </div>
+            <!--/.nav-collapse -->
         </div>
     </nav>
     <br>
     <br>
     <br>
     <br>
-    <section class="row text-center">
-        {% if user.isAdmin %}
-        <h1>Hi {{user.username}}</h1>
-        
-
-        <div class="row col-sm-3"></div>
-        <div class="jumbotron col-sm-6 text-center">
-            <form action="/tasks/{{task.id}}/mpesa/confirmc2bpayment" method="post">
-            <p>fill the empty inputs</p>
-                <label for="">JOB ID</label>
-                <input type="text" name="jobId" value="{{task.jobId | upcase}}" readonly required validate>
+    <br>
+    <br>
+    <section class="row">
+        <p>{{error}}</p>
+        <div class="row col-sm-4"></div>
+        <div class="jumbotron col-sm-4 text-center">
+            <form action="/technicians" method="post">
+                <p>fill the empty inputs</p>
+                <br>
+                <label for="category">CATEGORY</label>
+                <input type="text" name="category" value="{{technician.category | upcase}}" readonly required validate>
+                <br>
+                <br>
+                <label for="allcategory">All</label>
+                <input type="checkbox" name="allCategory">
                 <br>
                 <br>
                 <label for="">FIRST NAME</label>
-                <input type="text" name="firstname" value="{{task.firstname | upcase}}" readonly required validate>
+                <input type="text" name="firstname" value="{{technician.firstName | upcase}}" readonly required validate>
                 <br>
                 <br>
                 <label for="">LAST NAME</label>
-                <input type="text" name="lastname" value="{{task.lastname | upcase}}" readonly required validate>
-                <br>
-                <br>
-                <label for="">EMAIL</label>
-                <input type="email" name="email" value="{{task.email}}" readonly required validate>
-                <br>
-                <br>
-                <label for="">LOCATION</label>
-                <input type="text" name="location" value="{{task.location | upcase}}" readonly required validate>
+                <input type="text" name="lastname" value="{{technician.lastName | upcase}}" readonly required validate>
                 <br>
                 <br>
                 <label for="">PHONE NUMBER</label>
-                <input type="text" name="phoneNumber" value="{{task.phoneNumber | upcase}}" readonly required validate>
+                <input type="text" name="phoneNumber" value="{{technician.phoneNumber | upcase}}" readonly required validate>
                 <br>
                 <br>
-                <label for="">CATEGORY</label>
-                <input type="text" name="category" value="{{task.category | upcase}}" readonly required validate>
+                <label for="">PHONE NUMBER 2</label>
+                <input type="text" name="phoneNumber2" value="{{technician.phoneNumber2 | upcase}}" readonly required validate>
                 <br>
                 <br>
-                <label for="">AVAILABILITY</label>
-                <input name="availability" value="{{task.availability | upcase}}" required readonly validate>
+
+                <label for="location">
+                    Location</label>
+                <br>
+                <label for="">LOCATION</label>
+                <input type="text" name="location" value="{{technician.location | upcase}}" readonly required validate>
                 <br>
                 <br>
-                <label for="">DESCRIPTION</label>
-                <textarea name="description" value="{{task.description | upcase}}" required readonly validate>{{task.description}}</textarea>
+                <label for="alllocation">All</label>
+                <input type="checkbox" name="allLocation">
                 <br>
                 <br>
-                <label for="">MPESA TRANSACTION CODE</label>
-                <input name="transactionCode" placeholder="Enter code" value="{{task.transactionCode | upcase}}" required readonly validate>
+                <label for="email">Email(optional)</label>
+                <input type="text" name="email" placeholder="enter Email" validate>
                 <br>
                 <br>
-                <label for="">AMOUNT PAID</label>
-                <input type="text" name="amountPaid" placeholder="Enter Price" value="{{task.amountPaid | upcase}}" required readonly validate>
+                <label for="Idnumber">Id Number</label>
+                <input type="text" name="Idnumber" size="8" title="enter 8 digits" placeholder="Id number" pattern="^\d{4}\d{4}$" required validate>
                 <br>
                 <br>
-                <select name="sendTo" id="">
-                	<option value="fundi">send to fundi</option>
-                	<option value="assesor">send to assesor</option>
-                </select>
-                <button type="submit">SUBMIT</button>
+                <button type="submit">Add as Technician</button>
             </form>
         </div>
-        <div class="row col-sm-3"></div>
-    </section>  
+        <div class="row col-sm-4"></div>
+    </section>
     {% else %}
     <section class="row"></section>
     <section class="row">
@@ -116,6 +117,7 @@
             <div class="row col-sm-2"></div>
     </section>
     <section class="row"></section>
+    {%endif%}
 </body>
 
 </html>

@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var Technician = require('../models/technician');
+var TechnicianApplication = require('../models/technicianApplication');
 var Task = require('../models/task');
 var User = require('../models/user');
 var smtpTransport = require('nodemailer-smtp-transport');
@@ -41,13 +42,13 @@ router.route('/technicians')
         location = req.body.location.toLowerCase();
         var allCategory;
         var allLocation;
-        if (req.body.allCategory === "on") 
+        if (req.body.allCategory === "on")
             allCategory = true;
-        if (req.body.allLocation === "on"){
+        if (req.body.allLocation === "on") {
             allLocation = true;
-        
-        } 
-            
+
+        }
+
 
         formData = {
             category: category,
@@ -77,9 +78,9 @@ router.route('/technicians')
 
         });
     });
- router.route('/technicians/benched')
+router.route('/technicians/benched')
     .get(function(req, res) {
-        Technician.find({"benched": true})
+        Technician.find({ "benched": true })
             .select('category firstName lastName email phoneNumber phoneNumber2 location idNumber rating ongoingJobs jobsCompleted')
             .exec(function(err, technicians) {
 
@@ -92,22 +93,22 @@ router.route('/technicians')
                     "technicians": technicians,
                     'user': req.user
                 });
+            })
     })
-        })   
 router.route('/technicians/:id/benched')
     .get(function(req, res) {
         var taskId = req.params.id;
         // console.log(req.body);
         Technician.findById(taskId, function(err, technician) {
-        if (err) return console.log("this is the error " + err);       
-        console.log(technician);
-        technician.benched = false;
-        technician.save(function(err, technician) {
-            if (err) return console.log(err);
-            notifyTechnicianOfSuspension(technician.phoneNumber, technician.rating, username, apikey, req, res);
-          console.log("techy unbenched");  
-          res.redirect('/technicians/benched');
-    })
+            if (err) return console.log("this is the error " + err);
+            console.log(technician);
+            technician.benched = false;
+            technician.save(function(err, technician) {
+                if (err) return console.log(err);
+                notifyTechnicianOfSuspension(technician.phoneNumber, technician.rating, username, apikey, req, res);
+                console.log("techy unbenched");
+                res.redirect('/technicians/benched');
+            })
         })
     })
 router.route('/technicians/new')
@@ -123,42 +124,27 @@ router.route('/technicianhire')
         res.render('technician/hire');
     })
     .post(function(req, res) {
-        if(req.body.mobileNumber === req.body.mobileNumber2)
+        if (req.body.mobileNumber === req.body.mobileNumber2)
             res.redirect("/technicianhirefail");
         else
-            var text ="Name : " + req.body.name + "\n\n" + "category : " + req.body.category + "\n\n" + "mobileNumber: " +  req.body.mobileNumber + "\n\n" + "mobileNumber2: " + req.body.mobileNumber2 + "\n\n" + "location: " + req.body.location + "\n\n" + "description: " + req.body.aboutMe;
- 
-           
-        var transporter = nodemailer.createTransport(smtpTransport({
-            service: 'gmail',
-            auth: {
-                user: 'ikofundi1@gmail.com',
-                pass: 'june2013'
+            formData = {
+                firstName: req.body.firstName,
+                lastName: req.body.lastName,
+                category: req.body.category,
+                phoneNumber: req.body.mobileNumber,
+                phoneNumber2: req.body.mobileNumber2,
+                location: req.body.location,
+                aboutMe: req.body.aboutMe
             }
-        }));
-        var mailOptions = {
-            to: 'ikofundiinfo@gmail.com',
-            from: 'ikofundi1@gmail.com',
-            subject: 'APPLICATION FOR FUNDI JOB',
-            text: text
-           
-        };
-        transporter.sendMail(mailOptions, function(err) {
-            if(err)
-                console.log("not sent: " + err);
-            else
-           console.log(mailOptions.text);
+        var technicianApplication = new TechnicianApplication(formData);
+        technicianApplication.save(function(err, application) {
+                if (err) return err;
+                console.log("technician application saved successfully " + application);
+            })
+            // redirect to form with message
+        res.redirect('/technicianhiresuccess');
 
-        });
-
-
-  
-
-
-        // redirect to form with message
-        res.redirect('/technicianhiresuccess'); 
-
-});
+    });
 router.route('/technicianhiresuccess')
     .get(function(req, res) {
         // create a message for a succesful application
@@ -182,12 +168,13 @@ router.route('/technician/:id/view')
     .get(function(req, res) {
         console.log(req.params.id);
         technicianId = req.params.id;
-        Technician.findById(technicianId, function (err, technician) {
-             res.render('technician/view', {
+        Technician.findById(technicianId, function(err, technician) {
+            res.render('technician/view', {
                 "technician": technician
             });
         })
     })
+
 function deleteTechnician(method, req, res) {
     technicianId = req.params.id
     Technician.remove({
@@ -196,7 +183,7 @@ function deleteTechnician(method, req, res) {
         if (err) return console.log(err);
         if (method === 'GET') {
             res.redirect('/technicians');
-            
+
         } else {
             res.send("Technician was deleted");
         }
@@ -207,5 +194,30 @@ function deleteTechnician(method, req, res) {
 router.route('/technician/:id/delete')
     .get(function(req, res) {
         deleteTechnician('GET', req, res);
+    })
+router.route('/technicians/applications')
+    .get(function(req, res) {
+        TechnicianApplication.find({ "picked": false })
+            .select('category firstName lastName phoneNumber phoneNumber2 location aboutMe')
+            .exec(function(err, technician) {
+                technician = technician.reverse();
+                if (err) return console.log(err);
+                console.log(technician);
+                res.render('technician/applications', {
+                    "technicians": technician,
+                    'user': req.user
+                });
+            })
+    })
+router.route('/technician/:id/applicant')
+    .get(function(req, res) {
+        console.log(req.params.id);
+        technicianId = req.params.id;
+        TechnicianApplication.findById(technicianId, function(err, technician) {
+            res.render('technician/applicant', {
+                "technician": technician,
+                'user': req.user
+            });
+        })
     })
 module.exports = router;
