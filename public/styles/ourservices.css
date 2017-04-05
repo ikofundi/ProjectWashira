@@ -60,10 +60,12 @@
 	text-decoration: none;
 	font-size: 1.2em;
 	color: grey;
+  display: block;
 }
 #space{
 	min-height: 200px;
 	background-color: green;
+
 }
 
 #reviews{
@@ -212,11 +214,10 @@ blockquote{
 }*/
 ul#serviceslist{  
 list-style-type: none; 
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
+margin: 0;
+padding: 0;
 }
 li#servicepoint{
     float: left;
-    display: block;
+    
 }
