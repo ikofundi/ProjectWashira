@@ -57,7 +57,7 @@
 	font-size: 1.6em;
 }
 .point{
-	text-decoration: none;
+	text-decoration: none !important;
 	font-size: 1.2em;
 	color: grey;
   display: block;
@@ -90,7 +90,7 @@ blockquote{
   /*border-left: 15px solid #c76c0c;
   border-right: 2px solid #c76c0c;*/
   
-  /*Box Shadow - (Optional)*/
+  /*Box Shadow - (Optional)*/ 
   /*-moz-box-shadow: 2px 2px 15px #ccc;*/
   /*-webkit-box-shadow: 2px 2px 15px #ccc;*/
   /*box-shadow: 2px 2px 15px #ccc;*/
@@ -220,5 +220,5 @@ padding: 0;
 .servicepoint{
     float: left;
     clear: left;
-    
+    white-space: nowrap;
 }
