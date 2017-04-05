@@ -14,7 +14,7 @@ router.route('/technicians')
         Technician.find()
             .select('category firstName lastName email phoneNumber phoneNumber2 location idNumber rating ongoingJobs jobsCompleted')
             .exec(function(err, technicians) {
-
+                technicians.reverse();
 
                 if (err) return console.log(err);
 
