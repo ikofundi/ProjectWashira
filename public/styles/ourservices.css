@@ -56,7 +56,7 @@
 	font-weight: bold;
 	font-size: 1.6em;
 }
-#point{
+.point{
 	text-decoration: none;
 	font-size: 1.2em;
 	color: grey;
@@ -212,12 +212,13 @@ blockquote{
 /*div.categoryalign{
   align: left;
 }*/
-ul#serviceslist{  
-list-style-type: none; 
+.serviceslist{  
+list-style: none; 
 margin: 0;
 padding: 0;
 }
-li#servicepoint{
+.servicepoint{
     float: left;
+    clear: left;
     
 }
