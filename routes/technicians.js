@@ -119,9 +119,11 @@ router.route('/technicians/new')
 router.route('/technicianhire')
     .get(function(req, res) {
         // create a message for a succesful application
-        var message = "Application sent successfully.You will receive a call from us soon.";
+        // var message = "Application sent successfully.You will receive a call from us soon.";
         // render we are hiring page
-        res.render('technician/hire');
+        res.render('technician/hire',{
+           
+        });
     })
     .post(function(req, res) {
         if (req.body.mobileNumber === req.body.mobileNumber2)
