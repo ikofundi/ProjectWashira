@@ -207,16 +207,16 @@ blockquote{
 
 
 }
-div.categoryalign{
+/*div.categoryalign{
   align: left;
-}
-#serviceslist{
-  list-style: none; 
+}*/
+ul#serviceslist{  
+list-style-type: none; 
   margin: 0;
   padding: 0;
   overflow: hidden;
-
 }
-#servicepoint{
+li#servicepoint{
     float: left;
+    display: block;
 }
