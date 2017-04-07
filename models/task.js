@@ -30,7 +30,8 @@ var taskSchema = mongoose.Schema({
     jobAlreadyPicked: {type: Boolean, default: false},
     status: String,
     datePicked: { type: String, default: Date.now() },
-    realDatePicked: { type: Date, default: new Date }
+    realDatePicked: { type: Date, default: new Date },
+    taskPickedDate: String
 
 });
 

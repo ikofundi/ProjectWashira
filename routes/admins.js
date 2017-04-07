@@ -150,20 +150,24 @@ router.route('/admin/report')
     })
 router.route('/csvreport')
     .post(function(req, res) {
-        console.log(req.body);
+       
         Task.find()
-            .select('category firstname _id lastname transactionCode amountPaid email location phoneNumber description availability quotedPrice accesorComments jobId accesed datePicked realDatePicked status')
+            .select('category firstname _id lastname transactionCode amountPaid email location phoneNumber description availability quotedPrice accesorComments jobId accesed datePicked realDatePicked status taskPickedDate')
             .exec(function(err, tasks) {
                 report = [];
-                console.log(req.body.from);
+                
                 tasks.forEach(function (task) {
                     if (Number(task.datePicked) > new Date(req.body.from).getTime() && Number(task.datePicked) < (new Date(req.body.to).getTime() + 86400000) ){
-                        
+                        var taskDate =  task.realDatePicked;
+                        task.taskPickedDate = taskDate.getDate() + "-" + (taskDate.getMonth() + 1) + "-" + taskDate.getFullYear();
+                        console.log(task.taskPickedDate);
+                        console.log(task)
                         report.push(task);
                 }
             })
-                console.log(report);
-                var fields = [ 'firstname', 'lastname', 'location', 'phoneNumber', 'category','transactionCode', 'jobId', 'amountPaid', 'status', 'realDatePicked' ];
+
+                // console.log(report);
+                var fields = [ 'firstname', 'lastname', 'location', 'phoneNumber', 'category','transactionCode', 'jobId', 'amountPaid', 'status', 'taskPickedDate' ];
                 var csv = json2csv({ data: report, fields: fields });
                 fs.writeFile('public/reports/file.csv', csv, function(err) {
                     if (err) throw err;
