@@ -51,7 +51,7 @@ mongoose.Promise = global.Promise;
 
 
 // express settings
-app.set('port', (process.env.PORT || 80));
+app.set('port', (process.env.PORT || 8081));
 app.engine('html', cons.liquid);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'html');
