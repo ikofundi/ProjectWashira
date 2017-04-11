@@ -28,13 +28,10 @@ xmlparser = require('express-xml-bodyparser');
 var cors = require('cors');
 app.use(cors());
 // var favicon = require('static-favicon');
-
 // express middleware
-var bodyParser = require('body-parser');;
-
+var bodyParser = require('body-parser');
 // include mongoose
 var mongoose = require('mongoose');
-
 var uristring =
     process.env.MONGOLAB_URI ||
     process.env.MONGOHQ_URL ||
@@ -46,10 +43,7 @@ mongoose.connect(uristring, function(err, res) {
 
     }
 });
-
 mongoose.Promise = global.Promise;
-
-
 // express settings
 app.set('port', (process.env.PORT || 8081));
 app.engine('html', cons.liquid);
@@ -70,7 +64,6 @@ app.use(expressSession({
     
     maxAge   : 1000*60*60     
   }   
-
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
@@ -94,10 +87,8 @@ app.use(expressValidator({
         };
     }
 }));
-
 // Connect Flash
 app.use(flash());
-
 // Global Vars
 app.use(function (req, res, next) {
   res.locals.success_msg = req.flash('success_msg');
@@ -106,10 +97,6 @@ app.use(function (req, res, next) {
   res.locals.user = req.user || null;
   next();
 });
-
-
-
-
 // include routes
 var taskRoutes = require('./routes/tasks');
 app.use(taskRoutes);
@@ -123,19 +110,9 @@ var techniciansRoute = require('./routes/technicians');
 app.use(techniciansRoute);
 // passport config
 var User = require('./models/user');
-
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
-
-
-
-
-
-
-
-
 app.listen(app.get('port'),'0.0.0.0', function() {
     console.log('server running on http://127.0.0.1:%s', app.get('port'));
-
 });
