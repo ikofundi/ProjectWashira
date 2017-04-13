@@ -72,6 +72,32 @@ router.route('/contactus')
                 console.log("not sent: " + err);
             else
 
+            function emailAdmin(email) {
+                var transporter = nodemailer.createTransport(smtpTransport({
+                    host: 'smtp.zoho.com',
+                    port: 465,
+                    secure: true, // use SSL
+                    auth: {
+                        user: 'internal@ikofundi.com',
+                        pass: 'june2013'
+                    }
+                }));
+                var mailOptions = {
+                    to: 'admin@ikofundi.com',
+                    from: 'internal@ikofundi.com',
+                    subject: 'Message Received',
+                    text: req.body.message + "\n\n" + "Phone number: " + req.body.phoneNumber + "email: " + req.body.email
+
+                };
+                transporter.sendMail(mailOptions, function(err) {
+                    if (err)
+                        console.log("not sent: " + err);
+                    else
+
+                        res.redirect('/contactussuccess');
+                });
+            }
+
             function respondWithEmail(email) {
                 var transporter = nodemailer.createTransport(smtpTransport({
                     host: 'smtp.zoho.com',
@@ -97,7 +123,7 @@ router.route('/contactus')
                         res.redirect('/contactussuccess');
                 });
             }
-
+            emailAdmin(req.body.email);
             respondWithEmail(req.body.email);
         });
     })
