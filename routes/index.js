@@ -61,7 +61,7 @@ router.route('/contactus')
             }
         }));
         var mailOptions = {
-            to: 'ikofundiinfo@gmail.com',
+            to: 'wilfred@ikofundi.com',
             from: 'internal@ikofundi.com',
             subject: req.body.subject,
             text: req.body.message + "\n\n" + "Phone number: " + req.body.phoneNumber + "email: " + req.body.email

@@ -65,7 +65,7 @@ module.exports = function done(jobIdSent, from, fundiRating, res, req) {
                                     }
                                 }));
                                 var mailOptions = {
-                                    to: 'ikofundiinfo@gmail.com',
+                                    to: 'wilfred@ikofundi.com',
                                     from: 'internal@ikofundi.com',
                                     subject: 'New Task',
                                     text: "Job No: " + task.jobId + " has been completed and the customer is satisfied"
@@ -151,7 +151,7 @@ module.exports = function done(jobIdSent, from, fundiRating, res, req) {
                                     }
                             }));
                             var mailOptions = {
-                                to: 'ikofundiinfo@gmail.com',
+                                to: 'wilfred@ikofundi.com',
                                 from: 'internal@ikofundi.com',
                                 subject: 'New Task',
                                 text: "Job No: " + task.jobId + " has been completed and the customer is satisfied"
