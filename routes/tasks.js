@@ -118,7 +118,7 @@ router.route('/taskform')
                         }));
                     var mailOptions = {
                         to: 'internal@ikofundi.com',
-                        from: 'internal@ikofundi.com',
+                        from: 'ikofundiinfo@gmail.com',
                         subject: 'New Task',
                         text: "A customer has filled a new task in " + task.category + " at " + task.location + " on " + task.availability + ". The job id for the task is " + task.jobId
                     };
