@@ -48,7 +48,7 @@ module.exports = function done(jobIdSent, from, fundiRating, res, req) {
                                     technician[0].save(function(err, tec) {
                                         console.log(tec.rating);
                                         // send sms to  customer telling them task is closed
-                                        notifyTechnicianOfSuspension(tec.phoneNumber,tec.customerRating,username,apikey,req,res);
+                                        notifyTechnicianOfSuspension(tec.phoneNumber, tec.customerRating, username, apikey, req, res);
 
                                         notifyCustomerOfJobCompletion(task.phoneNumber, task.jobId, username, apikey, req, res);
                                     })
@@ -56,15 +56,17 @@ module.exports = function done(jobIdSent, from, fundiRating, res, req) {
                                 // send email to admin informing him of complete task
                             function notifyAdminOfTaskCompletion(task) {
                                 var transporter = nodemailer.createTransport(smtpTransport({
-                                    service: 'gmail',
+                                    host: 'smtp.zoho.com',
+                                    port: 465,
+                                    secure: true, // use SSL
                                     auth: {
-                                        user: 'ikofundi1@gmail.com',
+                                        user: 'internal@ikofundi.com',
                                         pass: 'june2013'
                                     }
                                 }));
                                 var mailOptions = {
                                     to: 'ikofundiinfo@gmail.com',
-                                    from: 'ikofundi1@gmail.com',
+                                    from: 'internal@ikofundi.com',
                                     subject: 'New Task',
                                     text: "Job No: " + task.jobId + " has been completed and the customer is satisfied"
                                 };
@@ -124,7 +126,7 @@ module.exports = function done(jobIdSent, from, fundiRating, res, req) {
                                             tec.save(function(err, tec) {
                                                 console.log("tec benched " + tec.benched);
                                                 // send sms to  customer telling them task is closed
-                                                notifyTechnicianOfSuspension(tec.phoneNumber,tec.rating,username,apikey,req,res);
+                                                notifyTechnicianOfSuspension(tec.phoneNumber, tec.rating, username, apikey, req, res);
                                                 notifyCustomerOfJobCompletion(task.phoneNumber, task.jobId, username, apikey, req, res);
                                             })
                                         } else {
@@ -140,15 +142,17 @@ module.exports = function done(jobIdSent, from, fundiRating, res, req) {
                             // send email to admin informing him of complete task
                         function notifyAdminOfTaskCompletion(task) {
                             var transporter = nodemailer.createTransport(smtpTransport({
-                                service: 'gmail',
-                                auth: {
-                                    user: 'ikofundi1@gmail.com',
-                                    pass: 'june2013'
-                                }
+                                 host: 'smtp.zoho.com',
+                                    port: 465,
+                                    secure: true, // use SSL
+                                    auth: {
+                                        user: 'internal@ikofundi.com',
+                                        pass: 'june2013'
+                                    }
                             }));
                             var mailOptions = {
                                 to: 'ikofundiinfo@gmail.com',
-                                from: 'ikofundi1@gmail.com',
+                                from: 'internal@ikofundi.com',
                                 subject: 'New Task',
                                 text: "Job No: " + task.jobId + " has been completed and the customer is satisfied"
                             };
@@ -161,7 +165,7 @@ module.exports = function done(jobIdSent, from, fundiRating, res, req) {
                         }
                         notifyAdminOfTaskCompletion(task);
                     })
-					task.status = "done";
+                    task.status = "done";
                     task.ongoing = false;
                     res.end();
                 } else {

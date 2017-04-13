@@ -86,15 +86,17 @@ router.route('/accesor/forgot')
             },
             function(token, user, done) {
                 var transporter = nodemailer.createTransport(smtpTransport({
-                    service: 'gmail',
+                    host: 'smtp.zoho.com',
+                    port: 465,
+                    secure: true, // use SSL
                     auth: {
-                        user: 'pnganga05@gmail.com',
-                        pass: 'sebleeni05'
+                        user: 'internal@ikofundi.com',
+                        pass: 'june2013'
                     }
                 }));
                 var mailOptions = {
                     to: user.email,
-                    from: 'pnganga05@gmail.com',
+                    from: 'internal@ikofundi.com',
                     subject: 'Node.js Password Reset',
                     text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
                         'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
@@ -148,15 +150,17 @@ router.route('/accesor/reset/:token')
             },
             function(user, done) {
                 var transporter = nodemailer.createTransport(smtpTransport({
-                    service: 'gmail',
+                     host: 'smtp.zoho.com',
+                    port: 465,
+                    secure: true, // use SSL
                     auth: {
-                        user: 'pnganga05@gmail.com',
-                        pass: 'sebleeni05'
+                        user: 'internal@ikofundi.com',
+                        pass: 'june2013'
                     }
                 }));
                 var mailOptions = {
                     to: user.email,
-                    from: 'pnganga05@gmail.com',
+                    from: 'internal@ikofundi.com',
                     subject: 'Your password has been changed',
                     text: 'Hello,\n\n' +
                         'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'

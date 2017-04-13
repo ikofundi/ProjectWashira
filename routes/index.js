@@ -52,15 +52,17 @@ router.route('/contactus')
     .post(function(req, res) {
         console.log(req.body);
         var transporter = nodemailer.createTransport(smtpTransport({
-            service: 'gmail',
+            host: 'smtp.zoho.com',
+            port: 465,
+            secure: true, // use SSL
             auth: {
-                user: 'ikofundi1@gmail.com',
+                user: 'internal@ikofundi.com',
                 pass: 'june2013'
             }
         }));
         var mailOptions = {
             to: 'ikofundiinfo@gmail.com',
-            from: 'ikofundi1@gmail.com',
+            from: 'internal@ikofundi.com',
             subject: req.body.subject,
             text: req.body.message + "\n\n" + "Phone number: " + req.body.phoneNumber + "email: " + req.body.email
 
@@ -69,29 +71,32 @@ router.route('/contactus')
             if (err)
                 console.log("not sent: " + err);
             else
-                 function respondWithEmail(email) {
-                    var transporter = nodemailer.createTransport(smtpTransport({
-                        service: 'gmail',
-                        auth: {
-                            user: 'ikofundi1@gmail.com',
-                            pass: 'june2013'
-                        }
-                    }));
-                    var mailOptions = {
-                        to: email,
-                        from: 'ikofundi1@gmail.com',
-                        subject: 'Message Received',
-                        text: "Thank you for contacting Iko Fundi. Your message has been received and we are attending to it. You can also give us a call at +254790 517 775"
 
-                    };
-                    transporter.sendMail(mailOptions, function(err) {
-                        if (err)
-                            console.log("not sent: " + err);
-                        else
-                            
+            function respondWithEmail(email) {
+                var transporter = nodemailer.createTransport(smtpTransport({
+                    host: 'smtp.zoho.com',
+                    port: 465,
+                    secure: true, // use SSL
+                    auth: {
+                        user: 'internal@ikofundi.com',
+                        pass: 'june2013'
+                    }
+                }));
+                var mailOptions = {
+                    to: email,
+                    from: 'internal@ikofundi.com',
+                    subject: 'Message Received',
+                    text: "Thank you for contacting Iko Fundi. Your message has been received and we are attending to it. You can also give us a call at +254790 517 775"
+
+                };
+                transporter.sendMail(mailOptions, function(err) {
+                    if (err)
+                        console.log("not sent: " + err);
+                    else
+
                         res.redirect('/contactussuccess');
-                    });
-                }
+                });
+            }
 
             respondWithEmail(req.body.email);
         });
