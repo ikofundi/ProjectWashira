@@ -539,7 +539,6 @@ router.route('/mpesa/validatec2bpayment')
         console.log('-----------C2B VALIDATION REQUEST-----------');
         console.log(prettyjson.render(req.body, options));
         console.log('-----------------------');
-
         var message = {
             "ResultCode": 0,
             "ResultDesc": "Success",

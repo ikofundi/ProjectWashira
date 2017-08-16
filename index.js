@@ -26,8 +26,7 @@ var prettyjson = require('prettyjson');
 var options = {
   noColor: true
 };
-// soap
-xmlparser = require('express-xml-bodyparser');
+
 // cross origin resource(cors)
 var cors = require('cors');
 app.use(cors());
@@ -60,6 +59,8 @@ app.use(logger('dev'));
 app.use(bodyParser.urlencoded({
     extended: true
 }));
+app.use(bodyParser.json());
+
 app.use(cookieParser());
 app.use(expressSession({
     secret: 'keyboard cat',
@@ -73,7 +74,7 @@ app.use(expressSession({
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(xmlparser());
+;
 
 // Express Validator
 app.use(expressValidator({
