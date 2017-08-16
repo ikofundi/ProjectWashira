@@ -22,6 +22,10 @@ var parseString = require('xml2js').parseString;
 var xmlparser = require('express-xml-bodyparser');
 var smtpTransport = require('nodemailer-smtp-transport');
 var nodemailer = require('nodemailer');
+var prettyjson = require('prettyjson');
+var options = {
+  noColor: true
+};
 
 // Declare Africaistalking username and password 
 var username = 'IKOFUNDI';
