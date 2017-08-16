@@ -530,7 +530,7 @@ router.route('/tasks/:id/mpesa/confirmc2bpayment2')
             });
         });
     })
-router.route('/tasks/mpesa/validatec2bpayment')
+router.route('/mpesa/validatec2bpayment')
     .post(function(req, res) {
         console.log('-----------C2B VALIDATION REQUEST-----------');
         console.log(prettyjson.render(req.body, options));
@@ -545,7 +545,7 @@ router.route('/tasks/mpesa/validatec2bpayment')
         res.json(message);
     })
 
-router.route('/tasks/mpesa/confirmc2bpayment')
+router.route('/mpesa/confirmc2bpayment')
     .post(function(req, res) {
         console.log('-----------C2B CONFIRMATION REQUEST------------');
         console.log(prettyjson.render(req.body, options));
