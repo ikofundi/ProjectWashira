@@ -21,13 +21,18 @@ var flash = require('connect-flash');
 var soap = require('soap');
 var json2csv = require('json2csv');
 var fs = require('fs');
-
+// for mpesa
+var prettyjson = require('prettyjson');
+var options = {
+  noColor: true
+};
 // soap
 xmlparser = require('express-xml-bodyparser');
 // cross origin resource(cors)
 var cors = require('cors');
 app.use(cors());
-// var favicon = require('static-favicon');
+// soap service
+
 // express middleware
 var bodyParser = require('body-parser');
 // include mongoose

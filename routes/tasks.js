@@ -28,8 +28,7 @@ var username = 'IKOFUNDI';
 var apikey = 'c579e40343543d7348e178a4fc626f644f047dfcc2a1df563ab09e1dd58bbade';
 // below is how to hash a string in sha256 and base64, the password(variable pass) was given to us by safaricom.
 // uncomment if needed by safcom
-// var pass = "Afric@123";
-// var hash = crypto.createHash('sha256').update('pass').digest('base64')
+
 // This route requests the form for filling client's task.It also handles the response which contains the info and stores it in the database.
 // It is also where the job id for the task is created.
 router.route('/taskform')
@@ -53,18 +52,18 @@ router.route('/taskform')
 
 
         formData = {
-                firstname: firstname,
-                lastname: lastname,
-                email: email,
-                location: location,
-                phoneNumber: phoneNumber,
-                category: category,
-                availability: availability,
-                description: description,
-                status: status,
-                jobId: jobId
-            }
-            // console.log(formData);
+            firstname: firstname,
+            lastname: lastname,
+            email: email,
+            location: location,
+            phoneNumber: phoneNumber,
+            category: category,
+            availability: availability,
+            description: description,
+            status: status,
+            jobId: jobId
+        }
+        // console.log(formData);
         task = new Task(formData);
         task.save(function(err, task) {
             if (err) {
@@ -153,7 +152,7 @@ router.route('/tasks/done')
                 });
             });
     })
-    // this route returns all the unacessed tasks to the acessor
+// this route returns all the unacessed tasks to the acessor
 router.route('/tasks/accesor/unaccesed')
     .get(function(req, res) {
         Task.find({ "accesed": false, "sentToAssesor": true })
@@ -167,7 +166,7 @@ router.route('/tasks/accesor/unaccesed')
                 });
             });
     })
-    // this route returns all the acessed tasks to the acessor
+// this route returns all the acessed tasks to the acessor
 router.route('/tasks/accesor/accesed')
     .get(function(req, res) {
         Task.find({ "accesed": true, "ongoing": true, "paidFull": false, "paidHalf": false, "sentToAssesor": true })
@@ -183,7 +182,7 @@ router.route('/tasks/accesor/accesed')
                 });
             });
     })
-    // this route returns all the unacessed tasks to the admin
+// this route returns all the unacessed tasks to the admin
 router.route('/tasks/admin/ongoing')
     .get(function(req, res) {
         Task.find({ "ongoing": true, "sentToFundi": false, "sentToAssesor": false })
@@ -197,7 +196,7 @@ router.route('/tasks/admin/ongoing')
                 });
             });
     })
-    // route for searching and returning a task by job id
+// route for searching and returning a task by job id
 router.route('/tasks/search')
     .post(function(req, res) {
         console.log(req.body.q);
@@ -219,7 +218,7 @@ router.route('/tasks/search')
 
             });
     })
-    // this route returns all the tasks that have been sent to fundis
+// this route returns all the tasks that have been sent to fundis
 router.route('/tasks/admin/senttofundi')
     .get(function(req, res) {
         Task.find({ "sentToFundi": true, "ongoing": true, "jobAlreadyPicked": false })
@@ -235,7 +234,7 @@ router.route('/tasks/admin/senttofundi')
                 });
             });
     })
-    // this route returns all the tasks sent to accesor and not fundi
+// this route returns all the tasks sent to accesor and not fundi
 router.route('/tasks/admin/senttoassesor')
     .get(function(req, res) {
         Task.find({ "sentToAssesor": true, "ongoing": true })
@@ -531,6 +530,34 @@ router.route('/tasks/:id/mpesa/confirmc2bpayment2')
             });
         });
     })
+router.route('/tasks/mpesa/validatec2bpayment')
+    .post(function(req, res) {
+        console.log('-----------C2B VALIDATION REQUEST-----------');
+        console.log(prettyjson.render(req.body, options));
+        console.log('-----------------------');
+
+        var message = {
+            "ResultCode": 0,
+            "ResultDesc": "Success",
+            "ThirdPartyTransID": "1234567890"
+        };
+
+        res.json(message);
+    })
+
+router.route('/tasks/mpesa/confirmc2bpayment')
+    .post(function(req, res) {
+        console.log('-----------C2B CONFIRMATION REQUEST------------');
+        console.log(prettyjson.render(req.body, options));
+        console.log('-----------------------');
+
+        var message = {
+            "ResultCode": 0,
+            "ResultDesc": "Success"
+        };
+
+        res.json(message);
+    })
 router.route('/tasks/:id/mpesa/confirmc2bpayment')
     .get(function(req, res) {
         taskId = req.params.id;
@@ -543,6 +570,7 @@ router.route('/tasks/:id/mpesa/confirmc2bpayment')
         });
     })
     .post(function(req, res) {
+
         // name the details as incoming
         idOfThisTask = req.params.id;
         var incoming = req.body;
@@ -586,8 +614,8 @@ router.route('/tasks/:id/mpesa/confirmc2bpayment')
                             }
                             console.log(technicianPhoneNumbers);
                             if (technicianPhoneNumbers.length > 3)
-                            // reshuffle the array randomly
-                            // truncate the array to 3
+                                // reshuffle the array randomly
+                                // truncate the array to 3
                                 technicianPhoneNumbers.length = 3;
                             // for (var i = 0; i < technicianPhoneNumbers.length-1; i++) {
                             //     Task.findOneAndUpdate({ "phonenumber": technicianPhoneNumbers[i] }, { $set: {} }, { new: true }, function(err, task) {
